@@ -211,9 +211,9 @@ class HTML_TreeNode
 	* @access public
 	* @param  object $node The new node
     */
-	function &addItem($node)
+	function &addItem(&$node)
 	{
-		$this->items[] = $node;
+		$this->items[] = &$node;
 		return $this->items[count($this->items) - 1];
 	}
 

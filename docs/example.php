@@ -18,19 +18,26 @@
 //
 // $Id$
 
-	require_once('TreeMenu.php');
+	require_once('HTML/TreeMenu.php');
 	$icon = 'folder.gif';
 
 	$menu  = new HTML_TreeMenu("menuLayer", 'images', '_self');
 
 	$node1 = new HTML_TreeNode("INBOX", "test.php", $icon);
-	$node1->addItem(new HTML_TreeNode("deleted-items", "test.php", $icon));
+	$foo   = &$node1->addItem(new HTML_TreeNode("deleted-items", "test.php", $icon));
+	$bar   = &$foo->addItem(new HTML_TreeNode("deleted-items", "test.php", $icon));
+	$blaat = &$bar->addItem(new HTML_TreeNode("deleted-items", "test.php", $icon));
+	$blaat->addItem(new HTML_TreeNode("deleted-items", "test.php", $icon));
+
 	$node1->addItem(new HTML_TreeNode("sent-items",    "test.php", $icon));
 	$node1->addItem(new HTML_TreeNode("drafts",        "test.php", $icon));
+	
 	
 	$menu->addItem($node1);
 	$menu->addItem(new HTML_TreeNode("drafts", "test.php", $icon));
 	$menu->addItem(new HTML_TreeNode("drafts", "test.php", $icon));//$node1);
+
+	
 ?>
 <html>
 <head>

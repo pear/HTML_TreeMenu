@@ -28,15 +28,13 @@
 
   <release>
     <license>PHP</license>
-    <version>1.0.2</version>
-    <date>2002-06-30</date>
+    <version>1.0.3</version>
+    <date>2002-07-05</date>
     <state>stable</state>
     <notes>
-	 Change to use document.write() instead of layers and innerHTML for much speed increase.
-	 Change to use onmousedown instead of onclick for cleaner more defined clicks.
-	 Added the ability to define whether to use client side persistence.
-	 Added the ability to define whether a node is dynamic
-	 Added the ability to define whether a node is expanded
+	 Bugfixes:
+	  o Persistence fixes
+	  o Reference/copy fixes
     </notes>
     <filelist>
       <dir name="/" baseinstalldir="HTML">
@@ -79,6 +77,19 @@
   </release>
 
   <changelog>
+    <release>
+      <license>PHP</license>
+      <version>1.0.2</version>
+      <date>2002-06-30</date>
+      <state>stable</state>
+      <notes>
+	   Change to use document.write() instead of layers and innerHTML for much speed increase.
+       Change to use onmousedown instead of onclick for cleaner more defined clicks.
+       Added the ability to define whether to use client side persistence.
+       Added the ability to define whether a node is dynamic
+       Added the ability to define whether a node is expanded
+      </notes>
+    </release>
 	  <release>
 	    <license>PHP</license>
 	    <version>1.0.1</version>

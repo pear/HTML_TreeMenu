@@ -15,7 +15,7 @@
 // |         Harald Radi <harald.radi@nme.at>                             |
 // +----------------------------------------------------------------------+
 //
-// $Id: TreeMenu.js,v 1.4 2002-06-29 20:08:35 richard Exp $
+// $Id: TreeMenu.js,v 1.5 2002-07-05 12:31:07 richard Exp $
 
 function TreeMenu(layer, iconpath, myname, linkTarget)
 {
@@ -32,16 +32,19 @@ function TreeMenu(layer, iconpath, myname, linkTarget)
 	this.childParents   = new Array();
 	
 	// Methods
-	//this.preloadImages      = preloadImages;
-	this.drawMenu           = drawMenu;
-	this.toggleBranch       = toggleBranch;
-	this.swapImage          = swapImage;
-	this.doesMenu           = doesMenu;
-	this.doesPersistence    = doesPersistence;
-	this.getLayer           = getLayer;
-	this.saveExpandedStatus = saveExpandedStatus;
-	this.loadExpandedStatus = loadExpandedStatus;
-	this.resetBranches      = resetBranches;
+	this.preloadImages         = preloadImages;
+	this.drawMenu              = drawMenu;
+	this.toggleBranch          = toggleBranch;
+	this.swapImage             = swapImage;
+	this.doesMenu              = doesMenu;
+	this.doesPersistence       = doesPersistence;
+	this.getLayer              = getLayer;
+	this.saveExpandedStatus    = saveExpandedStatus;
+	this.loadExpandedStatus    = loadExpandedStatus;
+	this.resetBranches         = resetBranches;
+	this.checkParentVisibility = checkParentVisibility;
+	
+	this.preloadImages();
 }
 
 function TreeNode(title, icon, link, expanded, isDynamic)
@@ -66,6 +69,13 @@ function preloadImages()
 	var minustop    = new Image; minustop.src    = this.iconpath + '/minustop.gif';
 	var minusbottom = new Image; minusbottom.src = this.iconpath + '/minusbottom.gif';
 	var minus       = new Image; minus.src       = this.iconpath + '/minus.gif';
+
+	var branchtop    = new Image; branchtop.src    = this.iconpath + '/branchtop.gif';
+	var branchbottom = new Image; branchbottom.src = this.iconpath + '/branchbottom.gif';
+	var branch       = new Image; branch.src       = this.iconpath + '/branch.gif';
+
+	var linebottom = new Image; linebottom.src = this.iconpath + '/linebottom.gif';
+	var line       = new Image; line.src       = this.iconpath + '/line.gif';
 }
 
 /**
@@ -131,7 +141,7 @@ function drawMenu()// OPTIONAL ARGS: nodes = [], level = [], prepend = '', expan
         * Setup branch status and build an indexed array
 		* of branch layer ids
         */
-		if (nodes[i].n.length > 1) {
+		if (nodes[i].n.length > 0) {
 			this.branchStatus[layerID] = expanded;
 			this.branches[this.branches.length] = layerID;
 		}
@@ -148,7 +158,7 @@ function drawMenu()// OPTIONAL ARGS: nodes = [], level = [], prepend = '', expan
         * Branch images
         */
 		var gifname = nodes[i].n.length && this.doesMenu() && nodes[i].isDynamic ? (expanded ? 'minus' : 'plus') : 'branch';
-		var iconimg = nodes[i].icon ? sprintf('<img src="%s/%s" align="top">', this.iconpath, nodes[i].icon) : '';
+		var iconimg = nodes[i].icon ? sprintf('<img src="%s/%s" width="20" height="20" align="top">', this.iconpath, nodes[i].icon) : '';
 		
 
 		/**
@@ -156,7 +166,7 @@ function drawMenu()// OPTIONAL ARGS: nodes = [], level = [], prepend = '', expan
         */
 		var divTag    = sprintf('<div id="%s" style="display: %s; behavior: url(#default#userdata)">', layerID, visibility);
 		var onMDown   = doesMenu() && nodes[i].n.length  && nodes[i].isDynamic ? sprintf('onmousedown="%s.toggleBranch(\'%s\', true)" style="cursor: pointer; cursor: hand"', this.myname, layerID) : '';
-		var imgTag    = sprintf('<img src="%s/%s%s.gif" align="top" border="0" name="img_%s" %s />', this.iconpath, gifname, modifier, layerID, onMDown);
+		var imgTag    = sprintf('<img src="%s/%s%s.gif" width="20" height="20" align="top" border="0" name="img_%s" %s />', this.iconpath, gifname, modifier, layerID, onMDown);
 		var linkStart = nodes[i].link ? sprintf('<a href="%s" target="%s">', nodes[i].link, this.linkTarget) : '';
 		var linkEnd   = nodes[i].link ? '</a>' : '';
 
@@ -196,10 +206,10 @@ function drawMenu()// OPTIONAL ARGS: nodes = [], level = [], prepend = '', expan
 				var newPrepend = '';
 
 			} else if (i < (nodes.length - 1)) {
-				var newPrepend = prepend + sprintf('<img src="%s/line.gif" align="top">', this.iconpath);
+				var newPrepend = prepend + sprintf('<img src="%s/line.gif" width="20" height="20" align="top">', this.iconpath);
 
 			} else {
-				var newPrepend = prepend + sprintf('<img src="%s/linebottom.gif" align="top">', this.iconpath);
+				var newPrepend = prepend + sprintf('<img src="%s/linebottom.gif" width="20" height="20" align="top">', this.iconpath);
 			}
 
 			this.drawMenu(nodes[i].n,
@@ -321,7 +331,7 @@ function resetBranches()
 		var status = this.loadExpandedStatus(this.branches[i]);
 		// Only update if it's supposed to be expanded and it's not already
 		if (status == 'true' && this.branchStatus[this.branches[i]] != true) {
-			if (this.childParents[this.branches[i]] == null || (in_array(this.childParents[this.branches[i]], this.branches) && this.branchStatus[this.childParents[this.branches[i]]])) {
+			if (this.checkParentVisibility(this.branches[i])) {
 				this.toggleBranch(this.branches[i], true, true);
 			} else {
 				this.branchStatus[this.branches[i]] = true;
@@ -329,6 +339,33 @@ function resetBranches()
 			}
 		}
 	}
+}
+
+/**
+* Checks whether a branch should be open 
+* or not based on its parents' status
+*/
+function checkParentVisibility(layerID)
+{
+	if (in_array(this.childParents[layerID], this.branches)
+	    && this.branchStatus[this.childParents[layerID]]
+		&& this.checkParentVisibility(this.childParents[layerID]) ) {
+		
+		return true;
+
+	} else if (this.childParents[layerID] == null) {
+		return true;
+	}
+	
+	return false;
+
+/*
+	if (this.childParents[layerID] == null) {
+		return this.branchStatus[layerID];
+	} else {
+		return this.branchStatus && this.checkVisibility(this.childParents[layerID]);
+	}
+*/
 }
 
 /**
