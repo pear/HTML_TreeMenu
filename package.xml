@@ -28,11 +28,12 @@
 
   <release>
     <license>PHP</license>
-    <version>1.0.1</version>
-    <date>2002-06-19</date>
+    <version>1.0.2</version>
+    <date>2002-06-22</date>
     <state>stable</state>
     <notes>
-	 Added support for Mozilla and NN6
+	 Change to use document.write() instead of layers and innerHTML for much speed increase.
+	 Change to use onmousedown instead of onclick for cleaner more defined clicks.
     </notes>
     <filelist>
       <dir name="/" baseinstalldir="HTML">
@@ -75,6 +76,54 @@
   </release>
 
   <changelog>
+	  <release>
+	    <license>PHP</license>
+	    <version>1.0.1</version>
+	    <date>2002-06-19</date>
+	    <state>stable</state>
+	    <notes>
+		 Added support for Mozilla and NN6
+	    </notes>
+	    <filelist>
+	      <dir name="/" baseinstalldir="HTML">
+	        <file role="php" name="TreeMenu.php"/>
+			<file role="data" name="TreeMenu.js"/>
+			<file role="data" name="sniffer.js"/>
+	        <dir name="images">
+	          <file role="data" name="branch.gif"/>
+	          <file role="data" name="branchbottom.gif"/>
+	          <file role="data" name="branchtop.gif"/>
+	          <file role="data" name="folder.gif"/>
+	          <file role="data" name="line.gif"/>
+	          <file role="data" name="linebottom.gif"/>
+	          <file role="data" name="minus.gif"/>
+	          <file role="data" name="minusbottom.gif"/>
+	          <file role="data" name="minustop.gif"/>
+	          <file role="data" name="plus.gif"/>
+	          <file role="data" name="plusbottom.gif"/>
+			  <file role="data" name="plustop.gif"/>
+	        </dir>
+	        <dir name="imagesAlt">
+	          <file role="data" name="branch.gif"/>
+	          <file role="data" name="branchbottom.gif"/>
+	          <file role="data" name="branchtop.gif"/>
+	          <file role="data" name="folder.gif"/>
+	          <file role="data" name="line.gif"/>
+	          <file role="data" name="linebottom.gif"/>
+	          <file role="data" name="minus.gif"/>
+	          <file role="data" name="minusbottom.gif"/>
+	          <file role="data" name="minustop.gif"/>
+	          <file role="data" name="plus.gif"/>
+	          <file role="data" name="plusbottom.gif"/>
+			  <file role="data" name="plustop.gif"/>
+	        </dir>
+	        <dir name="docs">
+	          <file role="php" name="example.php"/>
+	        </dir>
+	      </dir>
+	    </filelist>
+	  </release>
+
 	  <release>
 	    <license>PHP</license>
 	    <version>1.0</version>
