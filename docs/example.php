@@ -39,9 +39,9 @@
 	require_once('../TreeMenu.php');
 	$icon = 'folder.gif';
 
-	$menu  = new HTML_TreeMenu(array('images' => '../images', 'defaultClass' => 'treeMenuDefault'));
+	$menu  = new HTML_TreeMenu();
 
-	$node1 = new HTML_TreeNode(array('text' => "First level", 'link' => "test.php", 'icon' => $icon));
+	$node1 = new HTML_TreeNode(array('text' => "First level", 'link' => "test.php", 'icon' => $icon), array('onclick' => "alert('foo'); return false", 'onexpand' => "alert('Expanded')"));
 	$foo   = &$node1->addItem(new HTML_TreeNode(array('text' => "Second level", 'link' => "test.php", 'icon' => $icon)));
 	$bar   = &$foo->addItem(new HTML_TreeNode(array('text' => "Third level", 'link' => "test.php", 'icon' => $icon)));
 	$blaat = &$bar->addItem(new HTML_TreeNode(array('text' => "Fourth level", 'link' => "test.php", 'icon' => $icon)));
@@ -49,13 +49,13 @@
 
 	$node1->addItem(new HTML_TreeNode(array('text' => "Second level, item 2", 'link' => "test.php", 'icon' => $icon)));
 	$node1->addItem(new HTML_TreeNode(array('text' => "Second level, item 3", 'link' => "test.php", 'icon' => $icon)));
-	
+
 	$menu->addItem($node1);
 	$menu->addItem($node1);
 	
 	// Create the presentation class
-	$treeMenu = &new HTML_TreeMenu_DHTML($menu, array('isDynamic' => true));
-	$listBox  = &new HTML_TreeMenu_Listbox($menu);
+	$treeMenu = &new HTML_TreeMenu_DHTML($menu, array('images' => '../images', 'defaultClass' => 'treeMenuDefault'));
+	$listBox  = &new HTML_TreeMenu_Listbox($menu, array('linkTarget' => '_self'));
 ?>
 <html>
 <head>
