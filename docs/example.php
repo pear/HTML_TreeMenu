@@ -1,6 +1,6 @@
 <?php
 // +-----------------------------------------------------------------------+
-// | Copyright (c) 2002-2003, Richard Heyes, Harald Radi                        |
+// | Copyright (c) 2002, Richard Heyes, Harald Radi                        |
 // | All rights reserved.                                                  |
 // |                                                                       |
 // | Redistribution and use in source and binary forms, with or without    |
@@ -36,67 +36,35 @@
 // $Id$
 
 	require_once('HTML/TreeMenu.php');
-	//require_once('../TreeMenu.php');
+	$icon = 'folder.gif';
 
-	$icon         = 'folder.gif';
-	$expandedIcon = 'folder-expanded.gif';
+	$menu  = new HTML_TreeMenu("menuLayer", 'images', '_self');
 
-	$menu  = new HTML_TreeMenu();
+	$node1 = new HTML_TreeNode("INBOX", "test.php", $icon);
+	$foo   = &$node1->addItem(new HTML_TreeNode("deleted-items", "test.php", $icon));
+	$bar   = &$foo->addItem(new HTML_TreeNode("deleted-items", "test.php", $icon));
+	$blaat = &$bar->addItem(new HTML_TreeNode("deleted-items", "test.php", $icon));
+	$blaat->addItem(new HTML_TreeNode("deleted-items", "test.php", $icon));
 
-	$node1   = new HTML_TreeNode(array('text' => "First level", 'link' => "test.php", 'icon' => $icon, 'expandedIcon' => $expandedIcon), array('onclick' => "alert('foo'); return false", 'onexpand' => "alert('Expanded')"));
-	$node1_1 = &$node1->addItem(new HTML_TreeNode(array('text' => "Second level", 'link' => "test.php", 'icon' => $icon, 'expandedIcon' => $expandedIcon)));
-	$node1_1_1 = &$node1_1->addItem(new HTML_TreeNode(array('text' => "Third level", 'link' => "test.php", 'icon' => $icon, 'expandedIcon' => $expandedIcon)));
-	$node1_1_1_1 = &$node1_1_1->addItem(new HTML_TreeNode(array('text' => "Fourth level", 'link' => "test.php", 'icon' => $icon, 'expandedIcon' => $expandedIcon)));
-	$node1_1_1_1->addItem(new HTML_TreeNode(array('text' => "Fifth level", 'link' => "test.php", 'icon' => $icon, 'expandedIcon' => $expandedIcon, 'cssClass' => 'treeMenuBold')));
-
-	$node1->addItem(new HTML_TreeNode(array('text' => "Second level, item 2", 'link' => "test.php", 'icon' => $icon, 'expandedIcon' => $expandedIcon)));
-	$node1->addItem(new HTML_TreeNode(array('text' => "Second level, item 3", 'link' => "test.php", 'icon' => $icon, 'expandedIcon' => $expandedIcon)));
-
-	$menu->addItem($node1);
-	$menu->addItem($node1);
+	$node1->addItem(new HTML_TreeNode("sent-items",    "test.php", $icon));
+	$node1->addItem(new HTML_TreeNode("drafts",        "test.php", $icon));
 	
-	// Create the presentation class
-	$treeMenu = &new HTML_TreeMenu_DHTML($menu, array('images' => '../images', 'defaultClass' => 'treeMenuDefault'));
-	$listBox  = &new HTML_TreeMenu_Listbox($menu, array('linkTarget' => '_self'));
+	
+	$menu->addItem($node1);
+	$menu->addItem(new HTML_TreeNode("drafts", "test.php", $icon));
+	$menu->addItem(new HTML_TreeNode("drafts", "test.php", $icon));//$node1);
+
+	
 ?>
 <html>
 <head>
-	<style type="text/css">
-		body {
-			font-family: Georgia;
-			font-size: 11pt;
-		}
-		
-		.treeMenuDefault {
-			font-style: italic;
-		}
-		
-		.treeMenuBold {
-			font-style: italic;
-			font-weight: bold;
-		}
-	</style>
+	<script src="sniffer.js" language="JavaScript" type="text/javascript"></script>
 	<script src="TreeMenu.js" language="JavaScript" type="text/javascript"></script>
 </head>
 <body>
 
-<script language="JavaScript" type="text/javascript">
-<!--
-	a = new Date();
-	a = a.getTime();
-//-->
-</script>
+<div id="menuLayer"></div>
+<?$menu->printMenu()?>
 
-<?$treeMenu->printMenu()?>
-<?$listBox->printMenu()?>
-
-<script language="JavaScript" type="text/javascript">
-<!--
-	b = new Date();
-	b = b.getTime();
-	
-	document.write("Time to render tree: " + ((b - a) / 1000) + "s");
-//-->
-</script>
 </body>
 </html>
