@@ -15,7 +15,7 @@
 // |         Harald Radi <harald.radi@nme.at>                             |
 // +----------------------------------------------------------------------+
 //
-// $Id: TreeMenu.js,v 1.1 2002-06-15 18:24:06 richard Exp $
+// $Id: TreeMenu.js,v 1.2 2002-06-18 23:28:35 richard Exp $
 
 function TreeMenu(layer, iconpath, myname, linkTarget)
 {
@@ -29,11 +29,16 @@ function TreeMenu(layer, iconpath, myname, linkTarget)
 	this.branches       = new Array();
 	this.branchStatus   = new Array();
 	this.layerRelations = new Array();
+	this.childParents   = new Array();
 	
 	// Methods
+	//this.preloadImages      = preloadImages;
 	this.drawMenu           = drawMenu;
 	this.toggleBranch       = toggleBranch;
+	this.swapImage          = swapImage;
 	this.doesMenu           = doesMenu;
+	this.doesPersistence    = doesPersistence;
+	this.getLayer           = getLayer;
 	this.saveExpandedStatus = saveExpandedStatus;
 	this.loadExpandedStatus = loadExpandedStatus;
 	this.resetBranches      = resetBranches;
@@ -48,6 +53,24 @@ function TreeNode(title, icon, link, expanded)
 	this.n        = new Array();
 }
 
+/**
+* Preload images hack for CrapZilla
+*/
+function preloadImages()
+{
+	var plustop    = new Image; plustop.src    = this.iconpath + '/plustop.gif';
+	var plusbottom = new Image; plusbottom.src = this.iconpath + '/plusbottom.gif';
+	var plus       = new Image; plus.src       = this.iconpath + '/plus.gif';
+
+	var minustop    = new Image; minustop.src    = this.iconpath + '/minustop.gif';
+	var minusbottom = new Image; minusbottom.src = this.iconpath + '/minusbottom.gif';
+	var minus       = new Image; minus.src       = this.iconpath + '/minus.gif';
+}
+
+/**
+* Main function that draws the menu and assigns it
+* to the layer (or document.write()s it)
+*/
 function drawMenu()// OPTIONAL ARGS: nodes = [], level = [], prepend = '', expanded = false, visbility = 'inline', parentLayerID = null
 {
 	/**
@@ -73,7 +96,12 @@ function drawMenu()// OPTIONAL ARGS: nodes = [], level = [], prepend = '', expan
 	for (var i=0; i<nodes.length; i++) {
 	
 		level[currentlevel] = i+1;
-		layerID = 'node_' + implode('_', level);
+		layerID = this.layer + '_' + 'node_' + implode('_', level);
+
+		/**
+        * Store the child/parent relationship
+        */
+		this.childParents[layerID] = parentLayerID;
 
 		/**
         * Gif modifier
@@ -121,7 +149,7 @@ function drawMenu()// OPTIONAL ARGS: nodes = [], level = [], prepend = '', expan
         * Build the html to write to the document
         */
 		var divTag    = sprintf('<div id="%s" style="display: %s; behavior: url(#default#userdata)">', layerID, visibility);
-		var onClick   = doesMenu() && nodes[i].n.length ? sprintf('onclick="%s.toggleBranch(\'%s\', true)" style="cursor: hand"', this.myname, layerID) : '';
+		var onClick   = doesMenu() && nodes[i].n.length ? sprintf('onclick="%s.toggleBranch(\'%s\', true)" style="cursor: pointer; cursor: hand"', this.myname, layerID) : '';
 		var imgTag    = sprintf('<img src="%s/%s%s.gif" align="top" border="0" name="img_%s" %s />', this.iconpath, gifname, modifier, layerID, onClick);
 		var linkStart = nodes[i].link ? sprintf('<a href="%s" target="%s">', nodes[i].link, this.linkTarget) : '';
 		var linkEnd   = nodes[i].link ? '</a>' : '';
@@ -138,11 +166,8 @@ function drawMenu()// OPTIONAL ARGS: nodes = [], level = [], prepend = '', expan
 		/**
         * Write out the HTML
         */
-		if (doesMenu()) {
-			document.all(this.layer).innerHTML += output;
-
-		} else if(document.getElementById(this.layer)) {
-			document.getElementById(this.layer).innerHTML += output;
+		if (this.doesMenu()) {
+			this.getLayer(this.layer).innerHTML += output
 
 		} else {
 			document.write(output);
@@ -176,7 +201,7 @@ function drawMenu()// OPTIONAL ARGS: nodes = [], level = [], prepend = '', expan
 
 function toggleBranch(layerID, updateStatus) // OPTIONAL ARGS: noSave = false
 {
-	var currentDisplay = document.all(layerID).style.display;
+	var currentDisplay = this.getLayer(layerID).style.display;
 	var newDisplay     = (this.branchStatus[layerID] && currentDisplay == 'inline') ? 'none' : 'inline'
 
 	for (var i=0; i<this.layerRelations[layerID].length; i++) {
@@ -184,7 +209,7 @@ function toggleBranch(layerID, updateStatus) // OPTIONAL ARGS: noSave = false
 			this.toggleBranch(this.layerRelations[layerID][i], false);
 		}
 
-		document.all(this.layerRelations[layerID][i]).style.display = newDisplay;
+		this.getLayer(this.layerRelations[layerID][i]).style.display = newDisplay;
 	}
 
 	if (updateStatus) {
@@ -193,21 +218,30 @@ function toggleBranch(layerID, updateStatus) // OPTIONAL ARGS: noSave = false
 		/**
         * Persistence
         */
-		if (!arguments[2]) {
+		if (this.doesPersistence() && !arguments[2]) {
 			this.saveExpandedStatus(layerID, this.branchStatus[layerID]);
 		}
 
-		// Swap image:
-		imgSrc = document.images['img_' + layerID].src;
-		re = /^(.*)(plus|minus)(bottom|top|single)?.gif$/
-		if (matches = imgSrc.match(re)) {
-			
-			document.images['img_' + layerID].src = sprintf('%s%s%s%s',
-			                                                matches[1],
-															matches[2] == 'plus' ? 'minus' : 'plus',
-															matches[3],
-															'.gif');
-		}
+		// Swap image
+		this.swapImage(layerID);
+	}
+}
+
+/**
+* Swaps the plus/minus branch images
+*/
+function swapImage(layerID)
+{
+	imgSrc = document.images['img_' + layerID].src;
+
+	re = /^(.*)(plus|minus)(bottom|top|single)?.gif$/
+	if (matches = imgSrc.match(re)) {
+		
+		document.images['img_' + layerID].src = sprintf('%s%s%s%s',
+		                                                matches[1],
+														matches[2] == 'plus' ? 'minus' : 'plus',
+														matches[3],
+														'.gif');
 	}
 }
 
@@ -216,16 +250,27 @@ function toggleBranch(layerID, updateStatus) // OPTIONAL ARGS: noSave = false
 */
 function doesMenu()
 {
-	var agt      = navigator.userAgent.toLowerCase();
-	var is_major = parseInt(navigator.appVersion);
-    var is_minor = parseFloat(navigator.appVersion);
+	return (is_ie5up || is_nav6up || is_gecko);
+}
 
-	var is_ie    = (agt.indexOf("msie") != -1 && agt.indexOf("opera") == -1);
-	var is_ie3   = (is_ie && (is_major < 4));
-	var is_ie4   = (is_ie && (is_major == 4) && (agt.indexOf("msie 4")!=-1) );
-	var is_ie5up = (is_ie && !is_ie3 && !is_ie4);
-
+/**
+* Can the browser handle save the branch status
+*/
+function doesPersistence()
+{
 	return is_ie5up;
+}
+
+/**
+* Returns the appropriate layer accessor
+*/
+function getLayer(layerID)
+{
+	if (document.getElementById(layerID)) {
+		return document.getElementById(layerID);
+	} else if (document.all(layerID)) {
+		return document.all(layerID);
+	}
 }
 
 /**
@@ -255,11 +300,20 @@ function loadExpandedStatus(layerID)
 */
 function resetBranches()
 {
+	if (!this.doesPersistence()) {
+		return false;
+	}
+
 	for (var i=0; i<this.branches.length; i++) {
 		var status = this.loadExpandedStatus(this.branches[i]);
 		// Only update if it's supposed to be expanded and it's not already
 		if (status == 'true' && this.branchStatus[this.branches[i]] != true) {
-			this.toggleBranch(this.branches[i], true, true);
+			if (this.childParents[this.branches[i]] == null || (in_array(this.childParents[this.branches[i]], this.branches) && this.branchStatus[this.childParents[this.branches[i]]])) {
+				this.toggleBranch(this.branches[i], true, true);
+			} else {
+				this.branchStatus[this.branches[i]] = true;
+				this.swapImage(this.branches[i]);
+			}
 		}
 	}
 }

@@ -94,10 +94,13 @@ class HTML_TreeMenu
 	* @access public
 	* @param  object $menu The node to add. This object should be
 	*                      a HTML_TreeNode object.
+	* @return object       Returns a reference to the new node inside
+	*                      the tree.
     */
-	function addItem($menu)
+	function &addItem($menu)
 	{
 		$this->items[] = $menu;
+		return $this->items[count($this->items) - 1];
 	}
 
 	/**
@@ -112,7 +115,7 @@ class HTML_TreeMenu
 	{
 		echo "\n";
 
- 		echo '<script language="javascript" type="text/javascript">';
+ 		echo '<script language="javascript" type="text/javascript">' . "\n\t";
 		echo sprintf('%s = new TreeMenu("%s", "%s", "%s", "%s");',
 		             $this->menuobj,
 					 $this->layer,
@@ -200,9 +203,10 @@ class HTML_TreeNode
 	* @access public
 	* @param  object $node The new node
     */
-	function addItem($node)
+	function &addItem($node)
 	{
 		$this->items[] = $node;
+		return $this->items[count($this->items) - 1];
 	}
 
 	/**
