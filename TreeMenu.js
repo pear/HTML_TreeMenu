@@ -32,7 +32,7 @@
 // |         Harald Radi <harald.radi@nme.at>                              |
 // +-----------------------------------------------------------------------+
 //
-// $Id: TreeMenu.js,v 1.15 2003-04-13 17:24:10 richard Exp $
+// $Id: TreeMenu.js,v 1.16 2003-11-26 21:01:02 richard Exp $
 
 /**
 * Function to create copies of objects which are
@@ -74,7 +74,6 @@ function arrayCopy(input)
 		this.layerRelations = new Array();
 		this.childParents   = new Array();
 		this.cookieStatuses = new Array();
-
 
 		this.preloadImages();
 	}
@@ -136,12 +135,12 @@ function arrayCopy(input)
 		var parentLayerID = arguments[5] ? arguments[5] : null;
 
 		var currentlevel  = level.length;
-	
+
 		for (var i=0; i<nodes.length; i++) {
 		
 			level[currentlevel] = i+1;
 			layerID = this.myname + '_' + 'node_' + this.implode('_', level);
-	
+
 			/**
             * Store this object in the nodeRefs array
             */

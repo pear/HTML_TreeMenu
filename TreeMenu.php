@@ -100,7 +100,7 @@ class HTML_TreeMenu
     * are Wolfram Kriesings' PEAR Tree class, and Richard Heyes' (me!)
     * Tree class (available here: http://www.phpguru.org/). This
     * method is intended to be used statically, eg:
-    * $treeMenu = &HTML_TreeMenu::import($myTreeStructureObj);
+    * $treeMenu = &HTML_TreeMenu::createFromStructure($myTreeStructureObj);
     *
     * @param  array  $params   An array of parameters that determine
     *                          how the import happens. This can consist of:
@@ -379,7 +379,7 @@ class HTML_TreeNode
     *                         o link          The link for the node, defaults to blank
     *                         o icon          The icon for the node, defaults to blank
     *                         o expandedIcon  The icon to show when the node is expanded
-    *                         o class         The CSS class for this node, defaults to blank
+    *                         o cssClass      The CSS class for this node, defaults to blank
     *                         o expanded      The default expanded status of this node, defaults to false
     *                                         This doesn't affect non dynamic presentation types
     *                         o linkTarget    Target for the links. Defaults to linkTarget of the
@@ -576,6 +576,9 @@ class HTML_TreeMenu_DHTML extends HTML_TreeMenu_Presentation
     *                         is achieved using cookies. Default is true.
     *  o noTopLevelImages  -  Whether to skip displaying the first level of images if
     *                         there is multiple top level branches.
+    *  o maxDepth          -  The maximum depth of indentation. Useful for ensuring
+    *                         deeply nested trees don't go way off to the right of your
+    *                         page etc. Defaults to no limit.
     *
     * And also a boolean for whether the entire tree is dynamic or not.
     * This overrides any perNode dynamic settings.
@@ -591,6 +594,7 @@ class HTML_TreeMenu_DHTML extends HTML_TreeMenu_Presentation
 
         // Defaults
         $this->images           = 'images';
+        $this->maxDepth         = 0;        // No limit
         $this->linkTarget       = '_self';
         $this->defaultClass     = '';
         $this->usePersistence   = true;
@@ -652,14 +656,16 @@ class HTML_TreeMenu_DHTML extends HTML_TreeMenu_Presentation
     *
     * @access private
     */
-    function _nodeToHTML($nodeObj, $prefix, $return = 'newNode')
+    function _nodeToHTML($nodeObj, $prefix, $return = 'newNode', $currentDepth = 0, $maxDepthPrefix = null)
     {
+        $prefix = empty($maxDepthPrefix) ? $prefix : $maxDepthPrefix;
+        
         $expanded  = $this->isDynamic ? ($nodeObj->expanded  ? 'true' : 'false') : 'true';
         $isDynamic = $this->isDynamic ? ($nodeObj->isDynamic ? 'true' : 'false') : 'false';
         $html = sprintf("\t %s = %s.addItem(new TreeNode('%s', %s, %s, %s, %s, '%s', '%s', %s));\n",
                         $return,
                         $prefix,
-                        $nodeObj->text,
+                        str_replace("'", "\\'", $nodeObj->text),
                         !empty($nodeObj->icon) ? "'" . $nodeObj->icon . "'" : 'null',
                         !empty($nodeObj->link) ? "'" . $nodeObj->link . "'" : 'null',
                         $expanded,
@@ -675,12 +681,16 @@ class HTML_TreeMenu_DHTML extends HTML_TreeMenu_Presentation
                              str_replace(array("\r", "\n", "'"), array('\r', '\n', "\'"), $handler));
         }
 
+        if ($currentDepth == $this->maxDepth) {
+            $maxDepthPrefix = $prefix;
+        }
+
         /**
         * Loop through subnodes
         */
         if (!empty($nodeObj->items)) {
             for ($i=0; $i<count($nodeObj->items); $i++) {
-                $html .= $this->_nodeToHTML($nodeObj->items[$i], $return, $return . '_' . ($i + 1));
+                $html .= $this->_nodeToHTML($nodeObj->items[$i], $return, $return . '_' . ($i + 1), $currentDepth + 1, $maxDepthPrefix);
             }
         }
 
