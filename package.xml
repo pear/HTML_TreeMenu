@@ -69,6 +69,7 @@
         </dir>
         <dir name="docs">
           <file role="php" name="example.php"/>
+          <file role="php" name="map_fs.php"/>
         </dir>
       </dir>
     </filelist>
