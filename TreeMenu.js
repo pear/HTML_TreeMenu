@@ -32,22 +32,24 @@
 // |         Harald Radi <harald.radi@nme.at>                              |
 // +-----------------------------------------------------------------------+
 //
-// $Id: TreeMenu.js,v 1.8 2002-11-10 18:16:19 richard Exp $
+// $Id: TreeMenu.js,v 1.9 2002-11-30 21:53:31 richard Exp $
 
 
 /**
 * TreeMenu class
 */
-	function TreeMenu(iconpath, myname, linkTarget, defaultClass, usePersistence)
+	function TreeMenu(iconpath, myname, linkTarget, defaultClass, usePersistence, noTopLevelImages)
 	{
 		// Properties
-		this.iconpath       = iconpath;
-		this.myname         = myname;
-		this.linkTarget     = linkTarget;
-		this.defaultClass   = defaultClass;
-		this.usePersistence = usePersistence;
-		this.n              = new Array();
+		this.iconpath         = iconpath;
+		this.myname           = myname;
+		this.linkTarget       = linkTarget;
+		this.defaultClass     = defaultClass;
+		this.usePersistence   = usePersistence;
+		this.noTopLevelImages = noTopLevelImages;
+		this.n                = new Array();
 	
+		this.nodeRefs       = new Array();
 		this.branches       = new Array();
 		this.branchStatus   = new Array();
 		this.layerRelations = new Array();
@@ -121,6 +123,11 @@
 			layerID = this.myname + '_' + 'node_' + this.implode('_', level);
 	
 			/**
+            * Store this object in the nodeRefs array
+            */
+			this.nodeRefs[layerID] = nodes[i];
+
+			/**
 	        * Store the child/parent relationship
 	        */
 			this.childParents[layerID] = parentLayerID;
@@ -139,7 +146,7 @@
 			/**
 	        * Single root branch is always expanded
 	        */
-			if (!this.doesMenu() || (parentLayerID == null && nodes.length == 1)) {
+			if (!this.doesMenu() || (parentLayerID == null && (nodes.length == 1 || this.noTopLevelImages))) {
 				expanded = true;
 	
 			} else if (nodes[i].expanded) {
@@ -177,7 +184,14 @@
 			var gifname = nodes[i].n.length && this.doesMenu() && nodes[i].isDynamic ? (expanded ? 'minus' : 'plus') : 'branch';
 			var iconimg = nodes[i].icon ? this.stringFormat('<img src="{0}/{1}" width="20" height="20" align="top">', this.iconpath, nodes[i].icon) : '';
 			
-	
+			/**
+			* Add event handlers
+			*/
+			var eventHandlers = "";
+			for (j in nodes[i].events) {
+				eventHandlers += this.stringFormat('{0}="{1}" ', j, nodes[i].events[j]);
+			}
+
 			/**
 	        * Build the html to write to the document
 			* IMPORTANT:
@@ -188,13 +202,14 @@
 			var imgTag    = this.stringFormat('<img src="{0}/{1}{2}.gif" width="20" height="20" align="top" border="0" name="img_{3}" {4}>', this.iconpath, gifname, modifier, layerID, onMDown);
 			var linkStart = nodes[i].link ? this.stringFormat('<a href="{0}" target="{1}">', nodes[i].link, this.linkTarget) : '';
 			var linkEnd   = nodes[i].link ? '</a>' : '';
-	
-			output = this.stringFormat('{0}<nobr>{1}{2}{3}{4}{5}{6}</nobr><br></div>',
+
+			output = this.stringFormat('{0}<nobr>{1}{2}{3}{4}<span {5}>{6}</span>{7}</nobr><br></div>',
 			                  layerTag,
 							  prepend,
-			                  parentLayerID == null && nodes.length == 1 ? '' : imgTag,
+			                  parentLayerID == null && (nodes.length == 1 || this.noTopLevelImages) ? '' : imgTag,
 							  iconimg,
 							  linkStart,
+							  eventHandlers,
 							  nodes[i].title,
 							  linkEnd);
 	
@@ -215,7 +230,7 @@
 				* node then the prepend to pass to children is nothing.
 				* Otherwise it depends on where we are in the tree.
 	            */
-				if (parentLayerID == null && nodes.length == 1) {
+				if (parentLayerID == null && (nodes.length == 1 || this.noTopLevelImages)) {
 					var newPrepend = '';
 	
 				} else if (i < (nodes.length - 1)) {
@@ -239,10 +254,11 @@
 * Toggles a branches visible status. Called from resetBranches()
 * and also when a +/- graphic is clicked.
 */
-	TreeMenu.prototype.toggleBranch = function (layerID, updateStatus) // OPTIONAL ARGS: noSave = false
+	TreeMenu.prototype.toggleBranch = function (layerID, updateStatus) // OPTIONAL ARGS: fireEvents = true
 	{
 		var currentDisplay = this.getLayer(layerID).style.display;
-		var newDisplay     = (this.branchStatus[layerID] && currentDisplay == 'inline') ? 'none' : 'inline'
+		var newDisplay     = (this.branchStatus[layerID] && currentDisplay == 'inline') ? 'none' : 'inline';
+		var fireEvents     = arguments[2] != null ? arguments[2] : true;
 	
 		for (var i=0; i<this.layerRelations[layerID].length; i++) {
 	
@@ -262,7 +278,24 @@
 			if (this.doesPersistence() && !arguments[2] && this.usePersistence) {
 				this.setExpandedStatusForCookie(layerID, this.branchStatus[layerID]);
 			}
+
+			/**
+			* Fire custom events
+			*/
+			if (fireEvents) {
+				nodeObject = this.nodeRefs[layerID];
 	
+				if (nodeObject.ontoggle != null) {
+					eval(nodeObject.ontoggle);
+				}
+				
+				if (newDisplay == 'none' && nodeObject.oncollapse != null) {
+					eval(nodeObject.oncollapse);
+				} else if (newDisplay == 'inline' && nodeObject.onexpand != null){
+					eval(nodeObject.onexpand);
+				}
+			}
+
 			// Swap image
 			this.swapImage(layerID);
 		}
@@ -325,14 +358,6 @@
 	{
 		this.cookieStatuses[layerID] = expanded;
 		this.saveCookie();
-/*
-		if (is_ie5up) {
-			document.all(layerID).setAttribute("expandedStatus", expanded);
-			document.all(layerID).save(layerID);
-		} else {
-
-		}
-*/
 	}
 
 /**
@@ -345,14 +370,6 @@
 		}
 
 		return false;
-
-/*		document.all(layerID).load(layerID);
-		if (val = document.all(layerID).getAttribute("expandedStatus")) {
-			return val;
-		} else {
-			return null;
-		}
-*/
 	}
 
 /**
@@ -407,7 +424,7 @@
 			// Only update if it's supposed to be expanded and it's not already
 			if (status == true && this.branchStatus[this.branches[i]] != true) {
 				if (this.checkParentVisibility(this.branches[i])) {
-					this.toggleBranch(this.branches[i], true, true);
+					this.toggleBranch(this.branches[i], true, false);
 				} else {
 					this.branchStatus[this.branches[i]] = true;
 					this.swapImage(this.branches[i]);
@@ -488,13 +505,18 @@
 */
 	function TreeNode(title, icon, link, expanded, isDynamic, cssClass)
 	{
-		this.title     = title;
-		this.icon      = icon;
-		this.link      = link;
-		this.expanded  = expanded;
-		this.isDynamic = isDynamic;
-		this.cssClass  = cssClass;
-		this.n         = new Array();
+		this.title      = title;
+		this.icon       = icon;
+		this.link       = link;
+		this.expanded   = expanded;
+		this.isDynamic  = isDynamic;
+		this.cssClass   = cssClass;
+		this.n          = new Array();
+		this.events     = new Array();
+		this.handlers   = null;
+		this.oncollapse = null;
+		this.onexpand   = null;
+		this.ontoggle   = null;
 	}
 
 /**
@@ -506,6 +528,29 @@
 		this.n[newIndex] = newNode;
 		
 		return this.n[newIndex];
+	}
+
+/**
+* Sets an event for this particular node
+*/
+	TreeNode.prototype.setEvent = function (eventName, eventHandler)
+	{
+		switch (eventName.toLowerCase()) {
+			case 'onexpand':
+				this.onexpand = eventHandler;
+				break;
+
+			case 'oncollapse':
+				this.oncollapse = eventHandler;
+				break;
+
+			case 'ontoggle':
+				this.ontoggle = eventHandler;
+				break;
+
+			default:
+				this.events[eventName] = eventHandler;
+		}
 	}
 
 /**

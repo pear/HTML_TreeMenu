@@ -28,12 +28,14 @@ from Chip Chapin (http://www.chipchapin.com).
   </maintainers>
 
   <release>
+  
     <license>BSD</license>
-    <version>1.1.0</version>
-    <date>2002-11-10</date>
+    <version>1.1.1</version>
+    <date>2002-11-30</date>
     <state>stable</state>
     <notes>
-Many changes. See CVS for changelog
+Added event support, and moved various options from the TreeMenu class to
+the presentation classes. Added presentation base class.
     </notes>
 
     <filelist>
@@ -95,6 +97,16 @@ Many changes. See CVS for changelog
   </release>
 
   <changelog>
+	<release>
+	  <license>BSD</license>
+	    <version>1.1.0</version>
+	    <date>2002-11-10</date>
+	    <state>stable</state>
+	    <notes>
+		Many changes. See CVS for changelog
+	    </notes>
+	</release>
+
 	<release>
 	    <license>BSD</license>
 	    <version>1.0.4</version>
