@@ -1,5 +1,5 @@
 // +-----------------------------------------------------------------------+
-// | Copyright (c) 2002, Richard Heyes, Harald Radi                        |
+// | Copyright (c) 2002-2003, Richard Heyes, Harald Radi                        |
 // | All rights reserved.                                                  |
 // |                                                                       |
 // | Redistribution and use in source and binary forms, with or without    |
@@ -32,7 +32,7 @@
 // |         Harald Radi <harald.radi@nme.at>                              |
 // +-----------------------------------------------------------------------+
 //
-// $Id: TreeMenu.js,v 1.10 2003-01-03 22:29:48 phanto Exp $
+// $Id: TreeMenu.js,v 1.11 2003-01-04 11:55:19 mj Exp $
 
 
 /**
