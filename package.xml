@@ -27,14 +27,12 @@
   </maintainers>
 
   <release>
-    <license>PHP</license>
-    <version>1.0.3</version>
-    <date>2002-07-05</date>
+    <license>BSD</license>
+    <version>1.0.4</version>
+    <date>2002-07-27</date>
     <state>stable</state>
     <notes>
-	 Bugfixes:
-	  o Persistence fixes
-	  o Reference/copy fixes
+	 License change
     </notes>
     <filelist>
       <dir name="/" baseinstalldir="HTML">
@@ -77,6 +75,18 @@
   </release>
 
   <changelog>
+    <release>
+      <license>PHP</license>
+      <version>1.0.3</version>
+      <date>2002-07-05</date>
+      <state>stable</state>
+      <notes>
+      Bugfixes:
+	    o Persistence fixes
+	    o Reference/copy fixes
+      </notes>
+    </release>
+
     <release>
       <license>PHP</license>
       <version>1.0.2</version>
