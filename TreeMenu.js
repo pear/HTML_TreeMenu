@@ -32,7 +32,7 @@
 // |         Harald Radi <harald.radi@nme.at>                              |
 // +-----------------------------------------------------------------------+
 //
-// $Id: TreeMenu.js,v 1.20 2005-03-02 02:16:51 richard Exp $
+// $Id: TreeMenu.js,v 1.21 2005-03-02 02:39:26 richard Exp $
 
 /**
 * Function to create copies of objects which are
@@ -388,7 +388,7 @@ function arrayCopy(input)
 		} else if (document.getElementById(layerID)) {
 			return document.getElementById(layerID);
 	
-		} else if (document.all(layerID)) {
+		} else if (document.all && document.all(layerID)) {
 			return document.all(layerID);
 		}
 	}
