@@ -100,9 +100,9 @@ class HTML_TreeMenu
 	* @return object       Returns a reference to the new node inside
 	*                      the tree.
     */
-	function &addItem($menu)
+	function &addItem(&$menu)
 	{
-		$this->items[] = $menu;
+		$this->items[] = &$menu;
 		return $this->items[count($this->items) - 1];
 	}
 
