@@ -130,8 +130,8 @@ class HTML_TreeMenu
 				$this->items[$i]->_printMenu($this->menuobj . ".n[$i]");
 			}
 		}
- 
- 		echo sprintf("%s.drawMenu();\n%s.resetBranches();\n</script>", $this->menuobj, $this->menuobj);
+
+ 		echo sprintf("\n\t%s.drawMenu();\n\t%s.resetBranches();\n</script>", $this->menuobj, $this->menuobj);
 	}
 
 } // HTML_TreeMenu

@@ -18,30 +18,28 @@
 //
 // $Id$
 
-	require_once('../TreeMenu.php');
+	require_once('./TreeMenu.php');
 	$icon = 'folder.gif';
 
-	$menu  = new HTML_TreeMenu("menuLayer", '../images');
+	$menu  = new HTML_TreeMenu("menuLayer", './images');
 
 	$node1 = new HTML_TreeNode("INBOX", "test.php", $icon);
 	$node1->addItem(new HTML_TreeNode("deleted-items", "test.php", $icon));
 	$node1->addItem(new HTML_TreeNode("sent-items",    "test.php", $icon));
 	$node1->addItem(new HTML_TreeNode("drafts",        "test.php", $icon));
-	$node1->addItem($node1);
-
+	
 	$menu->addItem($node1);
 	$menu->addItem(new HTML_TreeNode("drafts", "test.php", $icon));
 	$menu->addItem($node1);
 ?>
 <html>
 <head>
-	<script src="../sniffer.js" language="JavaScript" type="text/javascript"></script>
-	<script src="../TreeMenu.js" language="JavaScript" type="text/javascript"></script>
+	<script src="./sniffer.js" language="JavaScript" type="text/javascript"></script>
+	<script src="./TreeMenu.test.js" language="JavaScript" type="text/javascript"></script>
 </head>
 <body>
 
 <div id="menuLayer"></div>
-
 <?$menu->printMenu()?>
 
 </body>

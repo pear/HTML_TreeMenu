@@ -15,7 +15,7 @@
 // |         Harald Radi <harald.radi@nme.at>                             |
 // +----------------------------------------------------------------------+
 //
-// $Id: TreeMenu.js,v 1.2 2002-06-18 23:28:35 richard Exp $
+// $Id: TreeMenu.js,v 1.3 2002-06-22 14:45:36 richard Exp $
 
 function TreeMenu(layer, iconpath, myname, linkTarget)
 {
@@ -149,8 +149,8 @@ function drawMenu()// OPTIONAL ARGS: nodes = [], level = [], prepend = '', expan
         * Build the html to write to the document
         */
 		var divTag    = sprintf('<div id="%s" style="display: %s; behavior: url(#default#userdata)">', layerID, visibility);
-		var onClick   = doesMenu() && nodes[i].n.length ? sprintf('onclick="%s.toggleBranch(\'%s\', true)" style="cursor: pointer; cursor: hand"', this.myname, layerID) : '';
-		var imgTag    = sprintf('<img src="%s/%s%s.gif" align="top" border="0" name="img_%s" %s />', this.iconpath, gifname, modifier, layerID, onClick);
+		var onMDown   = doesMenu() && nodes[i].n.length ? sprintf('onmousedown="%s.toggleBranch(\'%s\', true)" style="cursor: pointer; cursor: hand"', this.myname, layerID) : '';
+		var imgTag    = sprintf('<img src="%s/%s%s.gif" align="top" border="0" name="img_%s" %s />', this.iconpath, gifname, modifier, layerID, onMDown);
 		var linkStart = nodes[i].link ? sprintf('<a href="%s" target="%s">', nodes[i].link, this.linkTarget) : '';
 		var linkEnd   = nodes[i].link ? '</a>' : '';
 
@@ -164,15 +164,22 @@ function drawMenu()// OPTIONAL ARGS: nodes = [], level = [], prepend = '', expan
 						  linkEnd);
 
 		/**
-        * Write out the HTML
+        * Write out the HTML. Uses document.write for speed over layers and
+		* innerHTML. This however means no dynamic adding/removing nodes on
+		* the client side. This could be conditional I guess if dynamic
+		* adding/removing is required.
         */
 		if (this.doesMenu()) {
-			this.getLayer(this.layer).innerHTML += output
+			//this.getLayer(this.layer).innerHTML += output
+			document.write(output);
 
 		} else {
 			document.write(output);
 		}
 
+		/**
+        * Traverse sub nodes ?
+        */
 		if (nodes[i].n.length) {
 			/**
             * Determine what to prepend. If there is only one root
@@ -236,11 +243,11 @@ function swapImage(layerID)
 
 	re = /^(.*)(plus|minus)(bottom|top|single)?.gif$/
 	if (matches = imgSrc.match(re)) {
-		
+
 		document.images['img_' + layerID].src = sprintf('%s%s%s%s',
 		                                                matches[1],
 														matches[2] == 'plus' ? 'minus' : 'plus',
-														matches[3],
+														matches[3] ? matches[3] : '',
 														'.gif');
 	}
 }
