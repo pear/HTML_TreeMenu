@@ -681,7 +681,7 @@ class HTML_TreeMenu_DHTML extends HTML_TreeMenu_Presentation
                              str_replace(array("\r", "\n", "'"), array('\r', '\n', "\'"), $handler));
         }
 
-        if ($currentDepth == $this->maxDepth) {
+        if ($this->maxDepth > 0 AND $currentDepth == $this->maxDepth) {
             $maxDepthPrefix = $prefix;
         }
 

@@ -29,11 +29,11 @@ from Chip Chapin (http://www.chipchapin.com).
   </maintainers>
 
   <release>
-    <version>1.1.7</version>
-    <date>2003-11-26</date>
+    <version>1.1.8</version>
+    <date>2003-12-20</date>
     <state>stable</state>
     <notes>
-Bug fix in maxDepth feature
+Fix javascript detection issue
     </notes>
 
     <filelist>
@@ -46,7 +46,7 @@ Bug fix in maxDepth feature
           <file role="data" name="branchbottom.gif"/>
           <file role="data" name="branchtop.gif"/>
           <file role="data" name="folder.gif"/>
-		  <file role="data" name="folder-expanded.gif"/>
+          <file role="data" name="folder-expanded.gif"/>
           <file role="data" name="line.gif"/>
           <file role="data" name="linebottom.gif"/>
           <file role="data" name="minus.gif"/>
@@ -54,7 +54,7 @@ Bug fix in maxDepth feature
           <file role="data" name="minustop.gif"/>
           <file role="data" name="plus.gif"/>
           <file role="data" name="plusbottom.gif"/>
-		  <file role="data" name="plustop.gif"/>
+          <file role="data" name="plustop.gif"/>
         </dir>
 
         <dir name="imagesAlt">
@@ -62,7 +62,7 @@ Bug fix in maxDepth feature
           <file role="data" name="branchbottom.gif"/>
           <file role="data" name="branchtop.gif"/>
           <file role="data" name="folder.gif"/>
-		  <file role="data" name="folder-expanded.gif"/>
+          <file role="data" name="folder-expanded.gif"/>
           <file role="data" name="line.gif"/>
           <file role="data" name="linebottom.gif"/>
           <file role="data" name="minus.gif"/>
@@ -70,7 +70,7 @@ Bug fix in maxDepth feature
           <file role="data" name="minustop.gif"/>
           <file role="data" name="plus.gif"/>
           <file role="data" name="plusbottom.gif"/>
-		  <file role="data" name="plustop.gif"/>
+          <file role="data" name="plustop.gif"/>
         </dir>
 
         <dir name="imagesAlt2">
@@ -78,7 +78,7 @@ Bug fix in maxDepth feature
           <file role="data" name="branchbottom.gif"/>
           <file role="data" name="branchtop.gif"/>
           <file role="data" name="folder.gif"/>
-		  <file role="data" name="folder-expanded.gif"/>
+          <file role="data" name="folder-expanded.gif"/>
           <file role="data" name="line.gif"/>
           <file role="data" name="linebottom.gif"/>
           <file role="data" name="minus.gif"/>
@@ -86,20 +86,29 @@ Bug fix in maxDepth feature
           <file role="data" name="minustop.gif"/>
           <file role="data" name="plus.gif"/>
           <file role="data" name="plusbottom.gif"/>
-		  <file role="data" name="plustop.gif"/>
+          <file role="data" name="plustop.gif"/>
         </dir>
 
         <dir name="docs">
           <file role="php" name="example.php"/>
           <file role="php" name="map_fs.php"/>
-		  <file role="doc" name="HTML_TreeMenu.doc"/>
-		  <file role="doc" name="HTML_TreeMenu.pdf"/>
+          <file role="doc" name="HTML_TreeMenu.doc"/>
+          <file role="doc" name="HTML_TreeMenu.pdf"/>
         </dir>
       </dir>
     </filelist>
   </release>
 
   <changelog>
+		<release>
+		    <version>1.1.7</version>
+		    <date>2003-11-26</date>
+		    <state>stable</state>
+		    <notes>
+Bug fix in maxDepth feature
+		    </notes>
+		</release>
+
 		<release>
 			<version>1.1.6</version>
 			<date>2003-04-02</date>

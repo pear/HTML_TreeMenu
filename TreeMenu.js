@@ -32,7 +32,7 @@
 // |         Harald Radi <harald.radi@nme.at>                              |
 // +-----------------------------------------------------------------------+
 //
-// $Id: TreeMenu.js,v 1.16 2003-11-26 21:01:02 richard Exp $
+// $Id: TreeMenu.js,v 1.17 2003-12-20 13:10:59 richard Exp $
 
 /**
 * Function to create copies of objects which are
@@ -685,7 +685,7 @@ function arrayCopy(input)
 	var is_opera7 = is_opera && (agt.indexOf("opera 7") != -1);
 
 	// Patch from Harald Fielker
-    if (agt.indexOf('konqueror')) {
+    if (agt.indexOf('konqueror') != -1) {
         var is_nav    = false;
         var is_nav6up = false;
         var is_gecko  = false;
