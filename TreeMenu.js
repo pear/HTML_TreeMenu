@@ -32,7 +32,7 @@
 // |         Harald Radi <harald.radi@nme.at>                              |
 // +-----------------------------------------------------------------------+
 //
-// $Id: TreeMenu.js,v 1.13 2003-02-19 18:30:46 richard Exp $
+// $Id: TreeMenu.js,v 1.14 2003-04-02 21:08:54 richard Exp $
 
 
 /**
@@ -346,7 +346,7 @@
 */
 	TreeMenu.prototype.doesMenu = function ()
 	{
-		return (is_ie4up || is_nav6up || is_gecko);
+		return (is_ie4up || is_nav6up || is_gecko || is_opera7);
 	}
 
 /**
@@ -354,7 +354,7 @@
 */
 	TreeMenu.prototype.doesPersistence = function ()
 	{
-		return (is_ie4up || is_gecko || is_nav6up);
+		return (is_ie4up || is_gecko || is_nav6up || is_opera7);
 	}
 
 /**
@@ -661,4 +661,7 @@
     var is_ie     = ((agt.indexOf("msie") != -1) && (agt.indexOf("opera") == -1));
     var is_ie4    = (is_ie && (is_major == 4) && (agt.indexOf("msie 4")!=-1) );
     var is_ie4up  = (is_ie && (is_major >= 4));
+	
+	var is_opera  = (agt.indexOf("opera") != -1);
+	var is_opera7 = is_opera && (agt.indexOf("opera 7") != -1);
 //--> end hide JavaScript
