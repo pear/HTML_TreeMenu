@@ -29,12 +29,14 @@
   <release>
     <license>PHP</license>
     <version>1.0.2</version>
-    <date>2002-06-22</date>
+    <date>2002-06-30</date>
     <state>stable</state>
     <notes>
 	 Change to use document.write() instead of layers and innerHTML for much speed increase.
 	 Change to use onmousedown instead of onclick for cleaner more defined clicks.
 	 Added the ability to define whether to use client side persistence.
+	 Added the ability to define whether a node is dynamic
+	 Added the ability to define whether a node is expanded
     </notes>
     <filelist>
       <dir name="/" baseinstalldir="HTML">
