@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE package SYSTEM "../package.dtd">
+<!-- do not use the "Type" attribute here, that one is only for
+     generated package.xml files -->
+<package>
+
+  <name>HTML_TreeMenu</name>
+  <summary>Provides an api to create a HTML tree</summary>
+  <description>
+    PHP Based api creates a tree structure using a couple of
+	small PHP classes. This can then be converted to javascript
+	using the printMenu() method. The tree should be dynamic in
+	IE 4 or higher and in IE 5 or higher it maintains state (the
+	collapsed/expanded status of the branches). Has only been
+	tested under IE6 however. Other browser display the tree
+	fully expanded. Each node can have an optional link and icon.
+  </description>
+
+  <maintainers>
+    <maintainer>
+      <user>richard</user>
+      <name>Richard Heyes</name>
+      <email>richard@php.net</email>
+      <role>lead</role>
+    </maintainer>
+  </maintainers>
+
+  <release>
+    <license>PHP</license>
+    <version>1.0.0</version>
+    <date>2002-06-15</date>
+    <state>stable</state>
+    <notes>
+	 Initial release
+    </notes>
+    <filelist>
+      <dir name="/" baseinstalldir="HTML">
+        <file role="php" name="TreeMenu.php"/>
+		<file role="data" name="TreeMenu.js"/>
+        <dir name="images">
+          <file role="data" name="branch.gif"/>
+          <file role="data" name="branchbottom.gif"/>
+          <file role="data" name="branchtop.gif"/>
+          <file role="data" name="folder.gif"/>
+          <file role="data" name="line.gif"/>
+          <file role="data" name="linebottom.gif"/>
+          <file role="data" name="linetop.gif"/>
+          <file role="data" name="minus.gif"/>
+          <file role="data" name="minusbottom.gif"/>
+          <file role="data" name="minustop.gif"/>
+          <file role="data" name="plus.gif"/>
+          <file role="data" name="plusbottom.gif"/>
+		  <file role="data" name="plustop.gif"/>
+        </dir>
+        <dir name="imagesAlt">
+          <file role="data" name="branch.gif"/>
+          <file role="data" name="branchbottom.gif"/>
+          <file role="data" name="branchtop.gif"/>
+          <file role="data" name="folder.gif"/>
+          <file role="data" name="line.gif"/>
+          <file role="data" name="linebottom.gif"/>
+          <file role="data" name="linetop.gif"/>
+          <file role="data" name="minus.gif"/>
+          <file role="data" name="minusbottom.gif"/>
+          <file role="data" name="minustop.gif"/>
+          <file role="data" name="plus.gif"/>
+          <file role="data" name="plusbottom.gif"/>
+		  <file role="data" name="plustop.gif"/>
+        </dir>
+        <dir name="docs">
+          <file role="php" name="example.php"/>
+        </dir>
+      </dir>
+    </filelist>
+  </release>
+
+</package>
