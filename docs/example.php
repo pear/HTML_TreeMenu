@@ -43,7 +43,7 @@
 
 	$menu  = new HTML_TreeMenu();
 
-	$node1   = new HTML_TreeNode(array('text' => "First level", 'link' => "test.php", 'icon' => $icon, 'expandedIcon' => $expandedIcon), array('onclick' => "alert('foo'); return false", 'onexpand' => "alert('Expanded')"));
+	$node1   = new HTML_TreeNode(array('text' => "First level", 'link' => "test.php", 'icon' => $icon, 'expandedIcon' => $expandedIcon, 'expanded' => true), array('onclick' => "alert('foo'); return false", 'onexpand' => "alert('Expanded')"));
 	$node1_1 = &$node1->addItem(new HTML_TreeNode(array('text' => "Second level", 'link' => "test.php", 'icon' => $icon, 'expandedIcon' => $expandedIcon)));
 	$node1_1_1 = &$node1_1->addItem(new HTML_TreeNode(array('text' => "Third level", 'link' => "test.php", 'icon' => $icon, 'expandedIcon' => $expandedIcon)));
 	$node1_1_1_1 = &$node1_1_1->addItem(new HTML_TreeNode(array('text' => "Fourth level", 'link' => "test.php", 'icon' => $icon, 'expandedIcon' => $expandedIcon)));

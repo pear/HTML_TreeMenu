@@ -29,11 +29,11 @@ from Chip Chapin (http://www.chipchapin.com).
   </maintainers>
 
   <release>
-    <version>1.1.8</version>
+    <version>1.1.9</version>
     <date>2003-12-20</date>
     <state>stable</state>
     <notes>
-Fix javascript detection issue
+Fix expanded image when nodes are expanded by default
     </notes>
 
     <filelist>
@@ -100,6 +100,15 @@ Fix javascript detection issue
   </release>
 
   <changelog>
+		<release>
+		    <version>1.1.8</version>
+		    <date>2003-12-20</date>
+		    <state>stable</state>
+		    <notes>
+Fix javascript detection issue
+		    </notes>
+		</release>
+
 		<release>
 		    <version>1.1.7</version>
 		    <date>2003-11-26</date>

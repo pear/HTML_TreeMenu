@@ -32,7 +32,7 @@
 // |         Harald Radi <harald.radi@nme.at>                              |
 // +-----------------------------------------------------------------------+
 //
-// $Id: TreeMenu.js,v 1.17 2003-12-20 13:10:59 richard Exp $
+// $Id: TreeMenu.js,v 1.18 2003-12-20 13:33:09 richard Exp $
 
 /**
 * Function to create copies of objects which are
@@ -179,7 +179,7 @@ function arrayCopy(input)
 	        * Make sure visibility is correct based on parent status
 	        */
 			visibility =  this.checkParentVisibility(layerID) ? visibility : 'none';
-	
+
 			/**
 	        * Setup branch status and build an indexed array
 			* of branch layer ids
@@ -200,8 +200,9 @@ function arrayCopy(input)
 			/**
 	        * Branch images
 	        */
-			var gifname = nodes[i].n.length && this.doesMenu() && nodes[i].isDynamic ? (expanded ? 'minus' : 'plus') : 'branch';
-			var iconimg = nodes[i].icon ? this.stringFormat('<img src="{0}/{1}" width="20" height="20" align="top" id="icon_{2}">', this.iconpath, nodes[i].icon, layerID) : '';
+			var gifname  = nodes[i].n.length && this.doesMenu() && nodes[i].isDynamic ? (expanded ? 'minus' : 'plus') : 'branch';
+			var iconName = expanded && nodes[i].expandedIcon ? nodes[i].expandedIcon : nodes[i].icon;
+			var iconimg  = nodes[i].icon ? this.stringFormat('<img src="{0}/{1}" width="20" height="20" align="top" id="icon_{2}">', this.iconpath, iconName, layerID) : '';
 			
 			/**
 			* Add event handlers
