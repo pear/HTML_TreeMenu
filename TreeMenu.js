@@ -32,7 +32,7 @@
 // |         Harald Radi <harald.radi@nme.at>                              |
 // +-----------------------------------------------------------------------+
 //
-// $Id: TreeMenu.js,v 1.12 2003-02-06 15:27:09 richard Exp $
+// $Id: TreeMenu.js,v 1.13 2003-02-19 18:30:46 richard Exp $
 
 
 /**
@@ -182,7 +182,7 @@
 	        * Branch images
 	        */
 			var gifname = nodes[i].n.length && this.doesMenu() && nodes[i].isDynamic ? (expanded ? 'minus' : 'plus') : 'branch';
-			var iconimg = nodes[i].icon ? this.stringFormat('<img src="{0}/{1}" width="20" height="20" align="top">', this.iconpath, nodes[i].icon) : '';
+			var iconimg = nodes[i].icon ? this.stringFormat('<img src="{0}/{1}" width="20" height="20" align="top" id="icon_{2}">', this.iconpath, nodes[i].icon, layerID) : '';
 			
 			/**
 			* Add event handlers
@@ -300,6 +300,9 @@
 			// Swap image
 			this.swapImage(layerID);
 		}
+
+		// Swap icon
+		this.swapIcon(layerID);
 	}
 
 /**
@@ -307,9 +310,9 @@
 */
 	TreeMenu.prototype.swapImage = function (layerID)
 	{
-		imgSrc = document.images['img_' + layerID].src;
+		var imgSrc = document.images['img_' + layerID].src;
 	
-		re = /^(.*)(plus|minus)(bottom|top|single)?.gif$/
+		var re = /^(.*)(plus|minus)(bottom|top|single)?.gif$/
 		if (matches = imgSrc.match(re)) {
 	
 			document.images['img_' + layerID].src = this.stringFormat('{0}{1}{2}{3}',
@@ -317,6 +320,24 @@
 															matches[2] == 'plus' ? 'minus' : 'plus',
 															matches[3] ? matches[3] : '',
 															'.gif');
+		}
+	}
+
+/**
+* Swaps the icon for the expanded icon if one
+* has been supplied.
+*/
+	TreeMenu.prototype.swapIcon = function (layerID)
+	{
+		if (document.images['icon_' + layerID]) {
+			var imgSrc = document.images['icon_' + layerID].src;
+	
+			if (this.nodeRefs[layerID].icon && this.nodeRefs[layerID].expandedIcon) {
+				//alert(imgSrc.indexOf(this.nodeRefs[layerID].expandedIcon));
+				var newSrc = (imgSrc.indexOf(this.nodeRefs[layerID].expandedIcon) == -1 ? this.nodeRefs[layerID].expandedIcon : this.nodeRefs[layerID].icon);
+	
+				document.images['icon_' + layerID].src = this.iconpath + '/' + newSrc;
+			}
 		}
 	}
 
@@ -504,21 +525,22 @@
 /**
 * TreeNode Class
 */
-	function TreeNode(title, icon, link, expanded, isDynamic, cssClass, linkTarget)
+	function TreeNode(title, icon, link, expanded, isDynamic, cssClass, linkTarget, expandedIcon)
 	{
-		this.title      = title;
-		this.icon       = icon;
-		this.link       = link;
-		this.expanded   = expanded;
-		this.isDynamic  = isDynamic;
-		this.cssClass   = cssClass;
-		this.linkTarget = linkTarget;
-		this.n          = new Array();
-		this.events     = new Array();
-		this.handlers   = null;
-		this.oncollapse = null;
-		this.onexpand   = null;
-		this.ontoggle   = null;
+		this.title        = title;
+		this.icon         = icon;
+		this.expandedIcon = expandedIcon;
+		this.link         = link;
+		this.expanded     = expanded;
+		this.isDynamic    = isDynamic;
+		this.cssClass     = cssClass;
+		this.linkTarget   = linkTarget;
+		this.n            = new Array();
+		this.events       = new Array();
+		this.handlers     = null;
+		this.oncollapse   = null;
+		this.onexpand     = null;
+		this.ontoggle     = null;
 	}
 
 /**
