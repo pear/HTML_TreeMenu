@@ -35,27 +35,27 @@
 //
 // $Id$
 
-	require_once('HTML/TreeMenu.php');
+	//require_once('HTML/TreeMenu.php');
+	require_once('../TreeMenu.php');
 	$icon = 'folder.gif';
 
-	$menu  = new HTML_TreeMenu("menuLayer", 'images', '_self');
+	$menu  = new HTML_TreeMenu(array('images' => '../images', 'defaultClass' => 'treeMenuDefault'));
 
-	$node1 = new HTML_TreeNode("First level", "test.php", $icon);
-	$foo   = &$node1->addItem(new HTML_TreeNode("Second level", "test.php", $icon));
-	$bar   = &$foo->addItem(new HTML_TreeNode("Third level", "test.php", $icon));
-	$blaat = &$bar->addItem(new HTML_TreeNode("Fourth level", "test.php", $icon));
-	$blaat->addItem(new HTML_TreeNode("Fifth level", "test.php", $icon));
+	$node1 = new HTML_TreeNode(array('text' => "First level", 'link' => "test.php", 'icon' => $icon));
+	$foo   = &$node1->addItem(new HTML_TreeNode(array('text' => "Second level", 'link' => "test.php", 'icon' => $icon)));
+	$bar   = &$foo->addItem(new HTML_TreeNode(array('text' => "Third level", 'link' => "test.php", 'icon' => $icon)));
+	$blaat = &$bar->addItem(new HTML_TreeNode(array('text' => "Fourth level", 'link' => "test.php", 'icon' => $icon)));
+	$blaat->addItem(new HTML_TreeNode(array('text' => "Fifth level", 'link' => "test.php", 'icon' => $icon, 'cssClass' => 'treeMenuBold')));
 
-	$node1->addItem(new HTML_TreeNode("Second level, item 2", "test.php", $icon));
-	$node1->addItem(new HTML_TreeNode("Second level, item 3", "test.php", $icon));
+	$node1->addItem(new HTML_TreeNode(array('text' => "Second level, item 2", 'link' => "test.php", 'icon' => $icon)));
+	$node1->addItem(new HTML_TreeNode(array('text' => "Second level, item 3", 'link' => "test.php", 'icon' => $icon)));
 	
 	$menu->addItem($node1);
+	$menu->addItem($node1);
 	
-	for ($i=0; $i<10; $i++) {
-		$menu->addItem($node1);
-	}
-
-	
+	// Create the presentation class
+	$treeMenu = &new HTML_TreeMenu_DHTML($menu, array('isDynamic' => true));
+	$listBox  = &new HTML_TreeMenu_Listbox($menu);
 ?>
 <html>
 <head>
@@ -64,9 +64,17 @@
 			font-family: Georgia;
 			font-size: 11pt;
 		}
+		
+		.treeMenuDefault {
+			font-style: italic;
+		}
+		
+		.treeMenuBold {
+			font-style: italic;
+			font-weight: bold;
+		}
 	</style>
-	<script src="sniffer.js" language="JavaScript" type="text/javascript"></script>
-	<script src="TreeMenu.js" language="JavaScript" type="text/javascript"></script>
+	<script src="../TreeMenu.js" language="JavaScript" type="text/javascript"></script>
 </head>
 <body>
 
@@ -77,7 +85,8 @@
 //-->
 </script>
 
-<?$menu->printMenu()?>
+<?$treeMenu->printMenu()?>
+<?$listBox->printMenu()?>
 
 <script language="JavaScript" type="text/javascript">
 <!--
