@@ -93,6 +93,115 @@ class HTML_TreeMenu
         $this->items[] = &$node;
         return $this->items[count($this->items) - 1];
     }
+
+    /**
+    * Import method for creating HTML_TreeMenu objects/structures
+    * out of existing tree objects/structures. Currently supported
+    * are Wolfram Kriesings' PEAR Tree class, and Richard Heyes' (me!)
+    * Tree class (available here: http://www.phpguru.org/). This
+    * method is intended to be used statically, eg:
+    * $treeMenu = &HTML_TreeMenu::import($myTreeStructureObj);
+    *
+    * @param  array  $params   An array of parameters that determine
+    *                          how the import happens. This can consist of:
+    *                            structure   => The tree structure
+    *                            type        => The type of the structure, currently
+    *                                           can be either 'heyes' or 'kriesing'
+    *                            nodeOptions => Default options for each node
+    *                            
+    * @return object           The resulting HTML_TreeMenu object
+    */
+    function createFromStructure($params)
+    {
+        if (!isset($params['nodeOptions'])) {
+            $params['nodeOptions'] = array();
+        }
+
+        switch (@$params['type']) {
+
+            /**
+            * Wolfram Kriesings' PEAR Tree class
+            */
+            case 'kriesing':
+                $className = strtolower(get_class($params['structure']->dataSourceClass));
+                $isXMLStruct = strpos($className,'_xml') !== false ? true : false;
+
+                // Get the entire tree, the $nodes are sorted like in the tree view
+                // from top to bottom, so we can easily put them in the nodes
+                $nodes = $params['structure']->getNode();
+
+                // Make a new menu and fill it with the values from the tree
+                $treeMenu  = new HTML_TreeMenu();
+                $curNode[0] = &$treeMenu;   // we need the current node as the reference to the
+
+                foreach ( $nodes as $aNode ) {
+                    $events = array();
+                    $data = array();
+
+                    // In an XML, all the attributes are saved in an array, but since they might be
+                    // used as the parameters, we simply extract them here if we handle an XML-structure
+                    if ( $isXMLStruct && sizeof($aNode['attributes']) ){
+                        foreach ( $aNode['attributes'] as $key=>$val ) {
+                            if ( !$aNode[$key] ) { // dont overwrite existing values
+                                $aNode[$key] = $val;
+                            }
+                        }
+                    }
+
+                    // Process all the data that are saved in $aNode and put them in the data and/or events array
+                    foreach ( $aNode as $key=>$val ) {
+                        if ( !is_array($val) ) {
+                            // Dont get the recursive data in here! they are always arrays
+                            if ( substr($key,0,2) == 'on' ){  // get the events
+                                $events[$key] = $val;
+                            }
+
+                            // I put it in data too, so in case an options starts with 'on' its also passed to the node ... not too cool i know
+                            $data[$key] = $val;
+                        }
+                    }
+
+                    // Normally the text is in 'name' in the Tree class, so we check both but 'text' is used if found
+                    $data['text'] = $aNode['text'] ? $aNode['text'] : $aNode['name'];
+
+                    // Add the item to the proper node
+                    $thisNode = &$curNode[$aNode['level']]->addItem( new HTML_TreeNode( $data , $events ) );
+                    $curNode[$aNode['level']+1] = &$thisNode;
+                }
+                break;
+
+            /**
+            * Richard Heyes' (me!) Tree class
+            */
+            case 'heyes':
+            default:
+                // Need to create a HTML_TreeMenu object ?
+                if (!isset($params['treeMenu'])) {
+                    $treeMenu = &new HTML_TreeMenu();
+                } else {
+                    $treeMenu = &$params['treeMenu'];
+                }
+                
+                // Loop thru the trees nodes
+                foreach ($params['structure']->nodes->nodes as $node) {
+                    $tag = $node->getTag();
+                    $parentNode = &$treeMenu->addItem(new HTML_TreeNode(array_merge($params['nodeOptions'], $tag)));
+
+                    // Recurse ?
+                    if (!empty($node->nodes->nodes)) {
+                        $recurseParams['structure']   = $node;
+                        $recurseParams['nodeOptions'] = $params['nodeOptions'];
+                        $recurseParams['treeMenu']    = &$parentNode;
+                        HTML_TreeMenu::createFromStructure($recurseParams);
+                    }
+                }
+                break;
+
+        }
+
+        return $treeMenu;
+    }
+
 } // HTML_TreeMenu
 
 
@@ -126,6 +235,12 @@ class HTML_TreeNode
     * @var string
     */
     var $icon;
+
+    /**
+    * The icon to show when expanded for this node.
+    * @var string
+    */
+    var $expandedIcon;
 
     /**
     * The css class for this node
@@ -184,6 +299,7 @@ class HTML_TreeNode
     *                         o text          The title of the node, defaults to blank
     *                         o link          The link for the node, defaults to blank
     *                         o icon          The icon for the node, defaults to blank
+    *                         o expandedIcon  The icon to show when the node is expanded
     *                         o class         The CSS class for this node, defaults to blank
     *                         o expanded      The default expanded status of this node, defaults to false
     *                                         This doesn't affect non dynamic presentation types
@@ -204,6 +320,7 @@ class HTML_TreeNode
         $this->text          = '';
         $this->link          = '';
         $this->icon          = '';
+        $this->expandedIcon  = '';
         $this->cssClass      = '';
         $this->expanded      = false;
         $this->isDynamic     = true;
@@ -299,59 +416,6 @@ class HTML_TreeMenu_Presentation
     */
     function HTML_TreeMenu_Presentation(&$structure)
     {
-		/**
-        * Some code to facilitate the use of Wolfram Kriesings Tree
-		* class instead of the HTML_Tree/HTML_Treenode classes
-        */
-        if ( is_subclass_of( $structure , 'Tree_Common' ) ) {
-
-            $className = strtolower(get_class($structure->dataSourceClass));
-            $isXMLStruct = strpos($className,'_xml') !== false ? true : false;
-
-            // Get the entire tree, the $nodes are sorted like in the tree view
-            // from top to bottom, so we can easily put them in the nodes
-            $nodes = $structure->getNode();
-
-            // Make a new menu and fill it with the values from the tree
-            $structure  = new HTML_TreeMenu();
-            $curNode[0] = &$structure;   // we need the current node as the reference to the
-
-            foreach ( $nodes as $aNode ) {
-                $events = array();
-                $data = array();
-                
-				// In an XML, all the attributes are saved in an array, but since they might be
-                // used as the parameters, we simply extract them here if we handle an XML-structure
-                if ( $isXMLStruct && sizeof($aNode['attributes']) ){
-                    foreach ( $aNode['attributes'] as $key=>$val ) {
-                        if ( !$aNode[$key] ) { // dont overwrite existing values
-                            $aNode[$key] = $val;
-						}
-					}
-                }
-
-                // Process all the data that are saved in $aNode and put them in the data and/or events array
-                foreach ( $aNode as $key=>$val ) {
-                    if ( !is_array($val) ) {
-						// Dont get the recursive data in here! they are always arrays
-                        if ( substr($key,0,2) == 'on' ){  // get the events
-                            $events[$key] = $val;
-						}
-
-						// I put it in data too, so in case an options starts with 'on' its also passed to the node ... not too cool i know
-                        $data[$key] = $val;
-                    }
-                }
-
-                // Normally the text is in 'name' in the Tree class, so we check both but 'text' is used if found
-                $data['text'] = $aNode['text'] ? $aNode['text'] : $aNode['name'];
-
-                // Add the item to the proper node
-                $thisNode = &$curNode[$aNode['level']]->addItem( new HTML_TreeNode( $data , $events ) );
-                $curNode[$aNode['level']+1] = &$thisNode;
-            }
-        }
-
         $this->menu = &$structure;
     }
 
@@ -374,6 +438,7 @@ class HTML_TreeMenu_Presentation
         echo $this->toHTML();
     }
 }
+
 
 /**
 * HTML_TreeMenu_DHTML class
@@ -510,7 +575,7 @@ class HTML_TreeMenu_DHTML extends HTML_TreeMenu_Presentation
     {
         $expanded  = $this->isDynamic ? ($nodeObj->expanded  ? 'true' : 'false') : 'true';
         $isDynamic = $this->isDynamic ? ($nodeObj->isDynamic ? 'true' : 'false') : 'false';
-        $html = sprintf("\t %s = %s.addItem(new TreeNode('%s', %s, %s, %s, %s, '%s', '%s'));\n",
+        $html = sprintf("\t %s = %s.addItem(new TreeNode('%s', %s, %s, %s, %s, '%s', '%s', %s));\n",
                         $return,
                         $prefix,
                         $nodeObj->text,
@@ -519,7 +584,8 @@ class HTML_TreeMenu_DHTML extends HTML_TreeMenu_Presentation
                         $expanded,
                         $isDynamic,
                         $nodeObj->cssClass,
-                        $nodeObj->linkTarget);
+                        $nodeObj->linkTarget,
+                        !empty($nodeObj->expandedIcon) ? "'" . $nodeObj->expandedIcon . "'" : 'null');
 
         foreach ($nodeObj->events as $event => $handler) {
             $html .= sprintf("\t %s.setEvent('%s', '%s');\n",
@@ -539,7 +605,7 @@ class HTML_TreeMenu_DHTML extends HTML_TreeMenu_Presentation
 
         return $html;
     }
-}
+} // End class HTML_TreeMenu_DHTML
 
 
 /**
@@ -651,5 +717,5 @@ class HTML_TreeMenu_Listbox extends HTML_TreeMenu_Presentation
 
         return $html;
     }
-}
+} // End class HTML_TreeMenu_Listbox
 ?>
