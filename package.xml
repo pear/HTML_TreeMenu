@@ -29,17 +29,17 @@ from Chip Chapin (http://www.chipchapin.com).
   </maintainers>
 
   <release>
-    <version>1.1.9</version>
-    <date>2003-12-20</date>
+    <version>1.2.0</version>
+    <date>2005-03-02</date>
     <state>stable</state>
     <notes>
-Fix expanded image when nodes are expanded by default
+Various bug fixes.
     </notes>
 
     <filelist>
       <dir name="/" baseinstalldir="HTML">
         <file role="php" name="TreeMenu.php"/>
-		<file role="data" name="TreeMenu.js"/>
+        <file role="data" name="TreeMenu.js"/>
 
         <dir name="images">
           <file role="data" name="branch.gif"/>
@@ -100,76 +100,85 @@ Fix expanded image when nodes are expanded by default
   </release>
 
   <changelog>
-		<release>
-		    <version>1.1.8</version>
-		    <date>2003-12-20</date>
-		    <state>stable</state>
-		    <notes>
+        <release>
+            <version>1.1.9</version>
+            <date>2003-12-20</date>
+            <state>stable</state>
+            <notes>
+Fix expanded image when nodes are expanded by default
+            </notes>
+        </release>
+
+        <release>
+            <version>1.1.8</version>
+            <date>2003-12-20</date>
+            <state>stable</state>
+            <notes>
 Fix javascript detection issue
-		    </notes>
-		</release>
+            </notes>
+        </release>
 
-		<release>
-		    <version>1.1.7</version>
-		    <date>2003-11-26</date>
-		    <state>stable</state>
-		    <notes>
+        <release>
+            <version>1.1.7</version>
+            <date>2003-11-26</date>
+            <state>stable</state>
+            <notes>
 Bug fix in maxDepth feature
-		    </notes>
-		</release>
+            </notes>
+        </release>
 
-		<release>
-			<version>1.1.6</version>
-			<date>2003-04-02</date>
-			<state>stable</state>
-			<notes>
+        <release>
+            <version>1.1.6</version>
+            <date>2003-04-02</date>
+            <state>stable</state>
+            <notes>
  o Auto escapes ' in node text
  o New maxDepth option HTML_TreeMenu_DHTML presentation class. 
    All nodes past this number of indentations are rendered as siblings. 
-			</notes>
-		</release>
+            </notes>
+        </release>
 
-		<release>
-			<version>1.1.5</version>
-			<date>2003-04-02</date>
-			<state>stable</state>
-			<notes>
+        <release>
+            <version>1.1.5</version>
+            <date>2003-04-02</date>
+            <state>stable</state>
+            <notes>
 Updated browser detection to allow for Opera 7
-			</notes>
-		</release>
+            </notes>
+        </release>
 
-  		<release>
-		    <version>1.1.4</version>
-		    <date>2003-02-21</date>
-		    <state>stable</state>
-		    <notes>
+        <release>
+            <version>1.1.4</version>
+            <date>2003-02-21</date>
+            <state>stable</state>
+            <notes>
 Added a createFromXML() method for creating
 treeMenu structures from XML. This feature
 depends on the PEAR::XML_Tree package.
-		    </notes>
-		</release>
+            </notes>
+        </release>
 
-  		<release>
-		    <version>1.1.3</version>
-		    <date>2003-02-20</date>
-		    <state>stable</state>
-		    <notes>
+        <release>
+            <version>1.1.3</version>
+            <date>2003-02-20</date>
+            <state>stable</state>
+            <notes>
 Added expanded icon support. Added documentation in Word
 and PDF formats. Moved structure import code to its own
 static method createFromStructure(), and added support
 for my own Tree class (http://phpguru.org/tree.html) as
 well as Wolfram Kriesings Tree class.
-		    </notes>
-		</release>
+            </notes>
+        </release>
 
-		<release>
-			<version>1.1.2</version>
-			<date>2002-11-30</date>
-			<state>stable</state>
-			<notes>
+        <release>
+            <version>1.1.2</version>
+            <date>2002-11-30</date>
+            <state>stable</state>
+            <notes>
 Updated example file
-			</notes>
-		</release>
+            </notes>
+        </release>
 
         <release>
           <version>1.1.1</version>
@@ -181,25 +190,25 @@ the presentation classes. Added presentation base class.
           </notes>
         </release>
 
-	<release>
-	  <license>BSD</license>
-	    <version>1.1.0</version>
-	    <date>2002-11-10</date>
-	    <state>stable</state>
-	    <notes>
-		Many changes. See CVS for changelog
-	    </notes>
-	</release>
+    <release>
+      <license>BSD</license>
+        <version>1.1.0</version>
+        <date>2002-11-10</date>
+        <state>stable</state>
+        <notes>
+        Many changes. See CVS for changelog
+        </notes>
+    </release>
 
-	<release>
-	    <license>BSD</license>
-	    <version>1.0.4</version>
-	    <date>2002-07-27</date>
-	    <state>stable</state>
-	    <notes>
-		 License change
-	    </notes>
-	</release>
+    <release>
+        <license>BSD</license>
+        <version>1.0.4</version>
+        <date>2002-07-27</date>
+        <state>stable</state>
+        <notes>
+         License change
+        </notes>
+    </release>
 
     <release>
       <license>PHP</license>
@@ -208,8 +217,8 @@ the presentation classes. Added presentation base class.
       <state>stable</state>
       <notes>
       Bugfixes:
-	    o Persistence fixes
-	    o Reference/copy fixes
+        o Persistence fixes
+        o Reference/copy fixes
       </notes>
     </release>
 
@@ -219,32 +228,32 @@ the presentation classes. Added presentation base class.
       <date>2002-06-30</date>
       <state>stable</state>
       <notes>
-	   Change to use document.write() instead of layers and innerHTML for much speed increase.
+       Change to use document.write() instead of layers and innerHTML for much speed increase.
        Change to use onmousedown instead of onclick for cleaner more defined clicks.
        Added the ability to define whether to use client side persistence.
        Added the ability to define whether a node is dynamic
        Added the ability to define whether a node is expanded
       </notes>
     </release>
-	  <release>
-	    <license>PHP</license>
-	    <version>1.0.1</version>
-	    <date>2002-06-19</date>
-	    <state>stable</state>
-	    <notes>
-		 Added support for Mozilla and NN6
-	    </notes>
-	  </release>
+      <release>
+        <license>PHP</license>
+        <version>1.0.1</version>
+        <date>2002-06-19</date>
+        <state>stable</state>
+        <notes>
+         Added support for Mozilla and NN6
+        </notes>
+      </release>
 
-	  <release>
-	    <license>PHP</license>
-	    <version>1.0</version>
-	    <date>2002-06-15</date>
-	    <state>stable</state>
-	    <notes>
-		 Initial release
-	    </notes>
-	  </release>
+      <release>
+        <license>PHP</license>
+        <version>1.0</version>
+        <date>2002-06-15</date>
+        <state>stable</state>
+        <notes>
+         Initial release
+        </notes>
+      </release>
   </changelog>
 
 </package>
