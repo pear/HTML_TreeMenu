@@ -34,6 +34,7 @@
     <notes>
 	 Change to use document.write() instead of layers and innerHTML for much speed increase.
 	 Change to use onmousedown instead of onclick for cleaner more defined clicks.
+	 Added the ability to define whether to use client side persistence.
     </notes>
     <filelist>
       <dir name="/" baseinstalldir="HTML">

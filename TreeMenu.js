@@ -15,7 +15,7 @@
 // |         Harald Radi <harald.radi@nme.at>                             |
 // +----------------------------------------------------------------------+
 //
-// $Id: TreeMenu.js,v 1.3 2002-06-22 14:45:36 richard Exp $
+// $Id: TreeMenu.js,v 1.4 2002-06-29 20:08:35 richard Exp $
 
 function TreeMenu(layer, iconpath, myname, linkTarget)
 {
@@ -44,13 +44,14 @@ function TreeMenu(layer, iconpath, myname, linkTarget)
 	this.resetBranches      = resetBranches;
 }
 
-function TreeNode(title, icon, link, expanded)
+function TreeNode(title, icon, link, expanded, isDynamic)
 {
-	this.title    = title;
-	this.icon     = icon;
-	this.link     = link;
-	this.expanded = expanded;
-	this.n        = new Array();
+	this.title     = title;
+	this.icon      = icon;
+	this.link      = link;
+	this.expanded  = expanded;
+	this.isDynamic = isDynamic;
+	this.n         = new Array();
 }
 
 /**
@@ -119,8 +120,13 @@ function drawMenu()// OPTIONAL ARGS: nodes = [], level = [], prepend = '', expan
         */
 		if (!doesMenu() || (parentLayerID == null && nodes.length == 1)) {
 			expanded = true;
-		}
 
+		} else if (nodes[i].expanded) {
+			expanded = true;
+
+		} else {
+			expanded = false;
+		}
 		/**
         * Setup branch status and build an indexed array
 		* of branch layer ids
@@ -141,7 +147,7 @@ function drawMenu()// OPTIONAL ARGS: nodes = [], level = [], prepend = '', expan
 		/**
         * Branch images
         */
-		var gifname = nodes[i].n.length && this.doesMenu() ? (expanded ? 'minus' : 'plus') : 'branch';
+		var gifname = nodes[i].n.length && this.doesMenu() && nodes[i].isDynamic ? (expanded ? 'minus' : 'plus') : 'branch';
 		var iconimg = nodes[i].icon ? sprintf('<img src="%s/%s" align="top">', this.iconpath, nodes[i].icon) : '';
 		
 
@@ -149,7 +155,7 @@ function drawMenu()// OPTIONAL ARGS: nodes = [], level = [], prepend = '', expan
         * Build the html to write to the document
         */
 		var divTag    = sprintf('<div id="%s" style="display: %s; behavior: url(#default#userdata)">', layerID, visibility);
-		var onMDown   = doesMenu() && nodes[i].n.length ? sprintf('onmousedown="%s.toggleBranch(\'%s\', true)" style="cursor: pointer; cursor: hand"', this.myname, layerID) : '';
+		var onMDown   = doesMenu() && nodes[i].n.length  && nodes[i].isDynamic ? sprintf('onmousedown="%s.toggleBranch(\'%s\', true)" style="cursor: pointer; cursor: hand"', this.myname, layerID) : '';
 		var imgTag    = sprintf('<img src="%s/%s%s.gif" align="top" border="0" name="img_%s" %s />', this.iconpath, gifname, modifier, layerID, onMDown);
 		var linkStart = nodes[i].link ? sprintf('<a href="%s" target="%s">', nodes[i].link, this.linkTarget) : '';
 		var linkEnd   = nodes[i].link ? '</a>' : '';

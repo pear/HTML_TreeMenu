@@ -31,14 +31,13 @@
 * Usage.
 *
 * After installing the package, copy the example php script to
-* your servers document. Also place the TreeMenu.js and the images
-* folder in the same place. Running the script should then produce
-* the tree.
+* your servers document root. Also place the TreeMenu.js and the
+* images folder in the same place. Running the script should
+* then produce the tree.
 *
 * @author  Richard Heyes <richard@php.net>
 * @author  Harald Radi <harald.radi@nme.at>
 * @access  public
-* @version 1.0
 * @package HTML_TreeMenu
 */
 
@@ -74,18 +73,22 @@ class HTML_TreeMenu
     * Constructor
 	*
 	* @access public
-	* @param  string $layer  The name of the layer to add the HTML to.
-	*                        In browsers that do not support document.all
-	*                        or document.getElementById(), document.write()
-	*                        is used, and thus this layer name has no effect.
-	* @param  string $images The path to the images folder.
+	* @param  string $layer          The name of the layer to add the HTML to.
+	*                                In browsers that do not support document.all
+	*                                or document.getElementById(), document.write()
+	*                                is used, and thus this layer name has no effect.
+	* @param  string $images         The path to the images folder.
+	* @param  string $linkTarget     The target for the link. Defaults to "_self"
+	* @param  string $usePersistence Whether to use clientside persistence. This option
+	*                                only affects ie5+.
     */
-	function HTML_TreeMenu($layer, $images, $linkTarget = '_self')
+	function HTML_TreeMenu($layer, $images, $linkTarget = '_self', $usePersistence = true)
 	{
-		$this->menuobj    = 'objTreeMenu';
-		$this->layer      = $layer;
-		$this->images     = $images;
-		$this->linkTarget = $linkTarget;
+		$this->menuobj        = 'objTreeMenu';
+		$this->layer          = $layer;
+		$this->images         = $images;
+		$this->linkTarget     = $linkTarget;
+		$this->usePersistence = $usePersistence;
 	}
 
 	/**
@@ -131,7 +134,11 @@ class HTML_TreeMenu
 			}
 		}
 
- 		echo sprintf("\n\t%s.drawMenu();\n\t%s.resetBranches();\n</script>", $this->menuobj, $this->menuobj);
+ 		echo sprintf("\n\t%s.drawMenu();", $this->menuobj);
+		if ($this->usePersistence) {
+			echo sprintf("\n\t%s.resetBranches();", $this->menuobj);
+		}
+		echo "\n</script>";
 	}
 
 } // HTML_TreeMenu
@@ -145,7 +152,6 @@ class HTML_TreeMenu
 * @author  Richard Heyes <richard@php.net>
 * @author  Harald Radi <harald.radi@nme.at>
 * @access  public
-* @version 1.0
 * @package HTML_TreeMenu
 */
 class HTML_TreeNode
@@ -184,17 +190,19 @@ class HTML_TreeNode
     * Constructor
 	*
 	* @access public
-	* @param  string $text     The description text for this node
-	* @param  string $link     The link for the text
-	* @param  string $icon     Optional icon to appear to the left of the text
-	* @param  bool   $expanded Whether this node is expanded or not (IE only)
+	* @param  string $text      The description text for this node
+	* @param  string $link      The link for the text
+	* @param  string $icon      Optional icon to appear to the left of the text
+	* @param  bool   $expanded  Whether this node is expanded or not (IE only)
+	* @param  bool   $isDynamic Whether this node is dynamic or not (no affect on non-supportive browsers)
     */
-	function HTML_TreeNode($text, $link,  $icon = null, $expanded = false)
+	function HTML_TreeNode($text = null, $link = null, $icon = null, $expanded = false, $isDynamic = true)
 	{
-		$this->text     = ($text == null) ? "" : $text;
-		$this->link     = ($link == null) ? "" : $link;
-		$this->icon     = ($icon == null) ? "" : $icon;
-		$this->expanded = $expanded;
+		$this->text      = (string)$text;
+		$this->link      = (string)$link;
+		$this->icon      = (string)$icon;
+		$this->expanded  = $expanded;
+		$this->isDynamic = $isDynamic;
 	}
 
 	/**
@@ -213,16 +221,17 @@ class HTML_TreeNode
     * Prints jabbascript for this particular node.
 	*
 	* @access private
-	* @param  string $prefix The jababscript object to assign this node to.
+	* @param  string $prefix The jabbascript object to assign this node to.
     */
 	function _printMenu($prefix)
 	{
-		echo sprintf("\t%s = new TreeNode('%s', %s, %s, %s);\n",
+		echo sprintf("\t%s = new TreeNode('%s', %s, %s, %s, %s);\n",
 		             $prefix,
 		             $this->text,
 		             !empty($this->icon) ? "'" . $this->icon . "'" : 'null',
 		             !empty($this->link) ? "'" . $this->link . "'" : 'null',
-					 $this->expanded ? 'true' : 'false');
+					 $this->expanded  ? 'true' : 'false',
+					 $this->isDynamic ? 'true' : 'false');
 
 		if (!empty($this->items)) {
 			for ($i=0; $i<count($this->items); $i++) {
