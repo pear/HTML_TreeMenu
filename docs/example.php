@@ -40,31 +40,52 @@
 
 	$menu  = new HTML_TreeMenu("menuLayer", 'images', '_self');
 
-	$node1 = new HTML_TreeNode("INBOX", "test.php", $icon);
-	$foo   = &$node1->addItem(new HTML_TreeNode("deleted-items", "test.php", $icon));
-	$bar   = &$foo->addItem(new HTML_TreeNode("deleted-items", "test.php", $icon));
-	$blaat = &$bar->addItem(new HTML_TreeNode("deleted-items", "test.php", $icon));
-	$blaat->addItem(new HTML_TreeNode("deleted-items", "test.php", $icon));
+	$node1 = new HTML_TreeNode("First level", "test.php", $icon);
+	$foo   = &$node1->addItem(new HTML_TreeNode("Second level", "test.php", $icon));
+	$bar   = &$foo->addItem(new HTML_TreeNode("Third level", "test.php", $icon));
+	$blaat = &$bar->addItem(new HTML_TreeNode("Fourth level", "test.php", $icon));
+	$blaat->addItem(new HTML_TreeNode("Fifth level", "test.php", $icon));
 
-	$node1->addItem(new HTML_TreeNode("sent-items",    "test.php", $icon));
-	$node1->addItem(new HTML_TreeNode("drafts",        "test.php", $icon));
-	
+	$node1->addItem(new HTML_TreeNode("Second level, item 2", "test.php", $icon));
+	$node1->addItem(new HTML_TreeNode("Second level, item 3", "test.php", $icon));
 	
 	$menu->addItem($node1);
-	$menu->addItem(new HTML_TreeNode("drafts", "test.php", $icon));
-	$menu->addItem(new HTML_TreeNode("drafts", "test.php", $icon));//$node1);
+	
+	for ($i=0; $i<10; $i++) {
+		$menu->addItem($node1);
+	}
 
 	
 ?>
 <html>
 <head>
+	<style type="text/css">
+		body {
+			font-family: Georgia;
+			font-size: 11pt;
+		}
+	</style>
 	<script src="sniffer.js" language="JavaScript" type="text/javascript"></script>
 	<script src="TreeMenu.js" language="JavaScript" type="text/javascript"></script>
 </head>
 <body>
 
-<div id="menuLayer"></div>
+<script language="JavaScript" type="text/javascript">
+<!--
+	a = new Date();
+	a = a.getTime();
+//-->
+</script>
+
 <?$menu->printMenu()?>
 
+<script language="JavaScript" type="text/javascript">
+<!--
+	b = new Date();
+	b = b.getTime();
+	
+	document.write("Time to render tree: " + ((b - a) / 1000) + "s");
+//-->
+</script>
 </body>
 </html>

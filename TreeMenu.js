@@ -32,7 +32,7 @@
 // |         Harald Radi <harald.radi@nme.at>                              |
 // +-----------------------------------------------------------------------+
 //
-// $Id: TreeMenu.js,v 1.6 2002-07-27 12:43:15 richard Exp $
+// $Id: TreeMenu.js,v 1.7 2002-11-02 21:43:31 richard Exp $
 
 function TreeMenu(layer, iconpath, myname, linkTarget)
 {
@@ -175,19 +175,19 @@ function drawMenu()// OPTIONAL ARGS: nodes = [], level = [], prepend = '', expan
         * Branch images
         */
 		var gifname = nodes[i].n.length && this.doesMenu() && nodes[i].isDynamic ? (expanded ? 'minus' : 'plus') : 'branch';
-		var iconimg = nodes[i].icon ? sprintf('<img src="%s/%s" width="20" height="20" align="top">', this.iconpath, nodes[i].icon) : '';
+		var iconimg = nodes[i].icon ? stringFormat('<img src="{0}/{1}" width="20" height="20" align="top">', this.iconpath, nodes[i].icon) : '';
 		
 
 		/**
         * Build the html to write to the document
         */
-		var divTag    = sprintf('<div id="%s" style="display: %s; behavior: url(#default#userdata)">', layerID, visibility);
-		var onMDown   = doesMenu() && nodes[i].n.length  && nodes[i].isDynamic ? sprintf('onmousedown="%s.toggleBranch(\'%s\', true)" style="cursor: pointer; cursor: hand"', this.myname, layerID) : '';
-		var imgTag    = sprintf('<img src="%s/%s%s.gif" width="20" height="20" align="top" border="0" name="img_%s" %s />', this.iconpath, gifname, modifier, layerID, onMDown);
-		var linkStart = nodes[i].link ? sprintf('<a href="%s" target="%s">', nodes[i].link, this.linkTarget) : '';
+		var divTag    = stringFormat('<div id="{0}" style="display: {1}; behavior: url(#default#userdata)">', layerID, visibility);
+		var onMDown   = doesMenu() && nodes[i].n.length  && nodes[i].isDynamic ? stringFormat('onmousedown="{0}.toggleBranch(\'{1}\', true)" style="cursor: pointer; cursor: hand"', this.myname, layerID) : '';
+		var imgTag    = stringFormat('<img src="{0}/{1}{2}.gif" width="20" height="20" align="top" border="0" name="img_{3}" {4} />', this.iconpath, gifname, modifier, layerID, onMDown);
+		var linkStart = nodes[i].link ? stringFormat('<a href="{0}" target="{1}">', nodes[i].link, this.linkTarget) : '';
 		var linkEnd   = nodes[i].link ? '</a>' : '';
 
-		output = sprintf('%s<nobr>%s%s%s%s%s%s</nobr><br></div>',
+		output = stringFormat('{0}<nobr>{1}{2}{3}{4}{5}{6}</nobr><br></div>',
 		                  divTag,
 						  prepend,
 		                  parentLayerID == null && nodes.length == 1 ? '' : imgTag,
@@ -223,10 +223,10 @@ function drawMenu()// OPTIONAL ARGS: nodes = [], level = [], prepend = '', expan
 				var newPrepend = '';
 
 			} else if (i < (nodes.length - 1)) {
-				var newPrepend = prepend + sprintf('<img src="%s/line.gif" width="20" height="20" align="top">', this.iconpath);
+				var newPrepend = prepend + stringFormat('<img src="{0}/line.gif" width="20" height="20" align="top">', this.iconpath);
 
 			} else {
-				var newPrepend = prepend + sprintf('<img src="%s/linebottom.gif" width="20" height="20" align="top">', this.iconpath);
+				var newPrepend = prepend + stringFormat('<img src="{0}/linebottom.gif" width="20" height="20" align="top">', this.iconpath);
 			}
 
 			this.drawMenu(nodes[i].n,
@@ -277,7 +277,7 @@ function swapImage(layerID)
 	re = /^(.*)(plus|minus)(bottom|top|single)?.gif$/
 	if (matches = imgSrc.match(re)) {
 
-		document.images['img_' + layerID].src = sprintf('%s%s%s%s',
+		document.images['img_' + layerID].src = stringFormat('{0}{1}{2}{3}',
 		                                                matches[1],
 														matches[2] == 'plus' ? 'minus' : 'plus',
 														matches[3] ? matches[3] : '',
@@ -386,32 +386,24 @@ function checkParentVisibility(layerID)
 }
 
 /**
-* Javascript mini implementation of sprintf()
+* New C# style string formatter
 */
-function sprintf(strInput)
+function stringFormat(strInput)
 {
-	var strOutput  = '';
-	var currentArg = 1;
+	var idx = 0;
 
-	for (var i=0; i<strInput.length; i++) {
-		if (strInput.charAt(i) == '%' && i != (strInput.length - 1) && typeof(arguments[currentArg]) != 'undefined') {
-			switch (strInput.charAt(++i)) {
-				case 's':
-					strOutput += arguments[currentArg];
-					break;
-				case '%':
-					strOutput += '%';
-					break;
-			}
-			currentArg++;
-		} else {
-			strOutput += strInput.charAt(i);
+	for (var i=1; i<arguments.length; i++) {
+		while ((idx = strInput.indexOf('{' + (i - 1) + '}', idx)) != -1) {
+			strInput = strInput.substring(0, idx) + arguments[i] + strInput.substr(idx + 3);
 		}
 	}
-
-	return strOutput;
+	
+	return strInput;
 }
 
+/**
+* The much adored PHP explode() function
+*/
 function explode(seperator, input)
 {
 	var output = [];
@@ -437,6 +429,9 @@ function explode(seperator, input)
 	return output;
 }
 
+/**
+* Also much adored, the PHP implode() function
+*/
 function implode(seperator, input)
 {
 	var output = '';
@@ -452,6 +447,9 @@ function implode(seperator, input)
 	return output;
 }
 
+/**
+* Aah, all the old favourites are coming out...
+*/
 function in_array(item, arr)
 {
 	for (var i=0; i<arr.length; i++) {
