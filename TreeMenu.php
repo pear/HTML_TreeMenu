@@ -629,7 +629,7 @@ class HTML_TreeMenu_DHTML extends HTML_TreeMenu_Presentation
         $menuObj     = $this->jsObjectName . '_' . ++$count;
 
         $html  = "\n";
-        $html .= '<script language="javascript" type="text/javascript">' . "\n\t";
+        $html .= '<script language="javascript" type="text/javascript">' . "\n//<![CDATA[\n\t";
         $html .= sprintf('%s = new TreeMenu("%s", "%s", "%s", "%s", %s, %s);',
                          $menuObj,
                          $this->images,
@@ -656,7 +656,7 @@ class HTML_TreeMenu_DHTML extends HTML_TreeMenu_Presentation
         if ($this->usePersistence && $this->isDynamic) {
             $html .= sprintf("\n\t%s.resetBranches();", $menuObj);
         }
-        $html .= "\n</script>";
+        $html .= "\n// ]]>\n</script>";
 
         return $html;
     }
