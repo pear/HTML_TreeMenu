@@ -299,6 +299,59 @@ class HTML_TreeMenu_Presentation
     */
     function HTML_TreeMenu_Presentation(&$structure)
     {
+		/**
+        * Some code to facilitate the use of Wolfram Kriesings Tree
+		* class instead of the HTML_Tree/HTML_Treenode classes
+        */
+        if ( is_subclass_of( $structure , 'Tree_Common' ) ) {
+
+            $className = strtolower(get_class($structure->dataSourceClass));
+            $isXMLStruct = strpos($className,'_xml') !== false ? true : false;
+
+            // Get the entire tree, the $nodes are sorted like in the tree view
+            // from top to bottom, so we can easily put them in the nodes
+            $nodes = $structure->getNode();
+
+            // Make a new menu and fill it with the values from the tree
+            $structure  = new HTML_TreeMenu();
+            $curNode[0] = &$structure;   // we need the current node as the reference to the
+
+            foreach ( $nodes as $aNode ) {
+                $events = array();
+                $data = array();
+                
+				// In an XML, all the attributes are saved in an array, but since they might be
+                // used as the parameters, we simply extract them here if we handle an XML-structure
+                if ( $isXMLStruct && sizeof($aNode['attributes']) ){
+                    foreach ( $aNode['attributes'] as $key=>$val ) {
+                        if ( !$aNode[$key] ) { // dont overwrite existing values
+                            $aNode[$key] = $val;
+						}
+					}
+                }
+
+                // Process all the data that are saved in $aNode and put them in the data and/or events array
+                foreach ( $aNode as $key=>$val ) {
+                    if ( !is_array($val) ) {
+						// Dont get the recursive data in here! they are always arrays
+                        if ( substr($key,0,2) == 'on' ){  // get the events
+                            $events[$key] = $val;
+						}
+
+						// I put it in data too, so in case an options starts with 'on' its also passed to the node ... not too cool i know
+                        $data[$key] = $val;
+                    }
+                }
+
+                // Normally the text is in 'name' in the Tree class, so we check both but 'text' is used if found
+                $data['text'] = $aNode['text'] ? $aNode['text'] : $aNode['name'];
+
+                // Add the item to the proper node
+                $thisNode = &$curNode[$aNode['level']]->addItem( new HTML_TreeNode( $data , $events ) );
+                $curNode[$aNode['level']+1] = &$thisNode;
+            }
+        }
+
         $this->menu = &$structure;
     }
 
@@ -389,7 +442,7 @@ class HTML_TreeMenu_DHTML extends HTML_TreeMenu_Presentation
     */
     function HTML_TreeMenu_DHTML(&$structure, $options = array(), $isDynamic = true)
     {
-        $this->menu      = &$structure;
+        $this->HTML_TreeMenu_Presentation($structure);
         $this->isDynamic = $isDynamic;
 
         // Defaults
@@ -538,7 +591,8 @@ class HTML_TreeMenu_Listbox extends HTML_TreeMenu_Presentation
     */
     function HTML_TreeMenu_Listbox($structure, $options = array())
     {
-        $this->menu       = $structure;
+        $this->HTML_TreeMenu_Presentation($structure);
+
         $this->promoText  = 'Select...';
         $this->indentChar = '&nbsp;';
         $this->indentNum  = 2;
