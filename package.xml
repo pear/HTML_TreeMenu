@@ -40,7 +40,6 @@ Many changes. See CVS for changelog
       <dir name="/" baseinstalldir="HTML">
         <file role="php" name="TreeMenu.php"/>
 		<file role="data" name="TreeMenu.js"/>
-		<file role="data" name="sniffer.js"/>
 
         <dir name="images">
           <file role="data" name="branch.gif"/>
