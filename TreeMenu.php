@@ -11,7 +11,7 @@
 // |   notice, this list of conditions and the following disclaimer.       |
 // | o Redistributions in binary form must reproduce the above copyright   |
 // |   notice, this list of conditions and the following disclaimer in the |
-// |   documentation and/or other materials provided with the distribution.| 
+// |   documentation and/or other materials provided with the distribution.|
 // | o The names of the authors may not be used to endorse or promote      |
 // |   products derived from this software without specific prior written  |
 // |   permission.                                                         |
@@ -98,9 +98,9 @@ class HTML_TreeMenu
 
 /**
 * HTML_TreeNode class
-* 
+*
 * This class is supplementary to the above and provides a way to
-* add nodes to the tree. A node can have other nodes added to it. 
+* add nodes to the tree. A node can have other nodes added to it.
 *
 * @author  Richard Heyes <richard@php.net>
 * @author  Harald Radi <harald.radi@nme.at>
@@ -126,12 +126,18 @@ class HTML_TreeNode
     * @var string
     */
     var $icon;
-    
+
     /**
     * The css class for this node
     * @var string
     */
     var $cssClass;
+
+    /**
+    * The link target for this node
+    * @var string
+    */
+    var $linkTarget;
 
     /**
     * Indexed array of subnodes
@@ -144,19 +150,19 @@ class HTML_TreeNode
     * @var bool
     */
     var $expanded;
-    
+
     /**
     * Whether this node is dynamic or not
     * @var bool
     */
     var $isDynamic;
-    
+
     /**
     * Should this node be made visible?
     * @var bool
     */
     var $ensureVisible;
-    
+
     /**
     * The parent node. Null if top level
     * @var object
@@ -181,6 +187,8 @@ class HTML_TreeNode
     *                         o class         The CSS class for this node, defaults to blank
     *                         o expanded      The default expanded status of this node, defaults to false
     *                                         This doesn't affect non dynamic presentation types
+    *                         o linkTarget    Target for the links. Defaults to linkTarget of the
+    *                                         HTML_TreeMenu_Presentation.
     *                         o isDynamic     If this node is dynamic or not. Only affects
     *                                         certain presentation types.
     *                         o ensureVisible If true this node will be made visible despite the expanded
@@ -200,10 +208,11 @@ class HTML_TreeNode
         $this->expanded      = false;
         $this->isDynamic     = true;
         $this->ensureVisible = false;
+        $this->linkTarget    = null;
 
         $this->parent        = null;
         $this->events        = $events;
-        
+
         foreach ($options as $option => $value) {
             $this->$option = $value;
         }
@@ -240,7 +249,7 @@ class HTML_TreeNode
     {
         $node->parent  = &$this;
         $this->items[] = &$node;
-        
+
         /**
         * If the subnode has ensureVisible set it needs
         * to be handled, and all parents set accordingly.
@@ -251,7 +260,7 @@ class HTML_TreeNode
 
         return $this->items[count($this->items) - 1];
     }
-    
+
     /**
     * Private function to handle ensureVisible stuff
     *
@@ -271,7 +280,7 @@ class HTML_TreeNode
 
 /**
 * HTML_TreeMenu_Presentation class
-* 
+*
 * Base class for other presentation classes to
 * inherit from.
 */
@@ -317,7 +326,7 @@ class HTML_TreeMenu_Presentation
 * HTML_TreeMenu_DHTML class
 *
 * This class is a presentation class for the tree structure
-* created using the TreeMenu/TreeNode. It presents the 
+* created using the TreeMenu/TreeNode. It presents the
 * traditional tree, static for browsers that can't handle
 * the DHTML.
 */
@@ -335,24 +344,24 @@ class HTML_TreeMenu_DHTML extends HTML_TreeMenu_Presentation
     * @var string
     */
     var $images;
-    
+
     /**
     * Target for the links generated
     * @var string
     */
     var $linkTarget;
-    
+
     /**
     * Whether to use clientside persistence or not
     * @var bool
     */
     var $userPersistence;
-    
+
     /**
     * The default CSS class for the nodes
     */
     var $defaultClass;
-    
+
     /**
     * Whether to skip first level branch images
     * @var bool
@@ -402,7 +411,7 @@ class HTML_TreeMenu_DHTML extends HTML_TreeMenu_Presentation
     *
     * @access public
     * @return string The HTML for the menu
-    */    
+    */
     function toHTML()
     {
         static $count = 0;
@@ -418,7 +427,7 @@ class HTML_TreeMenu_DHTML extends HTML_TreeMenu_Presentation
                          $this->defaultClass,
                          $this->usePersistence ? 'true' : 'false',
                          $this->noTopLevelImages ? 'true' : 'false');
- 
+
         $html .= "\n";
 
         /**
@@ -438,7 +447,7 @@ class HTML_TreeMenu_DHTML extends HTML_TreeMenu_Presentation
 
         return $html;
     }
-    
+
     /**
     * Prints a node of the menu
     *
@@ -448,7 +457,7 @@ class HTML_TreeMenu_DHTML extends HTML_TreeMenu_Presentation
     {
         $expanded  = $this->isDynamic ? ($nodeObj->expanded  ? 'true' : 'false') : 'true';
         $isDynamic = $this->isDynamic ? ($nodeObj->isDynamic ? 'true' : 'false') : 'false';
-        $html = sprintf("\t %s = %s.addItem(new TreeNode('%s', %s, %s, %s, %s, '%s'));\n",
+        $html = sprintf("\t %s = %s.addItem(new TreeNode('%s', %s, %s, %s, %s, '%s', '%s'));\n",
                         $return,
                         $prefix,
                         $nodeObj->text,
@@ -456,7 +465,8 @@ class HTML_TreeMenu_DHTML extends HTML_TreeMenu_Presentation
                         !empty($nodeObj->link) ? "'" . $nodeObj->link . "'" : 'null',
                         $expanded,
                         $isDynamic,
-                        $nodeObj->cssClass);
+                        $nodeObj->cssClass,
+                        $nodeObj->linkTarget);
 
         foreach ($nodeObj->events as $event => $handler) {
             $html .= sprintf("\t %s.setEvent('%s', '%s');\n",
@@ -481,7 +491,7 @@ class HTML_TreeMenu_DHTML extends HTML_TreeMenu_Presentation
 
 /**
 * HTML_TreeMenu_Listbox class
-* 
+*
 * This class presents the menu as a listbox
 */
 class HTML_TreeMenu_Listbox extends HTML_TreeMenu_Presentation
@@ -491,20 +501,20 @@ class HTML_TreeMenu_Listbox extends HTML_TreeMenu_Presentation
     * @var string
     */
     var $promoText;
-    
+
     /**
     * The character used for indentation
     * @var string
     */
     var $indentChar;
-    
+
     /**
     * How many of the indent chars to use
     * per indentation level
     * @var integer
     */
     var $indentNum;
-    
+
     /**
     * Target for the links generated
     * @var string
@@ -534,7 +544,7 @@ class HTML_TreeMenu_Listbox extends HTML_TreeMenu_Presentation
         $this->indentNum  = 2;
         $this->linkTarget = '_self';
         $this->submitText = 'Go';
-        
+
         foreach ($options as $option => $value) {
             $this->$option = $value;
         }
@@ -566,16 +576,16 @@ class HTML_TreeMenu_Listbox extends HTML_TreeMenu_Presentation
                        $nodeHTML,
                        $this->submitText);
     }
-    
+
     /**
     * Returns HTML for a single node
-    * 
+    *
     * @access private
     */
     function _nodeToHTML($node, $prefix = '')
     {
         $html = sprintf('<option value="%s">%s%s</option>', $node->link, $prefix, $node->text);
-        
+
         /**
         * Loop through subnodes
         */
@@ -584,7 +594,7 @@ class HTML_TreeMenu_Listbox extends HTML_TreeMenu_Presentation
                 $html .= $this->_nodeToHTML($node->items[$i], $prefix . str_repeat($this->indentChar, $this->indentNum));
             }
         }
-        
+
         return $html;
     }
 }

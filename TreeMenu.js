@@ -10,7 +10,7 @@
 // |   notice, this list of conditions and the following disclaimer.       |
 // | o Redistributions in binary form must reproduce the above copyright   |
 // |   notice, this list of conditions and the following disclaimer in the |
-// |   documentation and/or other materials provided with the distribution.| 
+// |   documentation and/or other materials provided with the distribution.|
 // | o The names of the authors may not be used to endorse or promote      |
 // |   products derived from this software without specific prior written  |
 // |   permission.                                                         |
@@ -32,7 +32,7 @@
 // |         Harald Radi <harald.radi@nme.at>                              |
 // +-----------------------------------------------------------------------+
 //
-// $Id: TreeMenu.js,v 1.9 2002-11-30 21:53:31 richard Exp $
+// $Id: TreeMenu.js,v 1.10 2003-01-03 22:29:48 phanto Exp $
 
 
 /**
@@ -200,7 +200,8 @@
 			var layerTag  = this.doesMenu() ? this.stringFormat('<div id="{0}" style="display: {1}" class="{2}">', layerID, visibility, (nodes[i].cssClass ? nodes[i].cssClass : this.defaultClass)) : this.stringFormat('<div class="{0}">', '');
 			var onMDown   = this.doesMenu() && nodes[i].n.length  && nodes[i].isDynamic ? this.stringFormat('onmousedown="{0}.toggleBranch(\'{1}\', true)" style="cursor: pointer; cursor: hand"', this.myname, layerID) : '';
 			var imgTag    = this.stringFormat('<img src="{0}/{1}{2}.gif" width="20" height="20" align="top" border="0" name="img_{3}" {4}>', this.iconpath, gifname, modifier, layerID, onMDown);
-			var linkStart = nodes[i].link ? this.stringFormat('<a href="{0}" target="{1}">', nodes[i].link, this.linkTarget) : '';
+			var linkTarget= nodes[i].linkTarget ? nodes[i].linkTarget : this.linkTarget;
+			var linkStart = nodes[i].link ? this.stringFormat('<a href="{0}" target="{1}">', nodes[i].link, linkTarget) : '';
 			var linkEnd   = nodes[i].link ? '</a>' : '';
 
 			output = this.stringFormat('{0}<nobr>{1}{2}{3}{4}<span {5}>{6}</span>{7}</nobr><br></div>',
@@ -434,7 +435,7 @@
 	}
 
 /**
-* Checks whether a branch should be open 
+* Checks whether a branch should be open
 * or not based on its parents' status
 */
 	TreeMenu.prototype.checkParentVisibility = function (layerID)
@@ -503,7 +504,7 @@
 /**
 * TreeNode Class
 */
-	function TreeNode(title, icon, link, expanded, isDynamic, cssClass)
+	function TreeNode(title, icon, link, expanded, isDynamic, cssClass, linkTarget)
 	{
 		this.title      = title;
 		this.icon       = icon;
@@ -511,6 +512,7 @@
 		this.expanded   = expanded;
 		this.isDynamic  = isDynamic;
 		this.cssClass   = cssClass;
+		this.linkTarget = linkTarget;
 		this.n          = new Array();
 		this.events     = new Array();
 		this.handlers   = null;
@@ -565,7 +567,7 @@
 // Revised 17 May 99 to add is_nav5up and is_ie5up (see below).
 // Revised 20 Dec 00 to add is_gecko and change is_nav5up to is_nav6up
 //                      also added support for IE5.5 Opera4&5 HotJava3 AOLTV
-// Revised 22 Feb 01 to correct Javascript Detection for IE 5.x, Opera 4, 
+// Revised 22 Feb 01 to correct Javascript Detection for IE 5.x, Opera 4,
 //                      correct Opera 5 detection
 //                      add support for winME and win2k
 //                      synch with browser-type-oo.js
@@ -604,7 +606,7 @@
 //
 // Note: you don't want your Nav4 or IE4 code to "turn off" or
 // stop working when new versions of browsers are released, so
-// in conditional code forks, use is_ie5up ("IE 5.0 or greater") 
+// in conditional code forks, use is_ie5up ("IE 5.0 or greater")
 // is_opera5up ("Opera 5.0 or greater") instead of is_ie5 or is_opera5
 // to check version in code which you want to work on future
 // versions.
