@@ -29,11 +29,13 @@ from Chip Chapin (http://www.chipchapin.com).
   </maintainers>
 
   <release>
-    <version>1.1.5</version>
-    <date>2003-04-02</date>
+    <version>1.1.6</version>
+    <date>2003-11-26</date>
     <state>stable</state>
     <notes>
-Updated browser detection to allow for Opera 7
+ o Auto escapes ' in node text
+ o New maxDepth option HTML_TreeMenu_DHTML presentation class. 
+   All nodes past this number of indentations are rendered as siblings. 
     </notes>
 
     <filelist>
@@ -100,6 +102,15 @@ Updated browser detection to allow for Opera 7
   </release>
 
   <changelog>
+		<release>
+			<version>1.1.5</version>
+			<date>2003-04-02</date>
+			<state>stable</state>
+			<notes>
+Updated browser detection to allow for Opera 7
+			</notes>
+		</release>
+
   		<release>
 		    <version>1.1.4</version>
 		    <date>2003-02-21</date>
