@@ -1,6 +1,6 @@
 <?php
 // +-----------------------------------------------------------------------+
-// | Copyright (c) 2002-2003, Richard Heyes, Harald Radi                        |
+// | Copyright (c) 2002-2005, Richard Heyes, Harald Radi                   |
 // | All rights reserved.                                                  |
 // |                                                                       |
 // | Redistribution and use in source and binary forms, with or without    |
@@ -29,7 +29,7 @@
 // | OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.  |
 // |                                                                       |
 // +-----------------------------------------------------------------------+
-// | Author: Richard Heyes <richard@phpguru.org>                           |
+// | Author: Richard Heyes <http://www.phpguru.org/>                       |
 // |         Harald Radi <harald.radi@nme.at>                              |
 // +-----------------------------------------------------------------------+
 //

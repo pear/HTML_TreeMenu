@@ -1,5 +1,5 @@
 // +-----------------------------------------------------------------------+
-// | Copyright (c) 2002-2003, Richard Heyes, Harald Radi                        |
+// | Copyright (c) 2002-2005, Richard Heyes, Harald Radi                   |
 // | All rights reserved.                                                  |
 // |                                                                       |
 // | Redistribution and use in source and binary forms, with or without    |
@@ -32,7 +32,7 @@
 // |         Harald Radi <harald.radi@nme.at>                              |
 // +-----------------------------------------------------------------------+
 //
-// $Id: TreeMenu.js,v 1.19 2005-03-02 01:09:51 richard Exp $
+// $Id: TreeMenu.js,v 1.20 2005-03-02 02:16:51 richard Exp $
 
 /**
 * Function to create copies of objects which are
