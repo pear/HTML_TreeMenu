@@ -29,13 +29,11 @@ from Chip Chapin (http://www.chipchapin.com).
   </maintainers>
 
   <release>
-    <version>1.1.6</version>
+    <version>1.1.7</version>
     <date>2003-11-26</date>
     <state>stable</state>
     <notes>
- o Auto escapes ' in node text
- o New maxDepth option HTML_TreeMenu_DHTML presentation class. 
-   All nodes past this number of indentations are rendered as siblings. 
+Bug fix in maxDepth feature
     </notes>
 
     <filelist>
@@ -102,6 +100,17 @@ from Chip Chapin (http://www.chipchapin.com).
   </release>
 
   <changelog>
+		<release>
+			<version>1.1.6</version>
+			<date>2003-04-02</date>
+			<state>stable</state>
+			<notes>
+ o Auto escapes ' in node text
+ o New maxDepth option HTML_TreeMenu_DHTML presentation class. 
+   All nodes past this number of indentations are rendered as siblings. 
+			</notes>
+		</release>
+
 		<release>
 			<version>1.1.5</version>
 			<date>2003-04-02</date>
