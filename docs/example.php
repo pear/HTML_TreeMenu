@@ -35,20 +35,22 @@
 //
 // $Id$
 
-	//require_once('HTML/TreeMenu.php');
-	require_once('../TreeMenu.php');
-	$icon = 'folder.gif';
+	require_once('HTML/TreeMenu.php');
+	//require_once('../TreeMenu.php');
+
+	$icon         = 'folder.gif';
+	$expandedIcon = 'folder-expanded.gif';
 
 	$menu  = new HTML_TreeMenu();
 
-	$node1 = new HTML_TreeNode(array('text' => "First level", 'link' => "test.php", 'icon' => $icon), array('onclick' => "alert('foo'); return false", 'onexpand' => "alert('Expanded')"));
-	$foo   = &$node1->addItem(new HTML_TreeNode(array('text' => "Second level", 'link' => "test.php", 'icon' => $icon)));
-	$bar   = &$foo->addItem(new HTML_TreeNode(array('text' => "Third level", 'link' => "test.php", 'icon' => $icon)));
-	$blaat = &$bar->addItem(new HTML_TreeNode(array('text' => "Fourth level", 'link' => "test.php", 'icon' => $icon)));
-	$blaat->addItem(new HTML_TreeNode(array('text' => "Fifth level", 'link' => "test.php", 'icon' => $icon, 'cssClass' => 'treeMenuBold')));
+	$node1   = new HTML_TreeNode(array('text' => "First level", 'link' => "test.php", 'icon' => $icon, 'expandedIcon' => $expandedIcon), array('onclick' => "alert('foo'); return false", 'onexpand' => "alert('Expanded')"));
+	$node1_1 = &$node1->addItem(new HTML_TreeNode(array('text' => "Second level", 'link' => "test.php", 'icon' => $icon, 'expandedIcon' => $expandedIcon)));
+	$node1_1_1 = &$node1_1->addItem(new HTML_TreeNode(array('text' => "Third level", 'link' => "test.php", 'icon' => $icon, 'expandedIcon' => $expandedIcon)));
+	$node1_1_1_1 = &$node1_1_1->addItem(new HTML_TreeNode(array('text' => "Fourth level", 'link' => "test.php", 'icon' => $icon, 'expandedIcon' => $expandedIcon)));
+	$node1_1_1_1->addItem(new HTML_TreeNode(array('text' => "Fifth level", 'link' => "test.php", 'icon' => $icon, 'expandedIcon' => $expandedIcon, 'cssClass' => 'treeMenuBold')));
 
-	$node1->addItem(new HTML_TreeNode(array('text' => "Second level, item 2", 'link' => "test.php", 'icon' => $icon)));
-	$node1->addItem(new HTML_TreeNode(array('text' => "Second level, item 3", 'link' => "test.php", 'icon' => $icon)));
+	$node1->addItem(new HTML_TreeNode(array('text' => "Second level, item 2", 'link' => "test.php", 'icon' => $icon, 'expandedIcon' => $expandedIcon)));
+	$node1->addItem(new HTML_TreeNode(array('text' => "Second level, item 3", 'link' => "test.php", 'icon' => $icon, 'expandedIcon' => $expandedIcon)));
 
 	$menu->addItem($node1);
 	$menu->addItem($node1);
@@ -74,7 +76,7 @@
 			font-weight: bold;
 		}
 	</style>
-	<script src="../TreeMenu.js" language="JavaScript" type="text/javascript"></script>
+	<script src="TreeMenu.js" language="JavaScript" type="text/javascript"></script>
 </head>
 <body>
 
