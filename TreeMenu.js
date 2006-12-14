@@ -32,7 +32,7 @@
 // |         Harald Radi <harald.radi@nme.at>                              |
 // +-----------------------------------------------------------------------+
 //
-// $Id: TreeMenu.js,v 1.21 2005-03-02 02:39:26 richard Exp $
+// $Id: TreeMenu.js,v 1.22 2006-12-14 12:07:34 cweiske Exp $
 
 /**
 * Function to create copies of objects which are
@@ -202,7 +202,7 @@ function arrayCopy(input)
 	        */
 			var gifname  = nodes[i].n.length && this.doesMenu() && nodes[i].isDynamic ? (expanded ? 'minus' : 'plus') : 'branch';
 			var iconName = expanded && nodes[i].expandedIcon ? nodes[i].expandedIcon : nodes[i].icon;
-			var iconimg  = nodes[i].icon ? this.stringFormat('<img src="{0}/{1}" width="20" height="20" align="top" id="icon_{2}">', this.iconpath, iconName, layerID) : '';
+			var iconimg  = nodes[i].icon ? this.stringFormat('<img src="{0}/{1}" align="top" id="icon_{2}">', this.iconpath, iconName, layerID) : '';
 			
 			/**
 			* Add event handlers
@@ -219,7 +219,7 @@ function arrayCopy(input)
 	        */
 			var layerTag  = this.doesMenu() ? this.stringFormat('<div id="{0}" style="display: {1}" class="{2}">', layerID, visibility, (nodes[i].cssClass ? nodes[i].cssClass : this.defaultClass)) : this.stringFormat('<div class="{0}">', nodes[i].cssClass ? nodes[i].cssClass : this.defaultClass);
 			var onMDown   = this.doesMenu() && nodes[i].n.length  && nodes[i].isDynamic ? this.stringFormat('onmousedown="{0}.toggleBranch(\'{1}\', true)" style="cursor: pointer; cursor: hand"', this.myname, layerID) : '';
-			var imgTag    = this.stringFormat('<img src="{0}/{1}{2}.gif" width="20" height="20" align="top" border="0" name="img_{3}" {4}>', this.iconpath, gifname, modifier, layerID, onMDown);
+			var imgTag    = this.stringFormat('<img src="{0}/{1}{2}.gif" align="top" border="0" name="img_{3}" {4}>', this.iconpath, gifname, modifier, layerID, onMDown);
 			var linkTarget= nodes[i].linkTarget ? nodes[i].linkTarget : this.linkTarget;
 			var linkStart = nodes[i].link ? this.stringFormat('<a href="{0}" target="{1}">', nodes[i].link, linkTarget) : '';
 
@@ -248,10 +248,10 @@ function arrayCopy(input)
 					var newPrepend = '';
 	
 				} else if (i < (nodes.length - 1)) {
-					var newPrepend = prepend + this.stringFormat('<img src="{0}/line.gif" width="20" height="20" align="top">', this.iconpath);
+					var newPrepend = prepend + this.stringFormat('<img src="{0}/line.gif" align="top">', this.iconpath);
 	
 				} else {
-					var newPrepend = prepend + this.stringFormat('<img src="{0}/linebottom.gif" width="20" height="20" align="top">', this.iconpath);
+					var newPrepend = prepend + this.stringFormat('<img src="{0}/linebottom.gif" align="top">', this.iconpath);
 				}
 
 				this.drawMenu(nodes[i].n,
