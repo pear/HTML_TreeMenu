@@ -249,7 +249,7 @@ class HTML_TreeMenu
     * attributes to the <node> tag. If there are no subnodes for a particular node, you can
     * use the XML shortcut <node ... /> instead of <node ... ></node>. The $xml argument can
     * be either the XML as a string, or an pre-created XML_Tree object. Also, this method
-    * REQUIRES my own Tree class to work (http://phpguru.org/tree.html). If this has not
+    * REQUIRES my own Tree class to work (http://www.phpguru.org/static/tree.html). If this has not
     * been include()ed or require()ed this method will die().
     *
     * @param  mixed  $xml  This can be either a string containing the XML, or an XML_Tree object
