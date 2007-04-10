@@ -108,7 +108,7 @@ class HTML_TreeMenu
     *                            type        => The type of the structure, currently
     *                                           can be either 'heyes' or 'kriesing'
     *                            nodeOptions => Default options for each node
-    *                            
+    *
     * @return object           The resulting HTML_TreeMenu object
     */
     function createFromStructure($params)
@@ -182,7 +182,7 @@ class HTML_TreeMenu
                     $treeMenu = &$params['treeMenu'];
                     $parentID = $params['parentID'];
                 }
-                
+
                 // Loop thru the trees nodes
                 foreach ($params['structure']->getChildren($parentID) as $nodeID) {
                     $data = $params['structure']->getData($nodeID);
@@ -198,7 +198,7 @@ class HTML_TreeMenu
                         HTML_TreeMenu::createFromStructure($recurseParams);
                     }
                 }
-                
+
                 break;
 
             /**
@@ -212,7 +212,7 @@ class HTML_TreeMenu
                 } else {
                     $treeMenu = &$params['treeMenu'];
                 }
-                
+
                 // Loop thru the trees nodes
                 foreach ($params['structure']->nodes->nodes as $node) {
                     $tag = $node->getTag();
@@ -232,7 +232,7 @@ class HTML_TreeMenu
 
         return $treeMenu;
     }
-    
+
     /**
     * Creates a treeMenu from XML. The structure of your XML should be
     * like so:
@@ -278,7 +278,7 @@ class HTML_TreeMenu
         $treeStructure = Tree::createFromXMLTree($xmlTree, true);
         $treeStructure->nodes->traverse(create_function('&$node', '$tagData = $node->getTag(); $node->setTag($tagData["attributes"]);'));
 
-        
+
         return HTML_TreeMenu::createFromStructure(array('structure' => $treeStructure));
     }
 } // HTML_TreeMenu
@@ -564,7 +564,7 @@ class HTML_TreeMenu_DHTML extends HTML_TreeMenu_Presentation
     * @var bool
     */
     var $noTopLevelImages;
-    
+
     /**
     * Name of Jabbascript object to use
     * @var string
@@ -629,7 +629,7 @@ class HTML_TreeMenu_DHTML extends HTML_TreeMenu_Presentation
         $menuObj     = $this->jsObjectName . '_' . ++$count;
 
         $html  = "\n";
-        $html .= '<script language="javascript" type="text/javascript">' . "\n//<![CDATA[\n\t";
+        $html .= '<script type="text/javascript">' . "\n//<![CDATA[\n\t";
         $html .= sprintf('%s = new TreeMenu("%s", "%s", "%s", "%s", %s, %s);',
                          $menuObj,
                          $this->images,
@@ -669,7 +669,7 @@ class HTML_TreeMenu_DHTML extends HTML_TreeMenu_Presentation
     function _nodeToHTML($nodeObj, $prefix, $return = 'newNode', $currentDepth = 0, $maxDepthPrefix = null)
     {
         $prefix = empty($maxDepthPrefix) ? $prefix : $maxDepthPrefix;
-        
+
         $expanded  = $this->isDynamic ? ($nodeObj->expanded  ? 'true' : 'false') : 'true';
         $isDynamic = $this->isDynamic ? ($nodeObj->isDynamic ? 'true' : 'false') : 'false';
         $html = sprintf("\t %s = %s.addItem(new TreeNode('%s', %s, %s, %s, %s, '%s', '%s', %s));\n",
