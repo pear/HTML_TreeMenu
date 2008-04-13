@@ -1,14 +1,12 @@
-<?xml version="1.0" encoding="ISO-8859-1"?>
-<!DOCTYPE package SYSTEM "http://pear.php.net/dtd/package-1.0">
-<!-- do not use the "Type" attribute here, that one is only for
-     generated package.xml files -->
-<package>
-
-  <name>HTML_TreeMenu</name>
-  <summary>Provides an api to create a HTML tree</summary>
-  <license>BSD</license>  
-  <description>
-PHP Based api creates a tree structure using a couple of
+<?xml version="1.0" encoding="UTF-8"?>
+<package packagerversion="1.7.1" version="2.0" xmlns="http://pear.php.net/dtd/package-2.0" xmlns:tasks="http://pear.php.net/dtd/tasks-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pear.php.net/dtd/tasks-1.0
+http://pear.php.net/dtd/tasks-1.0.xsd
+http://pear.php.net/dtd/package-2.0
+http://pear.php.net/dtd/package-2.0.xsd">
+ <name>HTML_TreeMenu</name>
+ <channel>pear.php.net</channel>
+ <summary>Provides an api to create a HTML tree</summary>
+ <description>PHP Based api creates a tree structure using a couple of
 small PHP classes. This can then be converted to javascript
 using the printMenu() method. The tree is  dynamic in
 IE 4 or higher, NN6/Mozilla and Opera 7, and maintains state
@@ -16,244 +14,372 @@ IE 4 or higher, NN6/Mozilla and Opera 7, and maintains state
 Other browsers display the tree fully expanded. Each node can
 have an optional link and icon. New API in 1.1 with many changes
 (see CVS for changelog) and new features, of which most came
-from Chip Chapin (http://www.chipchapin.com).
-  </description>
+from Chip Chapin (http://www.chipchapin.com).</description>
+ <lead>
+  <name>Richard Heyes</name>
+  <user>richard</user>
+  <email>richardh@phpguru.org</email>
+  <active>no</active>
+ </lead>
+ <lead>
+  <name>Chuck Burgess</name>
+  <user>ashnazg</user>
+  <email>demon.gene@gmail.com</email>
+  <active>yes</active>
+ </lead>
+ <date>2008-04-13</date>
+ <time>10:58:43</time>
+ <version>
+  <release>1.2.1</release>
+  <api>1.2.0</api>
+ </version>
+ <stability>
+  <release>stable</release>
+  <api>stable</api>
+ </stability>
+ <license uri="http://www.opensource.org/licenses/bsd-license.php">BSD</license>
+ <notes>
+ * Fix Bug #1776: [CDATA[ addition to javascript code [richard]
+ * Fix Bug #2392: Nodes open expanded on mulitiple menus [richard]
+ * Implement Feature #5595: &quot;language&quot; attribute in &lt;script&gt; tag won&apos;t validate as XHTML strict [cweiske]
+ * Implement Feature #5833: DHTML Menu icon size is fixed, so custom icons may not display correcly [cweiske]
+ * Implement Feature #7435: createFromXML comments [cweiske]
 
-  <maintainers>
-    <maintainer>
-      <user>richard</user>
-      <name>Richard Heyes</name>
-      <email>richard@php.net</email>
-      <role>lead</role>
-    </maintainer>
-  </maintainers>
-
+ Also update package.xml to version 2.0
+ </notes>
+ <contents>
+  <dir name="/">
+   <dir name="docs">
+    <file baseinstalldir="HTML" name="example.php" role="php" />
+    <file baseinstalldir="HTML" name="HTML_TreeMenu.doc" role="doc" />
+    <file baseinstalldir="HTML" name="HTML_TreeMenu.pdf" role="doc" />
+    <file baseinstalldir="HTML" name="map_fs.php" role="php" />
+   </dir> <!-- /docs -->
+   <dir name="images">
+    <file baseinstalldir="HTML" name="branch.gif" role="data" />
+    <file baseinstalldir="HTML" name="branchbottom.gif" role="data" />
+    <file baseinstalldir="HTML" name="branchtop.gif" role="data" />
+    <file baseinstalldir="HTML" name="folder-expanded.gif" role="data" />
+    <file baseinstalldir="HTML" name="folder.gif" role="data" />
+    <file baseinstalldir="HTML" name="line.gif" role="data" />
+    <file baseinstalldir="HTML" name="linebottom.gif" role="data" />
+    <file baseinstalldir="HTML" name="minus.gif" role="data" />
+    <file baseinstalldir="HTML" name="minusbottom.gif" role="data" />
+    <file baseinstalldir="HTML" name="minustop.gif" role="data" />
+    <file baseinstalldir="HTML" name="plus.gif" role="data" />
+    <file baseinstalldir="HTML" name="plusbottom.gif" role="data" />
+    <file baseinstalldir="HTML" name="plustop.gif" role="data" />
+   </dir> <!-- /images -->
+   <dir name="imagesAlt">
+    <file baseinstalldir="HTML" name="branch.gif" role="data" />
+    <file baseinstalldir="HTML" name="branchbottom.gif" role="data" />
+    <file baseinstalldir="HTML" name="branchtop.gif" role="data" />
+    <file baseinstalldir="HTML" name="folder-expanded.gif" role="data" />
+    <file baseinstalldir="HTML" name="folder.gif" role="data" />
+    <file baseinstalldir="HTML" name="line.gif" role="data" />
+    <file baseinstalldir="HTML" name="linebottom.gif" role="data" />
+    <file baseinstalldir="HTML" name="minus.gif" role="data" />
+    <file baseinstalldir="HTML" name="minusbottom.gif" role="data" />
+    <file baseinstalldir="HTML" name="minustop.gif" role="data" />
+    <file baseinstalldir="HTML" name="plus.gif" role="data" />
+    <file baseinstalldir="HTML" name="plusbottom.gif" role="data" />
+    <file baseinstalldir="HTML" name="plustop.gif" role="data" />
+   </dir> <!-- /imagesAlt -->
+   <dir name="imagesAlt2">
+    <file baseinstalldir="HTML" name="branch.gif" role="data" />
+    <file baseinstalldir="HTML" name="branchbottom.gif" role="data" />
+    <file baseinstalldir="HTML" name="branchtop.gif" role="data" />
+    <file baseinstalldir="HTML" name="folder-expanded.gif" role="data" />
+    <file baseinstalldir="HTML" name="folder.gif" role="data" />
+    <file baseinstalldir="HTML" name="line.gif" role="data" />
+    <file baseinstalldir="HTML" name="linebottom.gif" role="data" />
+    <file baseinstalldir="HTML" name="minus.gif" role="data" />
+    <file baseinstalldir="HTML" name="minusbottom.gif" role="data" />
+    <file baseinstalldir="HTML" name="minustop.gif" role="data" />
+    <file baseinstalldir="HTML" name="plus.gif" role="data" />
+    <file baseinstalldir="HTML" name="plusbottom.gif" role="data" />
+    <file baseinstalldir="HTML" name="plustop.gif" role="data" />
+   </dir> <!-- /imagesAlt2 -->
+   <file baseinstalldir="HTML" name="TreeMenu.js" role="data" />
+   <file baseinstalldir="HTML" name="TreeMenu.php" role="php" />
+  </dir> <!-- / -->
+ </contents>
+ <dependencies>
+  <required>
+   <php>
+    <min>4.0.0</min>
+   </php>
+   <pearinstaller>
+    <min>1.4.0b1</min>
+   </pearinstaller>
+  </required>
+ </dependencies>
+ <phprelease />
+ <changelog>
   <release>
-    <version>1.2.0</version>
-    <date>2005-03-02</date>
-    <state>stable</state>
-    <notes>
-Various bug fixes.
-    </notes>
-
-    <filelist>
-      <dir name="/" baseinstalldir="HTML">
-        <file role="php" name="TreeMenu.php"/>
-        <file role="data" name="TreeMenu.js"/>
-
-        <dir name="images">
-          <file role="data" name="branch.gif"/>
-          <file role="data" name="branchbottom.gif"/>
-          <file role="data" name="branchtop.gif"/>
-          <file role="data" name="folder.gif"/>
-          <file role="data" name="folder-expanded.gif"/>
-          <file role="data" name="line.gif"/>
-          <file role="data" name="linebottom.gif"/>
-          <file role="data" name="minus.gif"/>
-          <file role="data" name="minusbottom.gif"/>
-          <file role="data" name="minustop.gif"/>
-          <file role="data" name="plus.gif"/>
-          <file role="data" name="plusbottom.gif"/>
-          <file role="data" name="plustop.gif"/>
-        </dir>
-
-        <dir name="imagesAlt">
-          <file role="data" name="branch.gif"/>
-          <file role="data" name="branchbottom.gif"/>
-          <file role="data" name="branchtop.gif"/>
-          <file role="data" name="folder.gif"/>
-          <file role="data" name="folder-expanded.gif"/>
-          <file role="data" name="line.gif"/>
-          <file role="data" name="linebottom.gif"/>
-          <file role="data" name="minus.gif"/>
-          <file role="data" name="minusbottom.gif"/>
-          <file role="data" name="minustop.gif"/>
-          <file role="data" name="plus.gif"/>
-          <file role="data" name="plusbottom.gif"/>
-          <file role="data" name="plustop.gif"/>
-        </dir>
-
-        <dir name="imagesAlt2">
-          <file role="data" name="branch.gif"/>
-          <file role="data" name="branchbottom.gif"/>
-          <file role="data" name="branchtop.gif"/>
-          <file role="data" name="folder.gif"/>
-          <file role="data" name="folder-expanded.gif"/>
-          <file role="data" name="line.gif"/>
-          <file role="data" name="linebottom.gif"/>
-          <file role="data" name="minus.gif"/>
-          <file role="data" name="minusbottom.gif"/>
-          <file role="data" name="minustop.gif"/>
-          <file role="data" name="plus.gif"/>
-          <file role="data" name="plusbottom.gif"/>
-          <file role="data" name="plustop.gif"/>
-        </dir>
-
-        <dir name="docs">
-          <file role="php" name="example.php"/>
-          <file role="php" name="map_fs.php"/>
-          <file role="doc" name="HTML_TreeMenu.doc"/>
-          <file role="doc" name="HTML_TreeMenu.pdf"/>
-        </dir>
-      </dir>
-    </filelist>
+   <version>
+    <release>1.2.1</release>
+    <api>1.2.0</api>
+   </version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api>
+   </stability>
+   <date>2005-03-02</date>
+   <license uri="http://www.opensource.org/licenses/bsd-license.php">BSD</license>
+   <notes>Various bug fixes.
+   </notes>
   </release>
+  <release>
+   <version>
+    <release>1.1.9</release>
+    <api>1.1.9</api>
+   </version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api>
+   </stability>
+   <date>2003-12-20</date>
+   <license uri="http://www.opensource.org/licenses/bsd-license.php">BSD</license>
+   <notes>Fix expanded image when nodes are expanded by default
+            
 
-  <changelog>
-        <release>
-            <version>1.1.9</version>
-            <date>2003-12-20</date>
-            <state>stable</state>
-            <notes>
-Fix expanded image when nodes are expanded by default
-            </notes>
-        </release>
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.1.8</release>
+    <api>1.1.8</api>
+   </version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api>
+   </stability>
+   <date>2003-12-20</date>
+   <license uri="http://www.opensource.org/licenses/bsd-license.php">BSD</license>
+   <notes>Fix javascript detection issue
+            
 
-        <release>
-            <version>1.1.8</version>
-            <date>2003-12-20</date>
-            <state>stable</state>
-            <notes>
-Fix javascript detection issue
-            </notes>
-        </release>
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.1.7</release>
+    <api>1.1.7</api>
+   </version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api>
+   </stability>
+   <date>2003-11-26</date>
+   <license uri="http://www.opensource.org/licenses/bsd-license.php">BSD</license>
+   <notes>Bug fix in maxDepth feature
+            
 
-        <release>
-            <version>1.1.7</version>
-            <date>2003-11-26</date>
-            <state>stable</state>
-            <notes>
-Bug fix in maxDepth feature
-            </notes>
-        </release>
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.1.6</release>
+    <api>1.1.6</api>
+   </version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api>
+   </stability>
+   <date>2003-04-02</date>
+   <license uri="http://www.opensource.org/licenses/bsd-license.php">BSD</license>
+   <notes>o Auto escapes &apos; in node text
+o New maxDepth option HTML_TreeMenu_DHTML presentation class. 
+  All nodes past this number of indentations are rendered as siblings. 
+           
 
-        <release>
-            <version>1.1.6</version>
-            <date>2003-04-02</date>
-            <state>stable</state>
-            <notes>
- o Auto escapes ' in node text
- o New maxDepth option HTML_TreeMenu_DHTML presentation class. 
-   All nodes past this number of indentations are rendered as siblings. 
-            </notes>
-        </release>
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.1.5</release>
+    <api>1.1.5</api>
+   </version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api>
+   </stability>
+   <date>2003-04-02</date>
+   <license uri="http://www.opensource.org/licenses/bsd-license.php">BSD</license>
+   <notes>Updated browser detection to allow for Opera 7
+            
 
-        <release>
-            <version>1.1.5</version>
-            <date>2003-04-02</date>
-            <state>stable</state>
-            <notes>
-Updated browser detection to allow for Opera 7
-            </notes>
-        </release>
-
-        <release>
-            <version>1.1.4</version>
-            <date>2003-02-21</date>
-            <state>stable</state>
-            <notes>
-Added a createFromXML() method for creating
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.1.4</release>
+    <api>1.1.4</api>
+   </version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api>
+   </stability>
+   <date>2003-02-21</date>
+   <license uri="http://www.opensource.org/licenses/bsd-license.php">BSD</license>
+   <notes>Added a createFromXML() method for creating
 treeMenu structures from XML. This feature
 depends on the PEAR::XML_Tree package.
-            </notes>
-        </release>
+            
 
-        <release>
-            <version>1.1.3</version>
-            <date>2003-02-20</date>
-            <state>stable</state>
-            <notes>
-Added expanded icon support. Added documentation in Word
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.1.3</release>
+    <api>1.1.3</api>
+   </version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api>
+   </stability>
+   <date>2003-02-20</date>
+   <license uri="http://www.opensource.org/licenses/bsd-license.php">BSD</license>
+   <notes>Added expanded icon support. Added documentation in Word
 and PDF formats. Moved structure import code to its own
 static method createFromStructure(), and added support
 for my own Tree class (http://phpguru.org/tree.html) as
 well as Wolfram Kriesings Tree class.
-            </notes>
-        </release>
+            
 
-        <release>
-            <version>1.1.2</version>
-            <date>2002-11-30</date>
-            <state>stable</state>
-            <notes>
-Updated example file
-            </notes>
-        </release>
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.1.2</release>
+    <api>1.1.2</api>
+   </version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api>
+   </stability>
+   <date>2002-11-30</date>
+   <license uri="http://www.opensource.org/licenses/bsd-license.php">BSD</license>
+   <notes>Updated example file
+            
 
-        <release>
-          <version>1.1.1</version>
-          <date>2002-11-30</date>
-          <state>stable</state>
-          <notes>
-Added event support, and moved various options from the TreeMenu class to
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.1.1</release>
+    <api>1.1.1</api>
+   </version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api>
+   </stability>
+   <date>2002-11-30</date>
+   <license uri="http://www.opensource.org/licenses/bsd-license.php">BSD</license>
+   <notes>Added event support, and moved various options from the TreeMenu class to
 the presentation classes. Added presentation base class.
-          </notes>
-        </release>
+          
 
-    <release>
-      <license>BSD</license>
-        <version>1.1.0</version>
-        <date>2002-11-10</date>
-        <state>stable</state>
-        <notes>
-        Many changes. See CVS for changelog
-        </notes>
-    </release>
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.1.0</release>
+    <api>1.1.0</api>
+   </version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api>
+   </stability>
+   <date>2002-11-10</date>
+   <license uri="http://www.opensource.org/licenses/bsd-license.php">BSD</license>
+   <notes>Many changes. See CVS for changelog
 
-    <release>
-        <license>BSD</license>
-        <version>1.0.4</version>
-        <date>2002-07-27</date>
-        <state>stable</state>
-        <notes>
-         License change
-        </notes>
-    </release>
 
-    <release>
-      <license>PHP</license>
-      <version>1.0.3</version>
-      <date>2002-07-05</date>
-      <state>stable</state>
-      <notes>
-      Bugfixes:
-        o Persistence fixes
-        o Reference/copy fixes
-      </notes>
-    </release>
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.0.4</release>
+    <api>1.0.4</api>
+   </version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api>
+   </stability>
+   <date>2002-07-27</date>
+   <license uri="http://www.opensource.org/licenses/bsd-license.php">BSD</license>
+   <notes>License change
 
-    <release>
-      <license>PHP</license>
-      <version>1.0.2</version>
-      <date>2002-06-30</date>
-      <state>stable</state>
-      <notes>
-       Change to use document.write() instead of layers and innerHTML for much speed increase.
-       Change to use onmousedown instead of onclick for cleaner more defined clicks.
-       Added the ability to define whether to use client side persistence.
-       Added the ability to define whether a node is dynamic
-       Added the ability to define whether a node is expanded
-      </notes>
-    </release>
-      <release>
-        <license>PHP</license>
-        <version>1.0.1</version>
-        <date>2002-06-19</date>
-        <state>stable</state>
-        <notes>
-         Added support for Mozilla and NN6
-        </notes>
-      </release>
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.0.3</release>
+    <api>1.0.3</api>
+   </version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api>
+   </stability>
+   <date>2002-07-05</date>
+   <license uri="http://www.php.net/license">PHP</license>
+   <notes>Bugfixes:
+  o Persistence fixes
+  o Reference/copy fixes
 
-      <release>
-        <license>PHP</license>
-        <version>1.0</version>
-        <date>2002-06-15</date>
-        <state>stable</state>
-        <notes>
-         Initial release
-        </notes>
-      </release>
-  </changelog>
 
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.0.2</release>
+    <api>1.0.2</api>
+   </version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api>
+   </stability>
+   <date>2002-06-30</date>
+   <license uri="http://www.php.net/license">PHP</license>
+   <notes>Change to use document.write() instead of layers and innerHTML for much speed increase.
+Change to use onmousedown instead of onclick for cleaner more defined clicks.
+Added the ability to define whether to use client side persistence.
+Added the ability to define whether a node is dynamic
+Added the ability to define whether a node is expanded
+
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.0.1</release>
+    <api>1.0.1</api>
+   </version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api>
+   </stability>
+   <date>2002-06-19</date>
+   <license uri="http://www.php.net/license">PHP</license>
+   <notes>Added support for Mozilla and NN6
+
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.0</release>
+    <api>1.0</api>
+   </version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api>
+   </stability>
+   <date>2002-06-15</date>
+   <license uri="http://www.php.net/license">PHP</license>
+   <notes>Initial release
+
+   </notes>
+  </release>
+ </changelog>
 </package>
