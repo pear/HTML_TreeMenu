@@ -300,6 +300,8 @@ class HTML_TreeMenu
      * @return HTML_TreeMenu The {@link HTML_TreeMenu} object
      * @access public
      * @static
+     * @todo update {@link http://pear.php.net/package/XML_Tree XML_Tree} usage 
+     *       to {@link http://pear.php.net/package/XML_Serializer XML_Serializer}
      */
     function createFromXML($xml)
     {
