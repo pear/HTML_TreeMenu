@@ -24,7 +24,13 @@ from Chip Chapin (http://www.chipchapin.com).</description>
  <lead>
   <name>Chuck Burgess</name>
   <user>ashnazg</user>
-  <email>demon.gene@gmail.com</email>
+  <email>ashnazg@php.net</email>
+  <active>yes</active>
+ </lead>
+ <lead>
+  <name>Ken Guest</name>
+  <user>kguest</user>
+  <email>kguest@php.net</email>
   <active>yes</active>
  </lead>
  <date>2008-04-13</date>
@@ -49,6 +55,10 @@ from Chip Chapin (http://www.chipchapin.com).</description>
  </notes>
  <contents>
   <dir name="/">
+   <dir name="tests">
+    <file baseinstalldir="HTML" name="AllTests.php" role="test" />
+    <file baseinstalldir="HTML" name="testBug_9750.phpt" role="test" />
+   </dir> <!-- /tests -->
    <dir name="docs">
     <file baseinstalldir="HTML" name="example.php" role="php" />
     <file baseinstalldir="HTML" name="HTML_TreeMenu.doc" role="doc" />
