@@ -104,10 +104,10 @@ class HTML_TreeMenu
     }
 
     /**
-     * Import method for creating {@link HTML_TreeMenu} objects/structures 
-     * out of existing tree objects/structures. 
+     * Import method for creating {@link HTML_TreeMenu} objects/structures
+     * out of existing tree objects/structures.
      *
-     * Currently supported are Wolfram Kriesings' PEAR Tree class, and 
+     * Currently supported are Wolfram Kriesings' PEAR Tree class, and
      * Richard Heyes' Tree class ({@link http://www.phpguru.org/}). This
      * method is intended to be used statically, eg:
      * <code>
@@ -266,7 +266,7 @@ class HTML_TreeMenu
     }
 
     /**
-     * Creates a treeMenu from XML. 
+     * Creates a treeMenu from XML.
      *
      * The structure of your XML should be like so:
      * <code>
@@ -293,14 +293,14 @@ class HTML_TreeMenu
      * include()ed or require()ed this method will die().
      *
      * @param string|XML_Tree $xml This can be either a string containing the XML,
-     *                             or an 
-     *                             {@link http://pear.php.net/package/XML_Tree 
+     *                             or an
+     *                             {@link http://pear.php.net/package/XML_Tree
      *                             XML_Tree} object
      *
      * @return HTML_TreeMenu The {@link HTML_TreeMenu} object
      * @access public
      * @static
-     * @todo update {@link http://pear.php.net/package/XML_Tree XML_Tree} usage 
+     * @todo update {@link http://pear.php.net/package/XML_Tree XML_Tree} usage
      *       to {@link http://pear.php.net/package/XML_Serializer XML_Serializer}
      */
     function createFromXML($xml)
@@ -634,7 +634,7 @@ class HTML_TreeMenu_DHTML extends HTML_TreeMenu_Presentation
      */
 
     /**
-     * Dynamic status of the treemenu. 
+     * Dynamic status of the treemenu.
      * If true (default) this has no effect. If
      * false it will override all dynamic status vars and set the menu to be
      * fully expanded an non-dynamic.
@@ -735,9 +735,9 @@ class HTML_TreeMenu_DHTML extends HTML_TreeMenu_Presentation
     }
 
     /**
-     * Returns the HTML for the menu. 
+     * Returns the HTML for the menu.
      *
-     * This method can be used instead of 
+     * This method can be used instead of
      * {@link HTML_TreeMenu_Presentation::printMenu()}
      * to use the menu system with a template system.
      *
@@ -944,6 +944,7 @@ class HTML_TreeMenu_Listbox extends HTML_TreeMenu_Presentation
     function toHTML()
     {
         static $count = 0;
+
         $nodeHTML = '';
 
         /*
