@@ -3,17 +3,24 @@ HTML_TreeMenu tests for Bug #4950:  Using "kriesing" tree type the "nodeOptions"
 --CREDITS--
 Chuck Burgess <ashnazg@php.net>
 # created for v1.2.2 2008-05-06
+--SKIPIF--
+<?php
+if (!file_exists(dirname(__FILE__) . '/config.php')) {
+    die('skip No config.php found; cant connect to DB');
+}
 --FILE--
 <?php
+require_once dirname(__FILE__) . '/config.php';
+
 echo '=====HTML_TreeMenu tests for Bug #9750:  Using "kriesing" tree type the "nodeOptions" paramether is not working.=====' . PHP_EOL . PHP_EOL;
 
 echo 'TEST:  test case provided in bug report' . PHP_EOL;
 
-require_once 'Tree' . DIRECTORY_SEPARATOR . 'Tree.php';
-require_once 'Tree' . DIRECTORY_SEPARATOR . 'Memory.php';
-require_once 'HTML' . DIRECTORY_SEPARATOR . 'TreeMenu.php';
+require_once 'Tree/Tree.php';
+require_once 'Tree/Memory.php';
+require_once 'HTML/TreeMenu.php';
 
-$dbDsn = 'mysql://USER:PSWD@HOST/DBNAME';
+
 $options = array ('order' => 'name', 'table' => 'mytree');
 
 $tree = Tree::setup('Memory_DBnested', $dbDsn, $options);
