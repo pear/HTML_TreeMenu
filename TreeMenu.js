@@ -42,7 +42,7 @@ function arrayCopy(input)
 {
     var output = new Array(input.length);
 
-    for (i in input) {
+    for (var i in input) {
         if (typeof(input[i]) == 'array') {
             output[i] = arrayCopy(input[i]);
         } else {
@@ -65,15 +65,15 @@ function arrayCopy(input)
         this.defaultClass     = defaultClass;
         this.usePersistence   = usePersistence;
         this.noTopLevelImages = noTopLevelImages;
-        this.n                = new Array();
+        this.n                = [];
         this.output           = '';
 
-        this.nodeRefs       = new Array();
-        this.branches       = new Array();
-        this.branchStatus   = new Array();
-        this.layerRelations = new Array();
-        this.childParents   = new Array();
-        this.cookieStatuses = new Array();
+        this.nodeRefs       = [];
+        this.branches       = [];
+        this.branchStatus   = [];
+        this.layerRelations = [];
+        this.childParents   = [];
+        this.cookieStatuses = [];
 
         this.preloadImages();
     }
@@ -87,50 +87,50 @@ function arrayCopy(input)
         this.n[newIndex] = newNode;
         
         return this.n[newIndex];
-    }
+    };
 
 /**
 * Preload images hack for Mozilla
 */
     TreeMenu.prototype.preloadImages = function ()
     {
-        var plustop = new Image;
+        var plustop = new Image();
         plustop.src = this.iconpath + '/plustop.gif';
 
-        var plusbottom = new Image;
+        var plusbottom = new Image();
         plusbottom.src = this.iconpath + '/plusbottom.gif';
 
-        var plus = new Image;
+        var plus = new Image();
         plus.src = this.iconpath + '/plus.gif';
 
     
-        var minustop = new Image;
+        var minustop = new Image();
         minustop.src = this.iconpath + '/minustop.gif';
 
-        var minusbottom = new Image;
+        var minusbottom = new Image();
         minusbottom.src = this.iconpath + '/minusbottom.gif';
 
-        var minus = new Image;
+        var minus = new Image();
         minus.src = this.iconpath + '/minus.gif';
 
     
-        var branchtop = new Image;
+        var branchtop = new Image();
         branchtop.src = this.iconpath + '/branchtop.gif';
 
-        var branchbottom = new Image;
+        var branchbottom = new Image();
         branchbottom.src = this.iconpath + '/branchbottom.gif';
 
-        var branch = new Image;
+        var branch = new Image();
         branch.src = this.iconpath + '/branch.gif';
 
     
-        var linebottom = new Image;
+        var linebottom = new Image();
         linebottom.src = this.iconpath + '/linebottom.gif';
 
-        var line = new Image;
+        var line = new Image();
         line.src = this.iconpath + '/line.gif';
 
-    }
+    };
 
 /**
 * Main function that draws the menu and assigns it
@@ -144,12 +144,11 @@ function arrayCopy(input)
         var output        = '';
         var modifier      = '';
         var layerID       = '';
-        var parentLayerID = '';
     
         /**
         * Parse any optional arguments
         */
-        var nodes         = arguments[0] ? arguments[0] : this.n
+        var nodes         = arguments[0] ? arguments[0] : this.n;
         var level         = arguments[1] ? arguments[1] : [];
         var prepend       = arguments[2] ? arguments[2] : '';
         var expanded      = arguments[3] ? arguments[3] : false;
@@ -177,7 +176,7 @@ function arrayCopy(input)
             /**
             * Gif modifier
             */
-            if (i == 0 && parentLayerID == null) {
+            if (i === 0 && parentLayerID === null) {
                 modifier = nodes.length > 1 ? "top" : 'single';
             } else if(i == (nodes.length-1)) {
                 modifier = "bottom";
@@ -188,7 +187,7 @@ function arrayCopy(input)
             /**
             * Single root branch is always expanded
             */
-            if (!this.doesMenu() || (parentLayerID == null && (nodes.length == 1 || this.noTopLevelImages))) {
+            if (!this.doesMenu() || (parentLayerID === null && (nodes.length == 1 || this.noTopLevelImages))) {
                 expanded = true;
     
             } else if (nodes[i].expanded) {
@@ -216,7 +215,7 @@ function arrayCopy(input)
             * Setup toggle relationship
             */
             if (!this.layerRelations[parentLayerID]) {
-                this.layerRelations[parentLayerID] = new Array();
+                this.layerRelations[parentLayerID] = [];
             }
             this.layerRelations[parentLayerID][this.layerRelations[parentLayerID].length] = layerID;
     
@@ -231,7 +230,7 @@ function arrayCopy(input)
             * Add event handlers
             */
             var eventHandlers = "";
-            for (j in nodes[i].events) {
+            for (var j in nodes[i].events) {
                 if (typeof(nodes[i].events[j]) == 'function') {
                     continue;
                 }
@@ -254,7 +253,7 @@ function arrayCopy(input)
             this.output += this.stringFormat('{0}<nobr>{1}{2}{3}{4}<span {5}>{6}</span>{7}</nobr><br></div>',
                               layerTag,
                               prepend,
-                              parentLayerID == null && (nodes.length == 1 || this.noTopLevelImages) ? '' : imgTag,
+                              parentLayerID === null && (nodes.length == 1 || this.noTopLevelImages) ? '' : imgTag,
                               iconimg,
                               linkStart,
                               eventHandlers,
@@ -265,19 +264,21 @@ function arrayCopy(input)
             * Traverse sub nodes ?
             */
             if (nodes[i].n.length) {
+                var newPrepend;
+
                 /**
                 * Determine what to prepend. If there is only one root
                 * node then the prepend to pass to children is nothing.
                 * Otherwise it depends on where we are in the tree.
                 */
-                if (parentLayerID == null && (nodes.length == 1 || this.noTopLevelImages)) {
-                    var newPrepend = '';
+                if (parentLayerID === null && (nodes.length == 1 || this.noTopLevelImages)) {
+                    newPrepend = '';
     
                 } else if (i < (nodes.length - 1)) {
-                    var newPrepend = prepend + this.stringFormat('<img src="{0}/line.gif" align="top">', this.iconpath);
+                    newPrepend = prepend + this.stringFormat('<img src="{0}/line.gif" align="top">', this.iconpath);
     
                 } else {
-                    var newPrepend = prepend + this.stringFormat('<img src="{0}/linebottom.gif" align="top">', this.iconpath);
+                    newPrepend = prepend + this.stringFormat('<img src="{0}/linebottom.gif" align="top">', this.iconpath);
                 }
 
                 this.drawMenu(nodes[i].n,
@@ -288,7 +289,7 @@ function arrayCopy(input)
                               layerID);
             }
         }
-    }
+    };
 
 /**
 * Writes the output generated by drawMenu() to the page
@@ -296,7 +297,7 @@ function arrayCopy(input)
     TreeMenu.prototype.writeOutput = function ()
     {
         document.write(this.output);
-    }
+    };
 
 /**
 * Toggles a branches visible status. Called from resetBranches()
@@ -306,7 +307,7 @@ function arrayCopy(input)
     {
         var currentDisplay = this.getLayer(layerID).style.display;
         var newDisplay     = (this.branchStatus[layerID] && currentDisplay == 'inline') ? 'none' : 'inline';
-        var fireEvents     = arguments[2] != null ? arguments[2] : true;
+        var fireEvents     = arguments[2] !== null ? arguments[2] : true;
 
         for (var i=0; i<this.layerRelations[layerID].length; i++) {
 
@@ -333,13 +334,13 @@ function arrayCopy(input)
             if (fireEvents) {
                 nodeObject = this.nodeRefs[layerID];
     
-                if (nodeObject.ontoggle != null) {
+                if (nodeObject.ontoggle !== null) {
                     eval(nodeObject.ontoggle);
                 }
                 
-                if (newDisplay == 'none' && nodeObject.oncollapse != null) {
+                if (newDisplay == 'none' && nodeObject.oncollapse !== null) {
                     eval(nodeObject.oncollapse);
-                } else if (newDisplay == 'inline' && nodeObject.onexpand != null){
+                } else if (newDisplay == 'inline' && nodeObject.onexpand !== null){
                     eval(nodeObject.onexpand);
                 }
             }
@@ -350,7 +351,7 @@ function arrayCopy(input)
 
         // Swap icon
         this.swapIcon(layerID);
-    }
+    };
 
 /**
 * Swaps the plus/minus branch images
@@ -359,8 +360,10 @@ function arrayCopy(input)
     {
         var imgSrc = document.images['img_' + layerID].src;
     
-        var re = /^(.*)(plus|minus)(bottom|top|single)?.gif$/
-        if (matches = imgSrc.match(re)) {
+        var re = /^(.*)(plus|minus)(bottom|top|single)?.gif$/;
+        var matches = imgSrc.match(re);
+
+        if (matches) {
     
             document.images['img_' + layerID].src = this.stringFormat('{0}{1}{2}{3}',
                                                             matches[1],
@@ -368,7 +371,7 @@ function arrayCopy(input)
                                                             matches[3] ? matches[3] : '',
                                                             '.gif');
         }
-    }
+    };
 
 /**
 * Swaps the icon for the expanded icon if one
@@ -385,7 +388,7 @@ function arrayCopy(input)
                 document.images['icon_' + layerID].src = this.iconpath + '/' + newSrc;
             }
         }
-    }
+    };
 
 /**
 * Can the browser handle the dynamic menu?
@@ -393,7 +396,7 @@ function arrayCopy(input)
     TreeMenu.prototype.doesMenu = function ()
     {
         return (is_ie4up || is_nav6up || is_gecko || is_opera7);
-    }
+    };
 
 /**
 * Can the browser handle save the branch status
@@ -401,7 +404,7 @@ function arrayCopy(input)
     TreeMenu.prototype.doesPersistence = function ()
     {
         return (is_ie4up || is_gecko || is_nav6up || is_opera7);
-    }
+    };
 
 /**
 * Returns the appropriate layer accessor
@@ -417,7 +420,7 @@ function arrayCopy(input)
         } else if (document.all && document.all(layerID)) {
             return document.all(layerID);
         }
-    }
+    };
 
 /**
 * Save the status of the layer
@@ -426,7 +429,7 @@ function arrayCopy(input)
     {
         this.cookieStatuses[layerID] = expanded;
         this.saveCookie();
-    }
+    };
 
 /**
 * Load the status of the layer
@@ -438,7 +441,7 @@ function arrayCopy(input)
         }
 
         return false;
-    }
+    };
 
 /**
 * Saves the cookie that holds which branches are expanded.
@@ -446,16 +449,16 @@ function arrayCopy(input)
 */
     TreeMenu.prototype.saveCookie = function ()
     {
-        var cookieString = new Array();
+        var cookieString = [];
 
         for (var i in this.cookieStatuses) {
-            if (this.cookieStatuses[i] == true) {
+            if (this.cookieStatuses[i] === true) {
                 cookieString[cookieString.length] = i;
             }
         }
         
         document.cookie = 'TreeMenuBranchStatus=' + cookieString.join(':');
-    }
+    };
 
 /**
 * Reads cookie parses it for status info and
@@ -474,7 +477,7 @@ function arrayCopy(input)
                 }
             }
         }
-    }
+    };
 
 /**
 * Reset branch status
@@ -490,7 +493,7 @@ function arrayCopy(input)
         for (var i=0; i<this.branches.length; i++) {
             var status = this.getExpandedStatusFromCookie(this.branches[i]);
             // Only update if it's supposed to be expanded and it's not already
-            if (status == true && this.branchStatus[this.branches[i]] != true) {
+            if (status === true && this.branchStatus[this.branches[i]] !== true) {
                 if (this.checkParentVisibility(this.branches[i])) {
                     this.toggleBranch(this.branches[i], true, false);
                 } else {
@@ -499,7 +502,7 @@ function arrayCopy(input)
                 }
             }
         }
-    }
+    };
 
 /**
 * Checks whether a branch should be open
@@ -507,18 +510,15 @@ function arrayCopy(input)
 */
     TreeMenu.prototype.checkParentVisibility = function (layerID)
     {
-        if (this.in_array(this.childParents[layerID], this.branches)
-            && this.branchStatus[this.childParents[layerID]]
-            && this.checkParentVisibility(this.childParents[layerID]) ) {
-            
+        if (this.in_array(this.childParents[layerID], this.branches) && this.branchStatus[this.childParents[layerID]] && this.checkParentVisibility(this.childParents[layerID])) {
             return true;
     
-        } else if (this.childParents[layerID] == null) {
+        } else if (this.childParents[layerID] === null) {
             return true;
         }
         
         return false;
-    }
+    };
 
 /**
 * New C# style string formatter
@@ -534,7 +534,7 @@ function arrayCopy(input)
         }
         
         return strInput;
-    }
+    };
 
 /**
 * Also much adored, the PHP implode() function
@@ -544,7 +544,7 @@ function arrayCopy(input)
         var output = '';
     
         for (var i=0; i<input.length; i++) {
-            if (i == 0) {
+            if (i === 0) {
                 output += input[i];
             } else {
                 output += seperator + input[i];
@@ -552,7 +552,7 @@ function arrayCopy(input)
         }
         
         return output;
-    }
+    };
 
 /**
 * Aah, all the old favourites are coming out...
@@ -566,7 +566,7 @@ function arrayCopy(input)
         }
     
         return false;
-    }
+    };
 
 /**
 * TreeNode Class
@@ -581,8 +581,8 @@ function arrayCopy(input)
         this.isDynamic    = isDynamic;
         this.cssClass     = cssClass;
         this.linkTarget   = linkTarget;
-        this.n            = new Array();
-        this.events       = new Array();
+        this.n            = [];
+        this.events       = [];
         this.handlers     = null;
         this.oncollapse   = null;
         this.onexpand     = null;
@@ -598,7 +598,7 @@ function arrayCopy(input)
         this.n[newIndex] = newNode;
         
         return this.n[newIndex];
-    }
+    };
 
 /**
 * Sets an event for this particular node
@@ -621,7 +621,7 @@ function arrayCopy(input)
             default:
                 this.events[eventName] = eventHandler;
         }
-    }
+    };
 
 /**
 * That's the end of the tree classes. What follows is
@@ -687,19 +687,18 @@ function arrayCopy(input)
 *  o is_gecko
 */
 
+
     // convert all characters to lowercase to simplify testing
     var agt = navigator.userAgent.toLowerCase();
 
     // *** BROWSER VERSION ***
     // Note: On IE5, these return 4, so use is_ie5up to detect IE5.
-    var is_major = parseInt(navigator.appVersion);
-    var is_minor = parseFloat(navigator.appVersion);
+    var is_major = parseInt(navigator.appVersion, 10);
+    var is_minor = parseFloat(navigator.appVersion, 10);
 
     // Note: Opera and WebTV spoof Navigator.  We do strict client detection.
     // If you want to allow spoofing, take out the tests for opera and webtv.
-    var is_nav    = ((agt.indexOf('mozilla')!=-1) && (agt.indexOf('spoofer')==-1)
-                && (agt.indexOf('compatible') == -1) && (agt.indexOf('opera')==-1)
-                && (agt.indexOf('webtv')==-1) && (agt.indexOf('hotjava')==-1));
+    var is_nav    = ((agt.indexOf('mozilla')!=-1) && (agt.indexOf('spoofer')==-1) && (agt.indexOf('compatible') == -1) && (agt.indexOf('opera')==-1) && (agt.indexOf('webtv')==-1) && (agt.indexOf('hotjava')==-1));
     var is_nav6up = (is_nav && (is_major >= 5));
     var is_gecko  = (agt.indexOf('gecko') != -1);
 
