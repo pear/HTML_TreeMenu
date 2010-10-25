@@ -1,8 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<package packagerversion="1.7.1" version="2.0" xmlns="http://pear.php.net/dtd/package-2.0" xmlns:tasks="http://pear.php.net/dtd/tasks-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pear.php.net/dtd/tasks-1.0
-http://pear.php.net/dtd/tasks-1.0.xsd
-http://pear.php.net/dtd/package-2.0
-http://pear.php.net/dtd/package-2.0.xsd">
+<package packagerversion="1.9.1" version="2.0" xmlns="http://pear.php.net/dtd/package-2.0" xmlns:tasks="http://pear.php.net/dtd/tasks-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pear.php.net/dtd/tasks-1.0 http://pear.php.net/dtd/tasks-1.0.xsd http://pear.php.net/dtd/package-2.0 http://pear.php.net/dtd/package-2.0.xsd">
  <name>HTML_TreeMenu</name>
  <channel>pear.php.net</channel>
  <summary>Provides an api to create a HTML tree</summary>
@@ -33,10 +30,10 @@ from Chip Chapin (http://www.chipchapin.com).</description>
   <email>kguest@php.net</email>
   <active>yes</active>
  </lead>
- <date>2008-04-13</date>
- <time>10:58:43</time>
+ <date>2010-10-25</date>
+ <time>19:40:32</time>
  <version>
-  <release>1.2.1</release>
+  <release>1.2.2</release>
   <api>1.2.0</api>
  </version>
  <stability>
@@ -45,74 +42,80 @@ from Chip Chapin (http://www.chipchapin.com).</description>
  </stability>
  <license uri="http://www.opensource.org/licenses/bsd-license.php">BSD</license>
  <notes>
- * Fix Bug #1776: [CDATA[ addition to javascript code [richard]
- * Fix Bug #2392: Nodes open expanded on mulitiple menus [richard]
- * Implement Feature #5595: &quot;language&quot; attribute in &lt;script&gt; tag won&apos;t validate as XHTML strict [cweiske]
- * Implement Feature #5833: DHTML Menu icon size is fixed, so custom icons may not display correcly [cweiske]
- * Implement Feature #7435: createFromXML comments [cweiske]
-
- Also update package.xml to version 2.0
+QA release
+Bug #17696 	Patch in order to allow minimization of JS code
+Bug #7324 	Problem using together with XMLRPC
+Bug #13665 	phpcs errors
+Request #14941 	Improve PHPCS results (javascript, tabs vs spaces)
+Bug #15292 	Unit test failure -Fatal error: Call to undefined method Tree::setup()
+Request #15957 	images dont &quot;work&quot; on dark(er) backgrounds
+Doc Bug #16718 	sample simple example fails
  </notes>
  <contents>
-  <dir name="/">
-   <dir name="tests">
-    <file baseinstalldir="HTML" name="AllTests.php" role="test" />
-    <file baseinstalldir="HTML" name="testBug_9750.phpt" role="test" />
-   </dir> <!-- /tests -->
-   <dir name="docs">
-    <file baseinstalldir="HTML" name="example.php" role="php" />
-    <file baseinstalldir="HTML" name="HTML_TreeMenu.doc" role="doc" />
-    <file baseinstalldir="HTML" name="HTML_TreeMenu.pdf" role="doc" />
-    <file baseinstalldir="HTML" name="map_fs.php" role="php" />
-   </dir> <!-- /docs -->
-   <dir name="images">
-    <file baseinstalldir="HTML" name="branch.gif" role="data" />
-    <file baseinstalldir="HTML" name="branchbottom.gif" role="data" />
-    <file baseinstalldir="HTML" name="branchtop.gif" role="data" />
-    <file baseinstalldir="HTML" name="folder-expanded.gif" role="data" />
-    <file baseinstalldir="HTML" name="folder.gif" role="data" />
-    <file baseinstalldir="HTML" name="line.gif" role="data" />
-    <file baseinstalldir="HTML" name="linebottom.gif" role="data" />
-    <file baseinstalldir="HTML" name="minus.gif" role="data" />
-    <file baseinstalldir="HTML" name="minusbottom.gif" role="data" />
-    <file baseinstalldir="HTML" name="minustop.gif" role="data" />
-    <file baseinstalldir="HTML" name="plus.gif" role="data" />
-    <file baseinstalldir="HTML" name="plusbottom.gif" role="data" />
-    <file baseinstalldir="HTML" name="plustop.gif" role="data" />
-   </dir> <!-- /images -->
-   <dir name="imagesAlt">
-    <file baseinstalldir="HTML" name="branch.gif" role="data" />
-    <file baseinstalldir="HTML" name="branchbottom.gif" role="data" />
-    <file baseinstalldir="HTML" name="branchtop.gif" role="data" />
-    <file baseinstalldir="HTML" name="folder-expanded.gif" role="data" />
-    <file baseinstalldir="HTML" name="folder.gif" role="data" />
-    <file baseinstalldir="HTML" name="line.gif" role="data" />
-    <file baseinstalldir="HTML" name="linebottom.gif" role="data" />
-    <file baseinstalldir="HTML" name="minus.gif" role="data" />
-    <file baseinstalldir="HTML" name="minusbottom.gif" role="data" />
-    <file baseinstalldir="HTML" name="minustop.gif" role="data" />
-    <file baseinstalldir="HTML" name="plus.gif" role="data" />
-    <file baseinstalldir="HTML" name="plusbottom.gif" role="data" />
-    <file baseinstalldir="HTML" name="plustop.gif" role="data" />
-   </dir> <!-- /imagesAlt -->
-   <dir name="imagesAlt2">
-    <file baseinstalldir="HTML" name="branch.gif" role="data" />
-    <file baseinstalldir="HTML" name="branchbottom.gif" role="data" />
-    <file baseinstalldir="HTML" name="branchtop.gif" role="data" />
-    <file baseinstalldir="HTML" name="folder-expanded.gif" role="data" />
-    <file baseinstalldir="HTML" name="folder.gif" role="data" />
-    <file baseinstalldir="HTML" name="line.gif" role="data" />
-    <file baseinstalldir="HTML" name="linebottom.gif" role="data" />
-    <file baseinstalldir="HTML" name="minus.gif" role="data" />
-    <file baseinstalldir="HTML" name="minusbottom.gif" role="data" />
-    <file baseinstalldir="HTML" name="minustop.gif" role="data" />
-    <file baseinstalldir="HTML" name="plus.gif" role="data" />
-    <file baseinstalldir="HTML" name="plusbottom.gif" role="data" />
-    <file baseinstalldir="HTML" name="plustop.gif" role="data" />
-   </dir> <!-- /imagesAlt2 -->
-   <file baseinstalldir="HTML" name="TreeMenu.js" role="data" />
-   <file baseinstalldir="HTML" name="TreeMenu.php" role="php" />
-  </dir> <!-- / -->
+  <dir baseinstalldir="/" name="/">
+   <file baseinstalldir="HTML" md5sum="e212273244da439dd0c0ece10a024377" name="docs/example.php" role="doc" />
+   <file baseinstalldir="HTML" md5sum="708c3eb24c76e2e0cf909784f51fc8b5" name="docs/HTML_TreeMenu.doc" role="doc" />
+   <file baseinstalldir="HTML" md5sum="5f3805e77f5926599b107500457739e1" name="docs/HTML_TreeMenu.pdf" role="doc" />
+   <file baseinstalldir="HTML" md5sum="b248c69467cee4c846f9b08d4c960cb1" name="docs/map_fs.php" role="doc" />
+   <file baseinstalldir="/" md5sum="3dd56e1c1ebcc856d096890bc8a2ce8e" name="HTML/TreeMenu.php" role="php" />
+   <file baseinstalldir="HTML" md5sum="e4f1b2d3f998559804aa1ac3450d88ad" name="images/branch.gif" role="data" />
+   <file baseinstalldir="HTML" md5sum="335459315ad97fe76b7a7ccce9e4c57e" name="images/branchbottom.gif" role="data" />
+   <file baseinstalldir="HTML" md5sum="0573af115f27abdcefb8bfcd3ce4a3e1" name="images/branchtop.gif" role="data" />
+   <file baseinstalldir="HTML" md5sum="be4d3b90a08e3e7370f81557281f346e" name="images/folder-expanded.gif" role="data" />
+   <file baseinstalldir="HTML" md5sum="3665b03f0b6b099595415224ccc68285" name="images/folder.gif" role="data" />
+   <file baseinstalldir="HTML" md5sum="4d5a8ed6dc7cd5d6e71fcb6acd100955" name="images/line.gif" role="data" />
+   <file baseinstalldir="HTML" md5sum="9445d29997b70a66fbf5e9430db2b49c" name="images/linebottom.gif" role="data" />
+   <file baseinstalldir="HTML" md5sum="e64b766cbe159f3b4fac5fb4c11bf780" name="images/minus.gif" role="data" />
+   <file baseinstalldir="HTML" md5sum="fb07076002b84c04f14f19c7cf6fe332" name="images/minusbottom.gif" role="data" />
+   <file baseinstalldir="HTML" md5sum="4edfa5cd18f12847054c5a603c345c50" name="images/minustop.gif" role="data" />
+   <file baseinstalldir="HTML" md5sum="5a65d2890a595d8218d4d00e59c47e9d" name="images/plus.gif" role="data" />
+   <file baseinstalldir="HTML" md5sum="5ac0b1e10996aa9ad70730527842739d" name="images/plusbottom.gif" role="data" />
+   <file baseinstalldir="HTML" md5sum="d0ae25b71adb33404ed64bd1a131bfe7" name="images/plustop.gif" role="data" />
+   <file baseinstalldir="HTML" md5sum="0e897d2dfb56206e76b558c707b09198" name="imagesAlt/branch.gif" role="data" />
+   <file baseinstalldir="HTML" md5sum="0e897d2dfb56206e76b558c707b09198" name="imagesAlt/branchbottom.gif" role="data" />
+   <file baseinstalldir="HTML" md5sum="0e897d2dfb56206e76b558c707b09198" name="imagesAlt/branchtop.gif" role="data" />
+   <file baseinstalldir="HTML" md5sum="1d06a9630377fe8e459a0bcd4d9e2677" name="imagesAlt/folder-expanded.gif" role="data" />
+   <file baseinstalldir="HTML" md5sum="6f9853619c6069b8b914fb38dcd7da79" name="imagesAlt/folder.gif" role="data" />
+   <file baseinstalldir="HTML" md5sum="0e897d2dfb56206e76b558c707b09198" name="imagesAlt/line.gif" role="data" />
+   <file baseinstalldir="HTML" md5sum="9445d29997b70a66fbf5e9430db2b49c" name="imagesAlt/linebottom.gif" role="data" />
+   <file baseinstalldir="HTML" md5sum="3b9b70a31b3a821badefc1042a1e3aab" name="imagesAlt/minus.gif" role="data" />
+   <file baseinstalldir="HTML" md5sum="3b9b70a31b3a821badefc1042a1e3aab" name="imagesAlt/minusbottom.gif" role="data" />
+   <file baseinstalldir="HTML" md5sum="3b9b70a31b3a821badefc1042a1e3aab" name="imagesAlt/minustop.gif" role="data" />
+   <file baseinstalldir="HTML" md5sum="5e73864ab63c33ccaa1e094a75f598c6" name="imagesAlt/plus.gif" role="data" />
+   <file baseinstalldir="HTML" md5sum="5e73864ab63c33ccaa1e094a75f598c6" name="imagesAlt/plusbottom.gif" role="data" />
+   <file baseinstalldir="HTML" md5sum="5e73864ab63c33ccaa1e094a75f598c6" name="imagesAlt/plustop.gif" role="data" />
+   <file baseinstalldir="HTML" md5sum="49264742ee247e94eb5dfa25e4e87b23" name="imagesAlt2/branch.gif" role="data" />
+   <file baseinstalldir="HTML" md5sum="e939bc8d404820098903a6a547bef90b" name="imagesAlt2/branchbottom.gif" role="data" />
+   <file baseinstalldir="HTML" md5sum="e0079771a1ac56ab2be17ca16adaa252" name="imagesAlt2/branchtop.gif" role="data" />
+   <file baseinstalldir="HTML" md5sum="be4d3b90a08e3e7370f81557281f346e" name="imagesAlt2/folder-expanded.gif" role="data" />
+   <file baseinstalldir="HTML" md5sum="3665b03f0b6b099595415224ccc68285" name="imagesAlt2/folder.gif" role="data" />
+   <file baseinstalldir="HTML" md5sum="05d0ef06b1a0eed7b3ee5dc028798cf6" name="imagesAlt2/line.gif" role="data" />
+   <file baseinstalldir="HTML" md5sum="2363fa414d752a675446cfddbde748d1" name="imagesAlt2/linebottom.gif" role="data" />
+   <file baseinstalldir="HTML" md5sum="70c9c3112b4b8ce1c588a8eb8c20e765" name="imagesAlt2/minus.gif" role="data" />
+   <file baseinstalldir="HTML" md5sum="a860ddf891d4d7071af622b727fda2bb" name="imagesAlt2/minusbottom.gif" role="data" />
+   <file baseinstalldir="HTML" md5sum="932f4161333ca41aae0b96cebf858f1f" name="imagesAlt2/minustop.gif" role="data" />
+   <file baseinstalldir="HTML" md5sum="9700d03edd41b182d0cfaff1dfc0b28f" name="imagesAlt2/plus.gif" role="data" />
+   <file baseinstalldir="HTML" md5sum="8cd975dffe7948402205f66effe9c836" name="imagesAlt2/plusbottom.gif" role="data" />
+   <file baseinstalldir="HTML" md5sum="db5a46f16bb766c9a13f639c2733832a" name="imagesAlt2/plustop.gif" role="data" />
+   <file baseinstalldir="/" md5sum="e4f1b2d3f998559804aa1ac3450d88ad" name="imagesAlt3/branch.gif" role="data" />
+   <file baseinstalldir="/" md5sum="335459315ad97fe76b7a7ccce9e4c57e" name="imagesAlt3/branchbottom.gif" role="data" />
+   <file baseinstalldir="/" md5sum="0573af115f27abdcefb8bfcd3ce4a3e1" name="imagesAlt3/branchtop.gif" role="data" />
+   <file baseinstalldir="/" md5sum="be4d3b90a08e3e7370f81557281f346e" name="imagesAlt3/folder-expanded.gif" role="data" />
+   <file baseinstalldir="/" md5sum="3665b03f0b6b099595415224ccc68285" name="imagesAlt3/folder.gif" role="data" />
+   <file baseinstalldir="/" md5sum="4d5a8ed6dc7cd5d6e71fcb6acd100955" name="imagesAlt3/line.gif" role="data" />
+   <file baseinstalldir="/" md5sum="9445d29997b70a66fbf5e9430db2b49c" name="imagesAlt3/linebottom.gif" role="data" />
+   <file baseinstalldir="/" md5sum="62114b997f3fb6716f827e6c6cc42d0c" name="imagesAlt3/minus.gif" role="data" />
+   <file baseinstalldir="/" md5sum="08d221a7c436121b348751982ccfc268" name="imagesAlt3/minusbottom.gif" role="data" />
+   <file baseinstalldir="/" md5sum="6c6c05bbe5ef8344fabb13372b59f71c" name="imagesAlt3/minustop.gif" role="data" />
+   <file baseinstalldir="/" md5sum="484874468eba7ed5d810c205c9d022b3" name="imagesAlt3/page_add.png" role="data" />
+   <file baseinstalldir="/" md5sum="babe6f495e3b9ff17c509b01cc47aec1" name="imagesAlt3/plus.gif" role="data" />
+   <file baseinstalldir="/" md5sum="5ece85e5e3f2ababae78206f421c088e" name="imagesAlt3/plusbottom.gif" role="data" />
+   <file baseinstalldir="/" md5sum="e535905a7a7779c55b4530f6e59192ae" name="imagesAlt3/plustop.gif" role="data" />
+   <file baseinstalldir="HTML" md5sum="a90c32e844bd2d406adc3bc9bdbbdab8" name="tests/AllTests.php" role="test" />
+   <file baseinstalldir="/" md5sum="9920b47256c57d8021e143a09cdd9329" name="tests/config.dist.php" role="test" />
+   <file baseinstalldir="HTML" md5sum="5ce26e08cbce2a94f9fefc5191c8aab6" name="tests/testBug_9750.phpt" role="test" />
+   <file baseinstalldir="HTML" md5sum="d65be187cb9a7d46333977d1295aca54" name="TreeMenu.js" role="data" />
+  </dir>
  </contents>
  <dependencies>
   <required>
@@ -128,237 +131,17 @@ from Chip Chapin (http://www.chipchapin.com).</description>
  <changelog>
   <release>
    <version>
-    <release>1.2.1</release>
-    <api>1.2.0</api>
+    <release>1.0</release>
+    <api>1.0</api>
    </version>
    <stability>
     <release>stable</release>
     <api>stable</api>
    </stability>
-   <date>2005-03-02</date>
-   <license uri="http://www.opensource.org/licenses/bsd-license.php">BSD</license>
-   <notes>Various bug fixes.
-   </notes>
-  </release>
-  <release>
-   <version>
-    <release>1.1.9</release>
-    <api>1.1.9</api>
-   </version>
-   <stability>
-    <release>stable</release>
-    <api>stable</api>
-   </stability>
-   <date>2003-12-20</date>
-   <license uri="http://www.opensource.org/licenses/bsd-license.php">BSD</license>
-   <notes>Fix expanded image when nodes are expanded by default
-            
-
-   </notes>
-  </release>
-  <release>
-   <version>
-    <release>1.1.8</release>
-    <api>1.1.8</api>
-   </version>
-   <stability>
-    <release>stable</release>
-    <api>stable</api>
-   </stability>
-   <date>2003-12-20</date>
-   <license uri="http://www.opensource.org/licenses/bsd-license.php">BSD</license>
-   <notes>Fix javascript detection issue
-            
-
-   </notes>
-  </release>
-  <release>
-   <version>
-    <release>1.1.7</release>
-    <api>1.1.7</api>
-   </version>
-   <stability>
-    <release>stable</release>
-    <api>stable</api>
-   </stability>
-   <date>2003-11-26</date>
-   <license uri="http://www.opensource.org/licenses/bsd-license.php">BSD</license>
-   <notes>Bug fix in maxDepth feature
-            
-
-   </notes>
-  </release>
-  <release>
-   <version>
-    <release>1.1.6</release>
-    <api>1.1.6</api>
-   </version>
-   <stability>
-    <release>stable</release>
-    <api>stable</api>
-   </stability>
-   <date>2003-04-02</date>
-   <license uri="http://www.opensource.org/licenses/bsd-license.php">BSD</license>
-   <notes>o Auto escapes &apos; in node text
-o New maxDepth option HTML_TreeMenu_DHTML presentation class. 
-  All nodes past this number of indentations are rendered as siblings. 
-           
-
-   </notes>
-  </release>
-  <release>
-   <version>
-    <release>1.1.5</release>
-    <api>1.1.5</api>
-   </version>
-   <stability>
-    <release>stable</release>
-    <api>stable</api>
-   </stability>
-   <date>2003-04-02</date>
-   <license uri="http://www.opensource.org/licenses/bsd-license.php">BSD</license>
-   <notes>Updated browser detection to allow for Opera 7
-            
-
-   </notes>
-  </release>
-  <release>
-   <version>
-    <release>1.1.4</release>
-    <api>1.1.4</api>
-   </version>
-   <stability>
-    <release>stable</release>
-    <api>stable</api>
-   </stability>
-   <date>2003-02-21</date>
-   <license uri="http://www.opensource.org/licenses/bsd-license.php">BSD</license>
-   <notes>Added a createFromXML() method for creating
-treeMenu structures from XML. This feature
-depends on the PEAR::XML_Tree package.
-            
-
-   </notes>
-  </release>
-  <release>
-   <version>
-    <release>1.1.3</release>
-    <api>1.1.3</api>
-   </version>
-   <stability>
-    <release>stable</release>
-    <api>stable</api>
-   </stability>
-   <date>2003-02-20</date>
-   <license uri="http://www.opensource.org/licenses/bsd-license.php">BSD</license>
-   <notes>Added expanded icon support. Added documentation in Word
-and PDF formats. Moved structure import code to its own
-static method createFromStructure(), and added support
-for my own Tree class (http://phpguru.org/tree.html) as
-well as Wolfram Kriesings Tree class.
-            
-
-   </notes>
-  </release>
-  <release>
-   <version>
-    <release>1.1.2</release>
-    <api>1.1.2</api>
-   </version>
-   <stability>
-    <release>stable</release>
-    <api>stable</api>
-   </stability>
-   <date>2002-11-30</date>
-   <license uri="http://www.opensource.org/licenses/bsd-license.php">BSD</license>
-   <notes>Updated example file
-            
-
-   </notes>
-  </release>
-  <release>
-   <version>
-    <release>1.1.1</release>
-    <api>1.1.1</api>
-   </version>
-   <stability>
-    <release>stable</release>
-    <api>stable</api>
-   </stability>
-   <date>2002-11-30</date>
-   <license uri="http://www.opensource.org/licenses/bsd-license.php">BSD</license>
-   <notes>Added event support, and moved various options from the TreeMenu class to
-the presentation classes. Added presentation base class.
-          
-
-   </notes>
-  </release>
-  <release>
-   <version>
-    <release>1.1.0</release>
-    <api>1.1.0</api>
-   </version>
-   <stability>
-    <release>stable</release>
-    <api>stable</api>
-   </stability>
-   <date>2002-11-10</date>
-   <license uri="http://www.opensource.org/licenses/bsd-license.php">BSD</license>
-   <notes>Many changes. See CVS for changelog
-
-
-   </notes>
-  </release>
-  <release>
-   <version>
-    <release>1.0.4</release>
-    <api>1.0.4</api>
-   </version>
-   <stability>
-    <release>stable</release>
-    <api>stable</api>
-   </stability>
-   <date>2002-07-27</date>
-   <license uri="http://www.opensource.org/licenses/bsd-license.php">BSD</license>
-   <notes>License change
-
-   </notes>
-  </release>
-  <release>
-   <version>
-    <release>1.0.3</release>
-    <api>1.0.3</api>
-   </version>
-   <stability>
-    <release>stable</release>
-    <api>stable</api>
-   </stability>
-   <date>2002-07-05</date>
+   <date>2002-06-15</date>
    <license uri="http://www.php.net/license">PHP</license>
-   <notes>Bugfixes:
-  o Persistence fixes
-  o Reference/copy fixes
-
-
-   </notes>
-  </release>
-  <release>
-   <version>
-    <release>1.0.2</release>
-    <api>1.0.2</api>
-   </version>
-   <stability>
-    <release>stable</release>
-    <api>stable</api>
-   </stability>
-   <date>2002-06-30</date>
-   <license uri="http://www.php.net/license">PHP</license>
-   <notes>Change to use document.write() instead of layers and innerHTML for much speed increase.
-Change to use onmousedown instead of onclick for cleaner more defined clicks.
-Added the ability to define whether to use client side persistence.
-Added the ability to define whether a node is dynamic
-Added the ability to define whether a node is expanded
-
+   <notes>
+Initial release
    </notes>
   </release>
   <release>
@@ -372,23 +155,255 @@ Added the ability to define whether a node is expanded
    </stability>
    <date>2002-06-19</date>
    <license uri="http://www.php.net/license">PHP</license>
-   <notes>Added support for Mozilla and NN6
-
+   <notes>
+Added support for Mozilla and NN6
    </notes>
   </release>
   <release>
    <version>
-    <release>1.0</release>
-    <api>1.0</api>
+    <release>1.0.2</release>
+    <api>1.0.2</api>
    </version>
    <stability>
     <release>stable</release>
     <api>stable</api>
    </stability>
-   <date>2002-06-15</date>
+   <date>2002-06-30</date>
    <license uri="http://www.php.net/license">PHP</license>
-   <notes>Initial release
-
+   <notes>
+Change to use document.write() instead of layers and innerHTML for much speed increase.
+Change to use onmousedown instead of onclick for cleaner more defined clicks.
+Added the ability to define whether to use client side persistence.
+Added the ability to define whether a node is dynamic
+Added the ability to define whether a node is expanded
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.0.3</release>
+    <api>1.0.3</api>
+   </version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api>
+   </stability>
+   <date>2002-07-05</date>
+   <license uri="http://www.php.net/license">PHP</license>
+   <notes>
+Bugfixes:
+  o Persistence fixes
+  o Reference/copy fixes
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.0.4</release>
+    <api>1.0.4</api>
+   </version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api>
+   </stability>
+   <date>2002-07-27</date>
+   <license uri="http://www.opensource.org/licenses/bsd-license.php">BSD</license>
+   <notes>
+License change
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.1.0</release>
+    <api>1.1.0</api>
+   </version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api>
+   </stability>
+   <date>2002-11-10</date>
+   <license uri="http://www.opensource.org/licenses/bsd-license.php">BSD</license>
+   <notes>
+Many changes. See CVS for changelog
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.1.1</release>
+    <api>1.1.1</api>
+   </version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api>
+   </stability>
+   <date>2002-11-30</date>
+   <license uri="http://www.opensource.org/licenses/bsd-license.php">BSD</license>
+   <notes>
+Added event support, and moved various options from the TreeMenu class to
+the presentation classes. Added presentation base class.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.1.2</release>
+    <api>1.1.2</api>
+   </version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api>
+   </stability>
+   <date>2002-11-30</date>
+   <license uri="http://www.opensource.org/licenses/bsd-license.php">BSD</license>
+   <notes>
+Updated example file
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.1.3</release>
+    <api>1.1.3</api>
+   </version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api>
+   </stability>
+   <date>2003-02-20</date>
+   <license uri="http://www.opensource.org/licenses/bsd-license.php">BSD</license>
+   <notes>
+Added expanded icon support. Added documentation in Word
+and PDF formats. Moved structure import code to its own
+static method createFromStructure(), and added support
+for my own Tree class (http://phpguru.org/tree.html) as
+well as Wolfram Kriesings Tree class.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.1.4</release>
+    <api>1.1.4</api>
+   </version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api>
+   </stability>
+   <date>2003-02-21</date>
+   <license uri="http://www.opensource.org/licenses/bsd-license.php">BSD</license>
+   <notes>
+Added a createFromXML() method for creating
+treeMenu structures from XML. This feature
+depends on the PEAR::XML_Tree package.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.1.5</release>
+    <api>1.1.5</api>
+   </version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api>
+   </stability>
+   <date>2003-04-02</date>
+   <license uri="http://www.opensource.org/licenses/bsd-license.php">BSD</license>
+   <notes>
+Updated browser detection to allow for Opera 7
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.1.6</release>
+    <api>1.1.6</api>
+   </version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api>
+   </stability>
+   <date>2003-04-02</date>
+   <license uri="http://www.opensource.org/licenses/bsd-license.php">BSD</license>
+   <notes>
+o Auto escapes &apos; in node text
+o New maxDepth option HTML_TreeMenu_DHTML presentation class. 
+  All nodes past this number of indentations are rendered as siblings.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.1.7</release>
+    <api>1.1.7</api>
+   </version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api>
+   </stability>
+   <date>2003-11-26</date>
+   <license uri="http://www.opensource.org/licenses/bsd-license.php">BSD</license>
+   <notes>
+Bug fix in maxDepth feature
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.1.8</release>
+    <api>1.1.8</api>
+   </version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api>
+   </stability>
+   <date>2003-12-20</date>
+   <license uri="http://www.opensource.org/licenses/bsd-license.php">BSD</license>
+   <notes>
+Fix javascript detection issue
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.1.9</release>
+    <api>1.1.9</api>
+   </version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api>
+   </stability>
+   <date>2003-12-20</date>
+   <license uri="http://www.opensource.org/licenses/bsd-license.php">BSD</license>
+   <notes>
+Fix expanded image when nodes are expanded by default
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.2.1</release>
+    <api>1.2.0</api>
+   </version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api>
+   </stability>
+   <date>2005-03-02</date>
+   <license uri="http://www.opensource.org/licenses/bsd-license.php">BSD</license>
+   <notes>
+Various bug fixes.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.2.2</release>
+    <api>1.2.0</api>
+   </version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api>
+   </stability>
+   <date>2010-10-25</date>
+   <license uri="http://www.opensource.org/licenses/bsd-license.php">BSD</license>
+   <notes>
+QA release
+Bug #17696 	Patch in order to allow minimization of JS code
+Bug #7324 	Problem using together with XMLRPC
+Bug #13665 	phpcs errors
+Request #14941 	Improve PHPCS results (javascript, tabs vs spaces)
+Bug #15292 	Unit test failure -Fatal error: Call to undefined method Tree::setup()
+Request #15957 	images dont &quot;work&quot; on dark(er) backgrounds
+Doc Bug #16718 	sample simple example fails
    </notes>
   </release>
  </changelog>
