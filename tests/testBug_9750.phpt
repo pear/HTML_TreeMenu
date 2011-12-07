@@ -76,8 +76,8 @@ echo $listbox->toHTML();
 
 ?>
 --EXPECT--
-=====HTML_TreeMenu tests for Bug #9750:  Using "kriesing" tree type the "nodeOptions" paramether is not working.====="
+=====HTML_TreeMenu tests for Bug #9750:  Using "kriesing" tree type the "nodeOptions" paramether is not working.=====
 
 TEST:  test case provided in bug report
 TEST:  using DHTML
-TEST:  using ListBox
+TEST:  using Listbox
