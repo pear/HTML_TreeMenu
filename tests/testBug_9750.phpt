@@ -5,8 +5,13 @@ Chuck Burgess <ashnazg@php.net>
 # created for v1.2.2 2008-05-06
 --SKIPIF--
 <?php
-if (!file_exists(dirname(__FILE__) . '/config.php')) {
-    die('skip No config.php found; cant connect to DB');
+@require_once dirname(__FILE__) . '/config.php';
+if ($dbDsn == 'mysql://USER:PSWD@HOST/DBNAME') {
+    die('skip $dbDsn not set; cant connect to DB');
+}
+
+if (! $fp = @fopen('Tree/Tree.php', 'r', true)) {
+    die('skip Tree package is not installed');
 }
 --FILE--
 <?php
