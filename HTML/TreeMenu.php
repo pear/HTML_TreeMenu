@@ -146,6 +146,9 @@ class HTML_TreeMenu
             // Get the entire tree, the $nodes are sorted like in the tree view
             // from top to bottom, so we can easily put them in the nodes
             $nodes = $params['structure']->getNode();
+            if (!is_array($nodes)) {
+                return false;
+            }
 
             // Make a new menu and fill it with the values from the tree
             $treeMenu = new HTML_TreeMenu();
