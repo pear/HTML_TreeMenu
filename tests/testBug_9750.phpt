@@ -5,7 +5,7 @@ Chuck Burgess <ashnazg@php.net>
 # created for v1.2.2 2008-05-06
 --SKIPIF--
 <?php
-@require_once dirname(__FILE__) . '/config.php';
+@include dirname(__FILE__) . '/config.php';
 if ($dbDsn == 'mysql://USER:PSWD@HOST/DBNAME') {
     die('skip $dbDsn not set; cant connect to DB');
 }
