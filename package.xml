@@ -111,7 +111,6 @@ Doc Bug #16718 	sample simple example fails
    <file baseinstalldir="/" md5sum="babe6f495e3b9ff17c509b01cc47aec1" name="imagesAlt3/plus.gif" role="data" />
    <file baseinstalldir="/" md5sum="5ece85e5e3f2ababae78206f421c088e" name="imagesAlt3/plusbottom.gif" role="data" />
    <file baseinstalldir="/" md5sum="e535905a7a7779c55b4530f6e59192ae" name="imagesAlt3/plustop.gif" role="data" />
-   <file baseinstalldir="HTML" md5sum="a90c32e844bd2d406adc3bc9bdbbdab8" name="tests/AllTests.php" role="test" />
    <file baseinstalldir="/" md5sum="9920b47256c57d8021e143a09cdd9329" name="tests/config.dist.php" role="test" />
    <file baseinstalldir="HTML" md5sum="5ce26e08cbce2a94f9fefc5191c8aab6" name="tests/testBug_9750.phpt" role="test" />
    <file baseinstalldir="HTML" md5sum="d65be187cb9a7d46333977d1295aca54" name="TreeMenu.js" role="data" />
