@@ -250,7 +250,7 @@ function arrayCopy(input)
 
             var linkEnd = nodes[i].link ? '</a>' : '';
 
-            this.output += this.stringFormat('{0}<nobr>{1}{2}{3}{4}<span {5}>{6}</span>{7}</nobr><br></div>',
+            this.output += this.stringFormat('{0}<div style="white-space: nowrap">{1}{2}{3}{4}<span {5}>{6}</span>{7}</div></div>',
                               layerTag,
                               prepend,
                               parentLayerID === null && (nodes.length == 1 || this.noTopLevelImages) ? '' : imgTag,
@@ -720,3 +720,4 @@ function arrayCopy(input)
         var is_ie4up  = true;
     }
 //--> end hide JavaScript
+
