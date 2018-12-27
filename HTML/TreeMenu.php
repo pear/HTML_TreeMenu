@@ -83,7 +83,7 @@ class HTML_TreeMenu
      *
      * @access public
      */
-    function HTML_TreeMenu()
+    function __construct()
     {
         // Not much to do here :(
     }
@@ -97,9 +97,9 @@ class HTML_TreeMenu
      * @return int Returns a reference to the new node inside the tree.
      * @access public
      */
-    function &addItem(&$node)
+    function addItem($node)
     {
-        $this->items[] = &$node;
+        $this->items[] = $node;
         return $this->items[count($this->items) - 1];
     }
 
@@ -206,7 +206,7 @@ class HTML_TreeMenu
         case 'heyes_array':
             // Need to create a HTML_TreeMenu object ?
             if (!isset($params['treeMenu'])) {
-                $treeMenu = &new HTML_TreeMenu();
+                $treeMenu = new HTML_TreeMenu();
                 $parentID = 0;
             } else {
                 $treeMenu = &$params['treeMenu'];
@@ -240,7 +240,7 @@ class HTML_TreeMenu
         default:
             // Need to create a HTML_TreeMenu object ?
             if (!isset($params['treeMenu'])) {
-                $treeMenu = &new HTML_TreeMenu();
+                $treeMenu = new HTML_TreeMenu();
             } else {
                 $treeMenu = &$params['treeMenu'];
             }
@@ -312,7 +312,7 @@ class HTML_TreeMenu
         if (is_string($xml)) {
             // Supplied $xml is a string
             include_once 'XML/Tree.php';
-            $xmlTree = &new XML_Tree();
+            $xmlTree = new XML_Tree();
             $xmlTree->getTreeFromString($xml);
         } else {
             // Supplied $xml is an XML_Tree object
@@ -469,7 +469,7 @@ class HTML_TreeNode
      *
      * @access public
      */
-    function HTML_TreeNode($options = array(), $events = array())
+    function __construct($options = array(), $events = array())
     {
         $this->text          = '';
         $this->link          = '';
@@ -585,9 +585,9 @@ class HTML_TreeMenu_Presentation
      *
      * @param HTML_TreeMenu &$structure The menu structure
      */
-    function HTML_TreeMenu_Presentation(&$structure)
+    function construct($structure)
     {
-        $this->menu = &$structure;
+        $this->menu = $structure;
     }
 
     /**
@@ -715,9 +715,9 @@ class HTML_TreeMenu_DHTML extends HTML_TreeMenu_Presentation
      *
      * @access public
      */
-    function HTML_TreeMenu_DHTML(&$structure, $options = array(), $isDynamic = true)
+    function __construct($structure, $options = array(), $isDynamic = true)
     {
-        $this->HTML_TreeMenu_Presentation($structure);
+        parent::construct($structure);
         $this->isDynamic = $isDynamic;
 
         // Defaults
@@ -920,9 +920,9 @@ class HTML_TreeMenu_Listbox extends HTML_TreeMenu_Presentation
      *
      * @access public
      */
-    function HTML_TreeMenu_Listbox($structure, $options = array())
+    function __construct($structure, $options = array())
     {
-        $this->HTML_TreeMenu_Presentation($structure);
+        parent::__construct($structure);
 
         $this->promoText  = 'Select...';
         $this->indentChar = '&nbsp;';
@@ -1001,4 +1001,4 @@ class HTML_TreeMenu_Listbox extends HTML_TreeMenu_Presentation
         return $html;
     }
 } // End class HTML_TreeMenu_Listbox
-?>
+
