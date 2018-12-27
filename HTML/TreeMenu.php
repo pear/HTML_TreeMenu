@@ -91,7 +91,7 @@ class HTML_TreeMenu
     /**
      * This function adds an item to the the tree.
      *
-     * @param HTML_TreeNode &$node The node to add.
+     * @param HTML_TreeNode $node The node to add.
      *                             This object should be a HTML_TreeNode object.
      *
      * @return int Returns a reference to the new node inside the tree.
@@ -111,7 +111,7 @@ class HTML_TreeMenu
      * Richard Heyes' Tree class ({@link http://www.phpguru.org/}). This
      * method is intended to be used statically, eg:
      * <code>
-     * $treeMenu = &HTML_TreeMenu::createFromStructure($myTreeStructureObj);
+     * $treeMenu = HTML_TreeMenu::createFromStructure($myTreeStructureObj);
      * </code>
      *
      * @param array $params An array of parameters that determine
@@ -150,7 +150,7 @@ class HTML_TreeMenu
             // Make a new menu and fill it with the values from the tree
             $treeMenu = new HTML_TreeMenu();
             // we need the current node as the reference
-            $curNode[0] = &$treeMenu;
+            $curNode[0] = $treeMenu;
 
             foreach ($nodes as $aNode) {
                 $events = array();
@@ -193,10 +193,10 @@ class HTML_TreeMenu
                     $aNode['text'] : $aNode['name'];
 
                 // Add the item to the proper node
-                $thisNode = &$curNode[$aNode['level']]->addItem(new
+                $thisNode = $curNode[$aNode['level']]->addItem(new
                             HTML_TreeNode($data, $events));
 
-                $curNode[$aNode['level']+1] = &$thisNode;
+                $curNode[$aNode['level']+1] = $thisNode;
             }
             break;
 
@@ -209,7 +209,7 @@ class HTML_TreeMenu
                 $treeMenu = new HTML_TreeMenu();
                 $parentID = 0;
             } else {
-                $treeMenu = &$params['treeMenu'];
+                $treeMenu = $params['treeMenu'];
                 $parentID = $params['parentID'];
             }
 
@@ -217,7 +217,7 @@ class HTML_TreeMenu
             foreach ($params['structure']->getChildren($parentID)
                     as $nodeID) {
                 $data       = $params['structure']->getData($nodeID);
-                $parentNode = &$treeMenu->addItem(new
+                $parentNode = $treeMenu->addItem(new
                     HTML_TreeNode(array_merge($params['nodeOptions'], $data)));
 
                 // Recurse ?
@@ -225,8 +225,8 @@ class HTML_TreeMenu
                     $recurseParams['type']        = 'heyes_array';
                     $recurseParams['parentID']    = $nodeID;
                     $recurseParams['nodeOptions'] = $params['nodeOptions'];
-                    $recurseParams['structure']   = &$params['structure'];
-                    $recurseParams['treeMenu']    = &$parentNode;
+                    $recurseParams['structure']   = $params['structure'];
+                    $recurseParams['treeMenu']    = $parentNode;
                     HTML_TreeMenu::createFromStructure($recurseParams);
                 }
             }
@@ -242,20 +242,20 @@ class HTML_TreeMenu
             if (!isset($params['treeMenu'])) {
                 $treeMenu = new HTML_TreeMenu();
             } else {
-                $treeMenu = &$params['treeMenu'];
+                $treeMenu = $params['treeMenu'];
             }
 
             // Loop thru the trees nodes
             foreach ($params['structure']->nodes->nodes as $node) {
                 $tag        = $node->getTag();
-                $parentNode = &$treeMenu->addItem(new
+                $parentNode = $treeMenu->addItem(new
                  HTML_TreeNode(array_merge($params['nodeOptions'], $tag)));
 
                 // Recurse ?
                 if (!empty($node->nodes->nodes)) {
                     $recurseParams['structure']   = $node;
                     $recurseParams['nodeOptions'] = $params['nodeOptions'];
-                    $recurseParams['treeMenu']    = &$parentNode;
+                    $recurseParams['treeMenu']    = $parentNode;
                     HTML_TreeMenu::createFromStructure($recurseParams);
                 }
             }
@@ -519,15 +519,15 @@ class HTML_TreeNode
     /**
      * Adds a new subnode to this node.
      *
-     * @param HTML_TreeNode &$node The new node
+     * @param HTML_TreeNode $node The new node
      *
      * @return int
      * @access public
      */
-    function &addItem(&$node)
+    function addItem($node)
     {
-        $node->parent  = &$this;
-        $this->items[] = &$node;
+        $node->parent  = $this;
+        $this->items[] = $node;
 
         /*
          * If the subnode has ensureVisible set it needs
@@ -583,7 +583,7 @@ class HTML_TreeMenu_Presentation
     /**
      * Base constructor simply sets the menu object
      *
-     * @param HTML_TreeMenu &$structure The menu structure
+     * @param HTML_TreeMenu $structure The menu structure
      */
     function construct($structure)
     {
@@ -709,7 +709,7 @@ class HTML_TreeMenu_DHTML extends HTML_TreeMenu_Presentation
      * And also a boolean for whether the entire tree is dynamic or not.
      * This overrides any perNode dynamic settings.
      *
-     * @param HTML_TreeMenu &$structure The menu structure
+     * @param HTML_TreeMenu $structure The menu structure
      * @param array         $options    Array of options
      * @param bool          $isDynamic  Whether the tree is dynamic or not
      *
