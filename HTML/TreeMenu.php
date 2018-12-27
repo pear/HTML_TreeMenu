@@ -152,6 +152,10 @@ class HTML_TreeMenu
             // we need the current node as the reference
             $curNode[0] = $treeMenu;
 
+            if( !is_array( $nodes ) && !$nodes instanceof Traversable )
+            {
+                break;
+            }
             foreach ($nodes as $aNode) {
                 $events = array();
                 $data   = array();
