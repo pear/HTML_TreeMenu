@@ -589,7 +589,7 @@ class HTML_TreeMenu_Presentation
      *
      * @param HTML_TreeMenu $structure The menu structure
      */
-    function construct($structure)
+    function __construct($structure)
     {
         $this->menu = $structure;
     }
@@ -721,7 +721,7 @@ class HTML_TreeMenu_DHTML extends HTML_TreeMenu_Presentation
      */
     function __construct($structure, $options = array(), $isDynamic = true)
     {
-        parent::construct($structure);
+        parent::__construct($structure);
         $this->isDynamic = $isDynamic;
 
         // Defaults
