@@ -64,7 +64,7 @@ $listbox = new HTML_TreeMenu_ListBox(
 
 
 echo 'TEST:  using DHTML' . PHP_EOL;
-echo $dhtml->toHTML();
+echo $dhtml->toHTML() . PHP_EOL;
 
 echo 'TEST:  using Listbox' . PHP_EOL;
 echo $listbox->toHTML();
@@ -75,4 +75,15 @@ echo $listbox->toHTML();
 
 TEST:  test case provided in bug report
 TEST:  using DHTML
+<script type="text/javascript">
+//<![CDATA[
+	objTreeMenu_1 = new TreeMenu("images", "objTreeMenu_1", "_self", "treeMenuDefault", true, false);
+
+	objTreeMenu_1.drawMenu();
+	objTreeMenu_1.writeOutput();
+	objTreeMenu_1.resetBranches();
+// ]]>
+</script>
+TEST:  using Listbox
+<form target="_self" action="" onsubmit="var link = this.HTML_TreeMenu_Listbox_1.options[this.HTML_TreeMenu_Listbox_1.selectedIndex].value; if (link) {this.action = link; return true} else return false"><select name="HTML_TreeMenu_Listbox_1"><option value="">Select...</option></select> <input type="submit" value="Go" /></form>
 TEST:  using ListBox
