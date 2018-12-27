@@ -10,6 +10,8 @@ services:
 before_install:
 - mysql -e 'CREATE DATABASE myapp_test;'
 - echo "<?php $dbDsn = 'mysqli://travis@localhost/myapp_test';" > ./tests/config.php
+install:
+  - pear install Tree
 script: pear run-tests -r
 after_script:
 - cat run-tests.log
