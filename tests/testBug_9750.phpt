@@ -44,17 +44,17 @@ $options = array(
     'nodeOptions' => $nodeOptions
 );
                     
-$menu = &HTML_TreeMenu::createFromStructure($options);
+$menu = HTML_TreeMenu::createFromStructure($options);
 
 // Chose a generator. You can generate DHTML or a Listbox
-$dhtml = &new HTML_TreeMenu_DHTML(
+$dhtml = new HTML_TreeMenu_DHTML(
     $menu, 
     array(
         'images'       => 'images',
         'defaultClass' => 'treeMenuDefault'
     )
 );
-$listbox = &new HTML_TreeMenu_ListBox(
+$listbox = new HTML_TreeMenu_ListBox(
     $menu, 
     array(
         'images'       => 'images',
