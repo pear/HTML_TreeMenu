@@ -12,6 +12,6 @@ before_install:
 - echo "<?php $dbDsn = 'mysqli://travis@localhost/myapp_test';" > ./tests/config.php
 install:
   - pear install Tree-beta
-script: pear run-tests -r
+script: pear run-tests -r --showdiff
 after_script:
 - cat run-tests.log
