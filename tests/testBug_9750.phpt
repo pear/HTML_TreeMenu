@@ -67,11 +67,11 @@ echo 'TEST:  using DHTML' . PHP_EOL;
 echo $dhtml->toHTML() . PHP_EOL;
 
 echo 'TEST:  using Listbox' . PHP_EOL;
-echo $listbox->toHTML();
+echo $listbox->toHTML() . PHP_EOL;
 
 ?>
 --EXPECT--
-=====HTML_TreeMenu tests for Bug #9750:  Using "kriesing" tree type the "nodeOptions" paramether is not working.====="
+=====HTML_TreeMenu tests for Bug #9750:  Using "kriesing" tree type the "nodeOptions" paramether is not working.=====
 
 TEST:  test case provided in bug report
 TEST:  using DHTML
@@ -85,6 +85,5 @@ TEST:  using DHTML
 	objTreeMenu_1.resetBranches();
 // ]]>
 </script>
-
 TEST:  using Listbox
 <form target="_self" action="" onsubmit="var link = this.HTML_TreeMenu_Listbox_1.options[this.HTML_TreeMenu_Listbox_1.selectedIndex].value; if (link) {this.action = link; return true} else return false"><select name="HTML_TreeMenu_Listbox_1"><option value="">Select...</option></select> <input type="submit" value="Go" /></form>
