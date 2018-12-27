@@ -1,0 +1,17 @@
+language: php
+php:
+- 5.6
+- 7.0
+- 7.1
+- 7.2
+- 7.3
+services:
+- mysql
+before_install:
+- mysql -e 'CREATE DATABASE myapp_test;'
+- cp ./tests/config.travis.php ./tests/config.php
+install:
+  - pear install Tree-beta DB
+script: pear run-tests -r --showdiff
+after_script:
+- cat run-tests.log

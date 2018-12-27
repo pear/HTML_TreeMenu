@@ -1,2 +1,2 @@
 <?php
-$dbDsn = 'mysql://USER:PSWD@HOST/DBNAME';
+$dbDsn = 'mysqli://USER:PSWD@HOST/DBNAME';
